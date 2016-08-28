@@ -1,0 +1,46 @@
+.chi2016-award-icon {
+  width: 80%;
+  max-width: 35px;
+  padding-top: 5px;
+}
+
+.chi2016-honorable-icon {
+  width: 80%;
+  max-width: 35px;
+  padding-top: 5px;
+}
+
+.chi2016-abstract-schedule-day-session-entity {
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 30px;
+
+  .chi2016-abstract-schedule-day-session-entity-award {
+    text-align: center;
+  }
+  .chi2016-abstract-schedule-day-session-entity-text-container {
+
+    .chi2016-abstract-schedule-day-session-entity-text-title {
+
+      border-bottom: 1px solid #AAA;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      h3 {
+        font-family: 'bariol_bold', sans-serif;
+        font-size: 1em;
+        margin: 0px;
+        padding: 0px;
+        line-height: 20px;
+      }
+    }
+    .chi2016-abstract-schedule-day-session-entity-text-authors {
+      font-style: italic;
+    }
+  }
+
+  .chi2016-abstract-schedule-day-session-entity-container {
+    padding-left: 20px;
+    padding-top: 5px;
+  }
+}
+

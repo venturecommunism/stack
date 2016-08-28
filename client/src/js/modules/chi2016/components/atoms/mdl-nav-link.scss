@@ -1,0 +1,19 @@
+.react-nav-link {
+  .react-nav-secondary-link {
+    @media screen and (max-width: 1024px) {
+      padding-left: 40px;
+    }
+    @media screen and (min-width: 1024px) {
+      padding-left: 60px;
+    }
+  }
+}
+
+.react-nav-link-dropdown {
+  .react-nav-dropdown-item {
+    .react-nav-dropdown-link {
+
+    }
+  }
+}
+

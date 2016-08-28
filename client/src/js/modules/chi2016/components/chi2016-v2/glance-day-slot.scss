@@ -1,0 +1,92 @@
+.chi2016-glance-day-slot {
+  padding: 0px;
+  background-color: #F5F5F5;
+  color: #000;
+  .chi2016-glance-day-slot-time {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .chi2016-glance-day-slot-time-anchor {
+      text-decoration: none;
+      color: inherit;
+
+      .chi2016-glance-day-slot-time-text {
+        text-align: center;
+        width: 100%;
+      }
+      .chi2016-glance-day-slot-time-small {
+        text-align: center;
+        width: 100%;
+        padding-bottom: 5px;
+      }
+    }
+    .chi2016-glance-day-slot-time-anchor:hover {
+      text-decoration: underline;
+    }
+  }
+  .chi2016-glance-day-slot-group {
+    .chi2016-glance-day-slot-title-container {
+      text-align: center;
+      .chi2016-glance-day-slot-title {
+        text-decoration: none;
+        color: inherit;
+      }
+      .chi2016-glance-day-slot-title:hover {
+        text-decoration: underline;
+      }
+    }
+    .chi2016-glance-day-slot-session-group {
+      border-left: 2px solid #fff;
+      @media only screen and (max-width: 480px) {
+        border-left: 0px;
+      }
+    }
+
+    .chi2016-glance-day-slot-session-empty {
+      text-align: center;
+    }
+  }
+}
+
+.chi2016-glance-day-slot.plenary, .chi2016-glance-day-slot.break,
+.chi2016-glance-day-slot.end {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  .chi2016-glance-day-slot-title {
+    font-family: 'bariol_bold', sans-serif;
+
+  }
+  .chi2016-glance-day-slot-time {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-top: none;
+  }
+}
+
+.chi2016-glance-day-slot.end {
+  border-top: 2px solid #fff;
+  cursor: pointer;
+}
+
+.chi2016-glance-day-slot.plenary {
+  background-color: #AB00BA;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chi2016-glance-day-slot.break {
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.chi2016-glance-day-slot.end:hover,  .chi2016-glance-day-slot.plenary:hover,
+.chi2016-glance-day-slot.break:hover {
+  color: #fff;
+  background-color: #252525;
+}
+
+.chi2016-glance-day-slot.end:active,  .chi2016-glance-day-slot.plenary:active,
+.chi2016-glance-day-slot.break:active {
+  color: #fff;
+  background-color: #AB00BA;
+}

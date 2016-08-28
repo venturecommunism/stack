@@ -1,0 +1,81 @@
+.chi2016-schedule-day-session.hidden {
+  display: none !important;
+}
+
+.chi2016-schedule-day-session-h2 {
+  font-size: 1em;
+  padding: 0px;
+  margin: 0px;
+  line-height: 20px;
+  font-family: 'bariol_regular', sans-serif;
+}
+
+.chi2016-schedule-day-session {
+  padding-bottom: 10px;
+  padding-right: 10px;
+
+  .chi2016-schedule-day-session-title {
+    padding: 5px;
+    padding-left: 0px;
+    padding-right: 15px;
+    color: #fff;
+    cursor: pointer;
+    .chi2016-schedule-day-session-room {
+      text-align: center;
+    }
+    .chi2016-schedule-day-session-title-text {
+      font-family: 'bariol_bold', sans-serif;
+    }
+  }
+
+  .chi2016-schedule-day-session-title.paper,
+  .chi2016-schedule-day-session-title.plenary,
+  .chi2016-schedule-day-session-title.TOCHI,
+  .chi2016-schedule-day-session-title.altchi,
+  .chi2016-schedule-day-session-title.journal{
+    background-color: #660078;
+  }
+  .chi2016-schedule-day-session-title.course {
+    background-color: #AB00BA;
+  }
+  .chi2016-schedule-day-session-title.casestudy {
+    background-color: #870099;
+  }
+
+  .chi2016-schedule-day-session-title.SIG,
+  .chi2016-schedule-day-session-title.coffee,
+  .chi2016-schedule-day-session-title.lunch,
+  .chi2016-schedule-day-session-title.panel,
+  .chi2016-schedule-day-session-title.monend,
+  .chi2016-schedule-day-session-title.tueend,
+  .chi2016-schedule-day-session-title.wedend,
+  .chi2016-schedule-day-session-title.lunchchi,
+  .chi2016-schedule-day-session-title.diversitylunch,
+  .chi2016-schedule-day-session-title.video,
+  .chi2016-schedule-day-session-title.studentgame,
+  .chi2016-schedule-day-session-title.intdemo,
+  .chi2016-schedule-day-session-title.weekend,
+  .chi2016-schedule-day-session-title.special{
+    background-color: #363636;
+  }
+
+  .chi2016-schedule-day-session-title:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #AA00BB;
+  }
+
+  .chi2016-schedule-day-session-chair {
+    color: #660078;
+    padding-right: 15px;
+    padding-top: 5px;
+    h4 {
+      font-size: 1em;
+      line-height: 20px;
+      margin: 0px;
+      font-family: 'bariol_regular', sans-serif;
+    }
+  }
+
+
+}

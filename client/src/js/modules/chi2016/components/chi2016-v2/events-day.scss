@@ -1,0 +1,42 @@
+.chi2016-events-day {
+  padding-left: 30px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .chi2016-events-day-text-container {
+    .chi2016-events-day-text {
+      font-family: 'bariol_bold', sans-serif;
+      font-weight: bold;
+      font-size: 1.7142857142857142em;
+      color: #fff;
+    }
+  }
+  .chi2016-events-day-slot-regular {
+    font-family: 'bariol_regular' , sans-serif;
+  }
+  .chi2016-events-day-slot-bold {
+    font-family: 'bariol_bold' , sans-serif;
+    font-weight: 700;
+  }
+  .chi2016-events-day-slot {
+    color: #fff;
+    margin: 4px;
+    margin-bottom: 0px;
+    margin-left: 8px;
+
+    .chi2016-events-day-slot-time {
+      width: 35%;
+    }
+    .chi2016-events-day-slot-title {
+      margin-left: 5%;
+      width: 55%;
+    }
+    .chi2016-events-day-slot-link {
+      text-decoration: none;
+      color: inherit;
+    }
+    .chi2016-events-day-slot-link:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.chi2016-slot-group {
+  border-top: 6px solid #880099;
+  width: 100%;
+  .chi2016-slot {
+    .chi2016-time-container {
+      color: white;
+      background-color: #880099;
+      h2.chi2016-time {
+        margin: 0;
+        font-size: 1.3em;
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+
+  .chi2016-slot-containers {
+    height: 160px;
+    min-width: 210px;
+
+  }
+}

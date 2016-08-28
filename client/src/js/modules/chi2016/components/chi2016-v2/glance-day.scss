@@ -1,0 +1,21 @@
+.chi2016-glance-day {
+  margin-bottom: 20px !important;
+  .chi2016-glance-day-text-container {
+    background-color: #252525;
+    .chi2016-glance-day-text {
+      text-align: center;
+      color: #fff;
+      font-family: 'bariol_bold', sans-serif;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      .chi2016-glance-day-text-anchor {
+        color: #fff;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+      .chi2016-glance-day-text-anchor:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

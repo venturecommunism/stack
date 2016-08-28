@@ -1,0 +1,46 @@
+.chi2016-session-container {
+  border: 1px solid black;
+  background-color: #F5F5F5;
+  .chi2016-slot-clickable {
+    cursor: pointer;
+  }
+  .chi2016-session-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 0 0 0px;
+  }
+
+  .chi2016-session-type-container {
+    margin-top: 0px;
+    .chi2016-session-type {
+      font-size: 12px;
+    }
+  }
+
+  .chi2016-session-room-container {
+    margin-top: 0px;
+    .chi2016-session-room {
+      font-size: 12px;
+    }
+  }
+
+  .chi2016-session-awards-container {
+    margin-top: 0px;
+  }
+}
+
+.chi2016-session-container:hover {
+  color: white;
+  background-color: #880099;
+}
+
+.chi2016-award-icon {
+  width: 20px;
+  margin-left: -5px;
+}
+
+.chi2016-honorable-icon {
+  width: 20px;
+  margin-left: -5px;
+}
