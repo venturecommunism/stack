@@ -19,3 +19,9 @@ app.init();
 
 // Render!
 // ReactDOM.render(<HelloBox />, document.getElementById('react-root'));
+
+import Root from './modules/chat/components/Root.jsx'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+ReactDOM.render(<Root />, document.getElementById('react-root'))

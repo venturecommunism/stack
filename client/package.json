@@ -53,6 +53,8 @@
   },
   "dependencies": {
     "jquery": "^2.2.3",
+    "moment": "^2.14.1",
+    "phoenix": "^1.2.0",
     "thenby": "^1.1.3"
   }
 }
