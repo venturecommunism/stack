@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import Chat from '../Chat'
+import Container from '../containers/container'
 
-console.log("test1.5")
+//console.log("test1.5")
 
 //import PoisonedMessenger from './PoisonedMessenger' 
 
@@ -19,18 +20,18 @@ class Root extends Component {
 
   constructor (props) {
     super(props)
-console.log("test constructor")
+//console.log("test constructor")
     // bind our functions to the right scope
     this.handleSend = this.handleSend.bind(this)
-console.log("new test")
+//console.log("new test")
     this.receiveChatMessage = this.receiveChatMessage.bind(this)
-console.log("new test after that")
+//console.log("new test after that")
 console.log("user", user)
     // let's chat!
     this.chat = Chat(user, this.receiveChatMessage)
-    console.log("sending yow")
+//    console.log("sending yow")
     this.chat.send("yow")
-    console.log("sent yow")
+//    console.log("sent yow")
   }
 
   // fires when we receive a message

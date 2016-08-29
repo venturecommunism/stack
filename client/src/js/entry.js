@@ -1,3 +1,4 @@
+/*
 // Import CSS
 import '../css/master.scss';
 
@@ -12,7 +13,7 @@ const app = createApp(context);
 
 app.loadModule(coreModule);
 app.init();
-
+*/
 // import HelloBox from './components/atoms/hello-box';
 // import React from 'react';
 // import ReactDOM from 'react-dom';
@@ -20,7 +21,8 @@ app.init();
 // Render!
 // ReactDOM.render(<HelloBox />, document.getElementById('react-root'));
 
-import Root from './modules/chat/components/Root.jsx'
+import Root from './modules/chat/components/Redux.jsx'
+//import Root from './modules/chat/components/Root.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
