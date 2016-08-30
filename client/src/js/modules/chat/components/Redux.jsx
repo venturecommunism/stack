@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {compose} from 'mantra-core'
 import moment from 'moment'
 import Chat from '../Chat'

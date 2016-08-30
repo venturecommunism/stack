@@ -21,9 +21,13 @@ app.init();
 // Render!
 // ReactDOM.render(<HelloBox />, document.getElementById('react-root'));
 
-import Root from './modules/chat/components/Redux.jsx'
+import Time from './modules/chat/components/time.jsx'
+import Root from './modules/chat/containers/timecontainer'
+//import Root from './modules/chat/components/Redux.jsx'
 //import Root from './modules/chat/components/Root.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-ReactDOM.render(<Root />, document.getElementById('react-root'))
+const RootContainer = Root(Time)
+
+ReactDOM.render(<RootContainer />, document.getElementById('react-root'))

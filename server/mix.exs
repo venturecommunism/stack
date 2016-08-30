@@ -27,6 +27,8 @@ defmodule Chat.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:phoenix_ecto, "~> 1.1"},
      {:postgrex, ">= 0.0.0"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:datomex, "~> 0.0.1"},
+     {:httpoison, "~> 0.8.0" }]
   end
 end
