@@ -66,7 +66,7 @@ const avatar = { uri: 'https://facebook.github.io/react/img/logo_og.png' }
     chat.send("yow")
 
 
-var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Ivan"],
+var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Terin"],
                          [":db/add", 1, "age", 17]])
 
 var q = '[:find ?n ?a :where [?e "name" ?n] [?e "age" ?a]]'
