@@ -4,9 +4,9 @@ import Chat from '../Chat'
 import d from 'datascript'
 import {createStore} from 'redux'
 
-
   // fires when we receive a message
   const receiveChatMessage = (message) => {
+const isMe = (someUser) => user === someUser
     const { user } = message
 console.log(message)
     if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
@@ -20,11 +20,8 @@ console.log({
   }
 
 
-console.log("root2")
-
 const defaultState = {time: new Date().toString()};
 
-console.log("test")
 
 const store = createStore((state = defaultState, action) => {
   switch(action.type) {
@@ -38,7 +35,6 @@ const store = createStore((state = defaultState, action) => {
   }
 });
 
-console.log("test2")
 
 setInterval(() => {
   store.dispatch({
@@ -46,8 +42,6 @@ setInterval(() => {
     time: new Date().toString()
   });
 }, 1000);
-
-console.log("test3")
 
 const onPropsChange = (props, onData) => {
 
@@ -71,7 +65,7 @@ var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Terin"],
 
 var q = '[:find ?n ?a :where [?e "name" ?n] [?e "age" ?a]]'
 
-console.log(d.q(q, db))
+//console.log(d.q(q, db))
 
   const handle = setInterval(() => {
 //    const time = (new Date()).toString();
@@ -83,8 +77,6 @@ const time = d.q(q, db)
   return cleanup;
 }
 
-console.log("test4")
-
 //export default compose(onPropsChange)(Time)
 
 export default (component) => composeAll(
@@ -93,8 +85,6 @@ export default (component) => composeAll(
 )(component)
 
 
-console.log("test5")
-
 const dataComposer = ({context, actions}, onData) => {
 console.log("test6")
 var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Ivan"],
@@ -102,7 +92,7 @@ var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Ivan"],
 
 var q = '[:find ?n ?a :where [?e "name" ?n] [?e "age" ?a]]'
 
-console.log(d.q(q, db))
+//console.log(d.q(q, db))
 
     const time = {"some": "data"}
     time.sub = d.q(q, db)
