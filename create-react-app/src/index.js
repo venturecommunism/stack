@@ -4,7 +4,7 @@ import { DBConnProvider } from './react-datascript'
 import createDBConn from './createDBConn';
 import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './components';
 
-import BurgerMenu from './components/burger_menu'
+//import BurgerMenu from './components/burger_menu'
 
 import App from './App';
 import './index.css';
@@ -12,7 +12,7 @@ import './index.css';
 const Root = () => (
   <DBConnProvider conn={createDBConn()}>
     <div>
-      <BurgerMenu />
+      {/* <BurgerMenu /> */}
       <App />
       <AllUsers />
       <AllUsersFromIndex />
