@@ -1,0 +1,512 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  /*background-color: rgba(98, 133, 151, 0.15); */
+  background-color: #F2FFFE;
+/*  background-image: url(images/fallback-gradient.png); 
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(98, 133, 151, 0.15)), to(#F2FFFE));
+  background-image: -webkit-linear-gradient(top, rgba(98, 133, 151, 0.15), #F2FFFE); 
+  background-image: -moz-linear-gradient(top, rgba(98, 133, 151, 0.15), #F2FFFE);
+  background-image: -o-linear-gradient(top, rgba(98, 133, 151, 0.15), #F2FFFE);
+  min-height: 100%;
+  height: auto;*/
+}
+/* responsive classes */
+.in-desktop {
+  display: block;
+}
+.in-mobile {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  .in-desktop {
+    display: none;
+  }
+  .in-mobile {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+
+
+h2 {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+}
+/*body {
+  background-color: rgba(25, 80, 99, 0.5);
+}*/
+#app {
+  height: 100%;
+  /* enable margin-top-10px for navbar */
+  /*margin-top: -10px;*/
+}
+
+/* 
+NEW STYLES HERE
+*/
+
+.flex-navbar {
+  display: flex;
+}
+
+.flex-button {
+  flex-grow: 1;
+}
+
+/* 
+NEW STYLES HERE
+*/
+
+
+
+
+
+
+.full-width {
+  width: 100%;
+}
+
+#bill-due-date {
+  width: 100%;
+  padding: 0 0 0 5px;
+}
+.side-bar-filler > {
+  border-radius: 20px;
+}
+.app-container {
+  /*margin-top: 30px;*/
+}
+.interface-container {
+  padding-top: 20px;
+  height: 88vh;
+  min-height: 330px;
+}
+.side-bar-container {
+  padding: 0 0 20px 5px;
+  height: inherit;
+}
+.side-bar-filler {
+  width: 90%;
+  padding: 10px;
+  padding-top: 20px;
+  height: 100%;
+  border: 1px solid #E1E8ED;
+  border-radius: 5px;
+  background-color: white;
+}
+.side-bar-filler > img {
+  width: 100%;
+  border-radius: 20px;
+  border: 3px solid lightgrey;
+  height: inherit
+}
+.main-bar-container {
+  background-color: white;
+  border: 1px solid #E1E8ED;
+  border-radius: 5px;
+}
+.navigation-link > h3 {
+  color: #337AB7;
+  cursor: pointer;
+}
+.navigation-link > h3:hover {
+  color: #23527C;
+}
+
+.form-control {
+  width: 100%;
+  display: block;
+}
+
+.profile-image {
+  width: 100px;
+  height: auto;
+}
+
+.profile-image > img {
+  width: 50%;
+  height: inherit;
+  margin: 0 auto;
+  border-radius: 18%;
+}
+.profile-image > .username {
+  /*text-align: left;*/
+  float: left;
+}
+.sidebar-roommate-ul, .landlord-house-ul {
+  list-style: none;
+}
+.username-sidebar > p {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+.toggle-house-code {
+  display: none;
+  padding: 10px 6px 3px 16px;
+  border-radius: 0 0 16px 16px;
+  background-color: aliceblue;
+}
+.house-code {
+  font-weight: 800;
+}
+/*
+  Message Container Styles  
+*/
+.message-container, .finance-container {
+  position: relative;
+  height: 100%;
+}
+
+.message-list, .finance-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+   /*
+     subtract height of the message form
+     could use jQuery for more dynamic if necessary
+   */
+  height: calc(100% - 180px);
+  margin-top: 15px;
+}
+
+.message-form, .form-bottom, .bill-form {
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.message-entry {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 7px;
+  background-color: rgba(138, 138, 138, 0.1);
+  border-radius: 10px;
+  padding-bottom: 11px;
+}
+.message-entry:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.message-entry-landlord {
+  background-color: rgba(229, 0, 0, 0.09);
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 7px;
+  border-radius: 10px;
+  padding-bottom: 11px;
+}
+.message-entry-landlord:hover {
+  background-color: rgba(229, 0, 0, 0.15);
+}
+.message-username {
+  font-weight: bold;
+  float: left;
+}
+.message-username > p {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.message-timestamp {
+  position: relative;
+}
+.message-timestamp > p {
+  position: absolute;
+  right: 15px;
+}
+.message-right-container {
+  height: 100%;
+}
+.time-stamp {
+  font-style: italic;
+  font-size: 0.8em;
+}
+.message-text, .time-stamp {
+  width: 100%;
+  display: block;
+}
+.message-text > p, .time-stamp > p{
+  margin: 0 15px 0 0;
+}
+.message-entry-left-box {
+  text-align: left;
+  padding: 6px 0 0 20px;
+}
+.username > p {
+  font-weight: 600;
+  margin-bottom: 0;
+  font-size:1.1em;
+}
+.submit-message-button {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*
+  Chore Container Styles
+*/
+.chore-date {
+  font-size: 12px;
+}
+
+.chore-header {
+  padding-bottom: 30px;
+}
+
+.chore-container {
+  height: 100%;
+  min-height: 440px;
+  position: relative;
+}
+
+.chore-form {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.chore-entry {
+  width: 100%;
+  background-color: rgba(138, 138, 138, 0.1);
+  margin-bottom: 7px;
+  padding: 7px 9px 5px 10px;
+  min-height: 42px;
+  border-radius: 10px;
+}
+
+div.chore-entry:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.chore-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+   /*
+     subtract height of the message form
+     could use jQuery for more dynamic if necessary
+   */
+  height: calc(100% - 240px);
+}
+
+.chore-line {
+  text-align: left;
+  margin: 15px 15px 15px 15px;
+}
+
+
+.chore-id {
+  font-weight: bold;
+  float: left;
+}
+
+.chore-id > p {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.chore-duedate {
+   position: relative;
+}
+
+.chore-duedate > p {
+  position: absolute;
+  right: 15px;
+}
+.chore-text {
+  width: : 100%;
+}
+
+.chore-text {
+  margin: 0 15px 0 15px;
+}
+
+.full-width {
+  padding: 0;
+}
+
+.chore-div {
+/*  display:  inline-block*/
+  padding: 0;
+}
+
+.chore-complete {
+  float: right;
+  margin-top: 15px;
+}
+
+.chore-div-middle {
+  padding: 0 5px 0 5px;
+}
+.chore-image {
+  margin-top: 15px;
+  height: 35px;
+  width: 35px;
+  float: right;
+}
+.chore-name {
+  margin-top: 0px;
+  margin-bottom:5px;
+}
+.chore-name-user {
+  margin-bottom:5px;
+}
+
+
+.username-input {
+  width: 100%;
+}
+
+/*
+  Finance
+*/
+
+.finance-container {
+  position: relative;
+  height: 100%;
+}
+.finance-list {
+  max-height: calc(100% - 225px);
+}
+.custom-split-container {
+  margin-top: 10px;
+}
+.custom-split-user > p {
+  font-size: 1em;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+.split-bill-user-list {
+  list-style: none;
+}
+.btn-right, .btn-left {
+  margin-top: 5px;
+}
+.btn-right {
+  float: right;
+}
+.full-width-input {
+  width: 100%;
+}
+.bill-entry-container {
+  background-color: rgba(138, 138, 138, 0.1);
+  margin-bottom: 7px;
+  padding: 7px 9px 5px 10px;
+  min-height: 42px;
+  border-radius: 10px;
+}
+.bill-entry-container:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.pay-button {
+  float: right;
+}
+.who-is-owed {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+#failure {
+  display: none;
+}
+/*
+  Navbar
+*/
+.navbar-header {
+  width: 100%;
+}
+.notification-count {
+  color: red;
+  font-weight: 600;
+}
+.flexbox {
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  list-style-type: none;
+}
+.flexbox > li > img {
+  margin-top: 10px;
+  float: left;
+}
+.flexbox > li {
+  cursor: pointer;
+}
+
+/*
+  Login
+*/
+
+#login {
+  background-color: green;
+}
+
+/*BurgerBar*/
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.burger-menu > li {
+  list-style: none;
+}
+
+.navmenu > li {
+  list-style: none;
+  display: inline-block;
+}
