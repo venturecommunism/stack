@@ -41,7 +41,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loaders: [
           // 'react-hot',
-          'babel?presets[]=stage-0,presets[]=react,presets[]=es2015'
+          'babel?presets[]=stage-0,presets[]=react,presets[]=es2015,presets[]=react-boilerplate'
         ]
       }
     ]

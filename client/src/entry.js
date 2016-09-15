@@ -16,6 +16,9 @@ import Root from './modules/chat/containers/timecontainer'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const RootContainer = Root(Time)
+import DataScript from './modules/datascript/index'
 
-ReactDOM.render(<RootContainer />, document.getElementById('react-root'))
+const RootContainer = Root(Time)
+const DataScriptContainer = Root(DataScript)
+
+ReactDOM.render(<DataScriptContainer />, document.getElementById('react-root'))
