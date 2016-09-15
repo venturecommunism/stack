@@ -1,5 +1,5 @@
 import React from 'react';
-import withDatascriptQuery from './withDatascriptQuery';
+import { withDatascriptQuery } from './react-datascript';
 import datascript from 'datascript';
 
 

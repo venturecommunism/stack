@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DBConnProvider } from './dbConnProvider'
+import { DBConnProvider } from './react-datascript'
 import createDBConn from './createDBConn';
 import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './components';
 
 import App from './App';
 import './index.css';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+const Root = () => (
+  <DBConnProvider conn={createDBConn()}>
+    <div>
+      <App />
+      {/* <AllUsers /> */}
+      <AllUsersFromIndex />
+      {/* AllUserEdges */}
+      <FollowerTree entityIds={[['name', 'Jane']]} />
+    </div>
+  </DBConnProvider>
+)
+
+ReactDOM.render(<Root />, document.getElementById('root'));
+
