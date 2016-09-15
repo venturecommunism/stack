@@ -7,6 +7,7 @@ import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './compo
 //import BurgerMenu from './components/burger_menu'
 
 import App from './App';
+import './index.css';
 
 const Root = () => (
   <DBConnProvider conn={createDBConn()}>
