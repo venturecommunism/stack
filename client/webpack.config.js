@@ -4,7 +4,7 @@ const plugin = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  entry: getEntrySources([ './src/js/entry.js' ]),
+  entry: getEntrySources([ './src/entry.js' ]),
   output: {
     // publicPath: 'http://localhost:8080/',
     filename: 'build/bundle.js'
