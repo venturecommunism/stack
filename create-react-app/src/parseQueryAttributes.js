@@ -1,4 +1,4 @@
-import { parse } from 'clj'
+import { parse } from './edn'
 
 export default function parseQueryAttributes(query) {
   const parsedQuery = parse(query.trim());
@@ -7,6 +7,6 @@ export default function parseQueryAttributes(query) {
 
   //TODO:  Get this to work with rules + not/or/or-join + expression
   //clauses...  Also figure out different parse rules for pull syntax
-  return whereClauses.map(([_, attr]) => attr)
+  return whereClauses
     .reduce((attrMap, attr) => Object.assign(attrMap, { [attr]: true }), {});
 }

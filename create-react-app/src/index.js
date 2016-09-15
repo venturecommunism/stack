@@ -11,9 +11,9 @@ const Root = () => (
   <DBConnProvider conn={createDBConn()}>
     <div>
       <App />
-      {/* <AllUsers /> */}
+      <AllUsers />
       <AllUsersFromIndex />
-      {/* AllUserEdges */}
+      <AllUserEdges /> 
       <FollowerTree entityIds={[['name', 'Jane']]} />
     </div>
   </DBConnProvider>
