@@ -56,7 +56,8 @@ export default ({ query, pull, rules, dbConn, initialParams }) =>
           //Did this last transaction not contain changes to any fields referenced
           //by this query?  Skip the re-query (and corresponding component update)
           if (query && !someQueryAttrChanged) {
-            return;
+//need to add this back in to get performance improvements from parsing query attributes to see if anything has changed
+//            return;
           }
         }
 
