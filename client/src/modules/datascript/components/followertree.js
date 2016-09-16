@@ -1,14 +1,15 @@
 import React from 'react'
 
-const FollowerTreeComponent = ({ result, conn, actions }) => (
+const FollowerTreeComponent = ({ result, transact, actions }) => (
   <div>
     <h3>A tree of all followers under Jane </h3>
-{console.log("the connection", conn)}
-    <button onClick={
+    <button onClick={ () => 
+      transact([
 
-      actions.addfollowerofjane.bind(this)
+        actions.addfollowerofjane() 
 
-          }>
+      ])
+    }>
       Add follower
     </button>
     <code>
