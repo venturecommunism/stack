@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ActionsMapper from '../../core/containers/actionsmapper'
+
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
@@ -14,7 +16,7 @@ import allUserEdgesQuery from '../queries/alluseredges'
 const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
 
 import followerTreePullQuery from '../queries/followertreepull'
-const FollowerTree = followerTreePullQuery(FollowerTreeComponent)
+const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', FollowerTreeComponent))
 
 const Root = () => (
   <div>
