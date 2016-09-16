@@ -1,5 +1,5 @@
 import { useDeps, compose, composeAll } from 'mantra-core'
-import Chat from '../Chat'
+import Channel from '../channel'
 import d from 'datascript'
 
   // fires when we receive a message
@@ -26,8 +26,8 @@ const getRandomUser = () => `${ getRandomName() }${ getRandomName() }${ getRando
 const user = getRandomUser()
 
 
-    const chat = Chat(user, receiveChatMessage)
-    chat.send("yow")
+    const channel = Channel(user, receiveChatMessage)
+    channel.send("yow")
 
 
 var db = d.db_with(d.empty_db(), [[":db/add", 1, "name", "Terin"],

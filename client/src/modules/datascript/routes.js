@@ -3,9 +3,9 @@ import {mount} from 'react-mounter'
 import { DBConnProvider } from '../../lib/react-datascript'
 import createDBConn from '../../lib/createDBConn'
 
-import Navigation from '../core/components/navigation'
-import MainLayout from '../core/components/main_layout'
-import Container from '../../modules/chat/containers/timecontainer'
+import Navigation from '../layout/components/navigation'
+import MainLayout from '../layout/components/main_layout'
+import Container from '../../modules/sockets/containers/timecontainer'
 import Feed from './components/index'
 const FeedPage = Container(Feed)
 
