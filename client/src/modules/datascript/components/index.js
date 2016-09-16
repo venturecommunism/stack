@@ -1,6 +1,4 @@
 import React from 'react'
-import { DBConnProvider } from '../../../lib/react-datascript'
-import createDBConn from '../../../lib/createDBConn'
 
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
@@ -19,14 +17,12 @@ import followerTreePullQuery from '../queries/followertreepull'
 const FollowerTree = followerTreePullQuery(FollowerTreeComponent)
 
 const Root = () => (
-  <DBConnProvider conn={createDBConn()}>
-    <div>
-      <AllUsers />
-      <AllUsersFromIndex />
-      <AllUserEdges />
-      <FollowerTree entityIds={[['name', 'Jane']]} />
-    </div>
-  </DBConnProvider>
+  <div>
+    <AllUsers />
+    <AllUsersFromIndex />
+    <AllUserEdges />
+    <FollowerTree entityIds={[['name', 'Jane']]} />
+  </div>
 )
 
 export default Root
