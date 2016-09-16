@@ -1,26 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { DBConnProvider } from './react-datascript'
-import createDBConn from './createDBConn';
-import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './components';
+/*
+import {createApp} from 'mantra-core'
+import {initContext} from './configs/context'
 
-//import BurgerMenu from './components/burger_menu'
+const context = initContext()
+const app = createApp(context)
 
-import App from './App';
-import './index.css';
+app.loadModule(coreModule)
+app.init()
+*/
 
-const Root = () => (
-  <DBConnProvider conn={createDBConn()}>
-    <div>
-      {/* <BurgerMenu /> */}
-      <App />
-      <AllUsers />
-      <AllUsersFromIndex />
-      <AllUserEdges /> 
-      <FollowerTree entityIds={[['name', 'Jane']]} />
-    </div>
-  </DBConnProvider>
-)
+//import Time from './modules/chat/components/time.jsx'
+import Root from './modules/chat/containers/timecontainer'
+//import Root from './modules/chat/components/Redux.jsx'
+//import Root from './modules/chat/components/Root.jsx'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+import DataScript from './modules/datascript/index'
 
+//const RootContainer = Root(Time)
+const DataScriptContainer = Root(DataScript)
+
+ReactDOM.render(<DataScriptContainer />, document.getElementById('root'))
