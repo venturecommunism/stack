@@ -3,7 +3,7 @@ import { DBConnProvider } from '../library/react-datascript'
 import createDBConn from '../library/createDBConn'
 import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './components'
 
-import App from '../App'
+import App from './App'
 import './styles/index.css'
 
 const Root = () => (
