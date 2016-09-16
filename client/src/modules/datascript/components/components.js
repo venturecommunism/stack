@@ -1,7 +1,6 @@
 import React from 'react'
-import { withDatascriptQuery } from '../library/react-datascript'
+import { withDatascriptQuery } from '../../../../lib/react-datascript'
 import datascript from 'datascript'
-
 
 /**
  * A higher order component that declares a query for returning names

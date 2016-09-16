@@ -1,6 +1,6 @@
 import React from 'react'
-import { DBConnProvider } from '../library/react-datascript'
-import createDBConn from '../library/createDBConn'
+import { DBConnProvider } from '../../../../lib/react-datascript'
+import createDBConn from '../../../../lib/createDBConn'
 import { AllUserEdges, AllUsers, AllUsersFromIndex, FollowerTree } from './components'
 
 import App from './App'
