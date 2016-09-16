@@ -18,13 +18,9 @@ const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
 import followerTreePullQuery from '../queries/followertreepull'
 const FollowerTree = followerTreePullQuery(FollowerTreeComponent)
 
-import App from './app'
-import './styles/index.css'
-
 const Root = () => (
   <DBConnProvider conn={createDBConn()}>
     <div>
-      <App />
       <AllUsers />
       <AllUsersFromIndex />
       <AllUserEdges />
