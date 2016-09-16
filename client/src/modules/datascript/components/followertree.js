@@ -1,9 +1,17 @@
 import React from 'react'
 
-const FollowerTreeComponent = ({ result, actions }) => (
+const FollowerTreeComponent = ({ result, transact }) => (
   <div>
     <h3>A tree of all followers under Jane </h3>
-    <button onClick={ actions.addfollowerofjane }>
+    <button onClick={ () =>
+
+      transact([{
+        ':db/id': -1,
+        name: `Follower of Jane ${new Date().getTime()}`,
+        follows: ['name', 'Jane']
+      }])
+
+          }>
       Add follower
     </button>
     <code>
