@@ -7,7 +7,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :chat, Chat.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "xx.xxx.xxx.xxx"],
   root: Path.expand("..", __DIR__),
   secret_key_base: "/RjKJmMO6raXPRTq63qTqid1x6lVKTOP+FTxZHfX6Ogd+1xYmH6eZZFhBu1CIwtg",
   debug_errors: false,
