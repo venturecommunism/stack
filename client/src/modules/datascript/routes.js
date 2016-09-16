@@ -10,7 +10,6 @@ import Feed from './components/index'
 const FeedPage = Container(Feed)
 
 export default function (injectDeps) {
-
   const MainLayoutCtx = function (props) {
     const MainLayoutCtx = injectDeps(MainLayout)
     return (
@@ -19,7 +18,6 @@ export default function (injectDeps) {
       </DBConnProvider>
     )
   }
-
   mount(MainLayoutCtx, {
     content: () => (<FeedPage />),
     links: () => (<Navigation />)
