@@ -1,7 +1,8 @@
 import { Socket } from 'phoenix'
 
+import url from '../../configs/url'
+
 const TIMEOUT = 10000
-const URL = 'ws://xx.xxx.xxx.xxx:4000/socket'
 const LOBBY = 'rooms:lobby'
 
 //console.log("test")
@@ -9,7 +10,7 @@ const LOBBY = 'rooms:lobby'
 export default (user, onChat) => {
   // construct a socket
 //console.log("constructed Chat.js")
-  const socket = new Socket(URL)
+  const socket = new Socket(url)
 //console.log("new socket")
   // configure the event handlers
   socket.onOpen(event => console.log('Connected.'))
