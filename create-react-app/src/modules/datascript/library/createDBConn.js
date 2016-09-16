@@ -1,6 +1,5 @@
-import datascript from 'datascript';
-window.d = datascript;
-
+import datascript from 'datascript'
+window.d = datascript
 
 export default () => {
 /**
@@ -21,12 +20,12 @@ export default () => {
       ':db/cardinality': ':db.cardinality/many',
       ':db/valueType': ':db.type/ref'
     }
-  };
+  }
 
   /**
    * Create connection to db (that's been instantiated with the schema above.)
    */
-  const conn = datascript.create_conn(twitterUserSchema);
+  const conn = datascript.create_conn(twitterUserSchema)
 
   /**
    * Define some seed data; including some `follower` references (that make
@@ -47,12 +46,12 @@ export default () => {
       ':db/id': -3,
       name: 'Jane'
     }
-  ];
+  ]
 
   /**
    * Transact in the data, to be stored and indexed by datascript for performant
    * querying.
    */
-  datascript.transact(conn, datoms);
-  return conn;
-};
+  datascript.transact(conn, datoms)
+  return conn
+}

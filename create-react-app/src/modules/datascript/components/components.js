@@ -1,6 +1,6 @@
-import React from 'react';
-import { withDatascriptQuery } from './react-datascript';
-import datascript from 'datascript';
+import React from 'react'
+import { withDatascriptQuery } from '../library/react-datascript'
+import datascript from 'datascript'
 
 
 /**
@@ -12,7 +12,7 @@ const allUserQuery = withDatascriptQuery({
     [:find ?user
      :where [?u "name"]
             [?u "name" ?user]]`
-});
+})
 
 
 /**
@@ -32,7 +32,7 @@ const allUserEdgesQuery = withDatascriptQuery({
       [(follows ?e1 ?e2)
        [?e1 "follows" ?t]
        (follows ?t ?e2)]]`
-});
+})
 
 /**
  * A higher order component that declares a recursive pull query to walk all followers
@@ -41,8 +41,7 @@ const allUserEdgesQuery = withDatascriptQuery({
  */
 const followerTreePullQuery = withDatascriptQuery({
   pull: '["name", {"_follows" ...}]'
-});
-
+})
 
 /**
  * A higher order component that provides low level access to the
@@ -69,8 +68,7 @@ const allUsersFromIndex = withDatascriptQuery({
   dbConn: (conn) => (
     datascript.datoms(datascript.db(conn), ':aevt', 'name')
   )
-});
-
+})
 
 const AllUsersComponent = ({ result }) => (
   <div>
@@ -81,7 +79,7 @@ const AllUsersComponent = ({ result }) => (
       ))}
     </ul>
   </div>
-);
+)
 
 const AllUserEdgesComponent = ({ result }) => (
   <div>
@@ -92,29 +90,28 @@ const AllUserEdgesComponent = ({ result }) => (
       ))}
     </ul>
   </div>
-);
+)
 
 const FollowerTreeComponent = ({ result, transact }) => (
   <div>
     <h3>A tree of all followers under Jane </h3>
-      <button onClick={() => (
-        transact([{
-          ':db/id': -1,
-          name: `Follower of Jane ${new Date().getTime()}`,
-          follows: ['name', 'Jane']
-        }]))}>
-        Add follower
-      </button>
+    <button onClick={() => (
+      transact([{
+        ':db/id': -1,
+        name: `Follower of Jane ${new Date().getTime()}`,
+        follows: ['name', 'Jane']
+      }]))}>
+      Add follower
+    </button>
     <code>
       <pre>
         {JSON.stringify(result, null, 2)}
       </pre>
     </code>
   </div>
-);
+)
 
-
-export const AllUsers = allUserQuery(AllUsersComponent);
-export const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent);
-export const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent);
-export const FollowerTree = followerTreePullQuery(FollowerTreeComponent);
+export const AllUsers = allUserQuery(AllUsersComponent)
+export const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
+export const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
+export const FollowerTree = followerTreePullQuery(FollowerTreeComponent)
