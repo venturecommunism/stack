@@ -4,8 +4,8 @@ import {initContext} from './configs/context'
 const context = initContext()
 const app = createApp(context)
 
-import coreModule from './modules/datascript'
+import dataModule from './modules/datascript'
 
-app.loadModule(coreModule)
+app.loadModule(dataModule)
 app.init()
 
