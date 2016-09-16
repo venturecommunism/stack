@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from './images/logo.svg'
+import logo from './images/fivepetal.svg'
 import './styles/app.css'
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
       <div className='App'>
         <div className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
+          <h2>Under Construction</h2>
         </div>
         <p className='App-intro'>
           To get started, edit <code>src/modules/datascript/components/app.js</code> and save to reload.
