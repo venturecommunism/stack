@@ -1,14 +1,12 @@
 import datascript from 'datascript'
 
 export default {
-  addfollowerofjane(context) {
+  addfollowerofjane(context, conn) {
 
-function transactstate ({conn}, data, txMsg) {
+function transactstate (conn, data, txMsg) {
 //const {conn} = context
-console.log("context", context, "context")
-console.log("conn", context.conn, "conn")
-  datascript.transact(context.conn, data, txMsg);
-console.log("newp")
+console.log("conn", conn, "conn")
+  datascript.transact(conn, data, txMsg);
 }
 console.log("ping")
     transactstate([{

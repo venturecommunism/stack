@@ -94,6 +94,7 @@ export default ({ query, pull, rules, dbConn, initialParams }) =>
       render() {
         return (
           <BaseComponent
+            conn={this.conn}
             result={this.state.result}
             transact={this.transactData}
             setParams={this.setParams}
