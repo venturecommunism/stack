@@ -5,24 +5,21 @@ import url from '../../configs/url'
 const TIMEOUT = 10000
 const LOBBY = 'rooms:lobby'
 
-//console.log("test")
-
 export default (user, onChat) => {
   // construct a socket
-//console.log("constructed Chat.js")
   const socket = new Socket(url)
-//console.log("new socket")
+
   // configure the event handlers
   socket.onOpen(event => console.log('Connected.'))
   socket.onError(event => console.log('Cannot connect.'))
   socket.onClose(event => console.log('Goodbye.'))
-//console.log("socket dostuff")
+
   // open a connection to the server
-socket.connect()
-//console.log("socket connect")
+  socket.connect()
+
   // configure a channel into a room - https://www.youtube.com/watch?v=vWFX4ylV_ko
   const chan = socket.channel(LOBBY, { user })
-//console.log("about to join")
+
   // join the channel and listen for admittance
   chan.join()
     .receive('ignore', () => console.log('Access denied.'))
@@ -41,7 +38,7 @@ socket.connect()
 
   // a function to shut it all down
   const close = () => socket.disconnect()
-//console.log("good and joined")
+
   // a function to send a message
   const send = (message) => {
     chan.push('new:msg', {body: message, user}, TIMEOUT)
