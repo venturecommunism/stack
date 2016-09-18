@@ -5,7 +5,7 @@ import url from '../../configs/url'
 const TIMEOUT = 10000
 const LOBBY = 'rooms:lobby'
 
-export default (user, onChat) => {
+export default (conn, user, onChat) => {
   // construct a socket
   const socket = new Socket(url)
 
@@ -31,7 +31,7 @@ export default (user, onChat) => {
   chan.onClose(event => console.log('Channel closed.'))
 
   // when we receive a new chat message, just trigger the appropriate callback
-  chan.on('new:msg', msg => onChat && onChat(msg))
+  chan.on('new:msg', msg => onChat && onChat(conn, msg))
 
   // you can can listen to multiple types
   chan.on('user:entered', msg => console.log('say hello to ', msg))
