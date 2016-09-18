@@ -1,1 +1,1 @@
-Elixir - Datomic - Mantra - React - DataScript
+Elixir - Datomish - Mantra - React - DataScript

@@ -31,13 +31,13 @@ const receiveChatMessage = (conn, message) => {
 const onPropsChange = (props, onData) => {
   const conn = props.context().conn
   // yes, i'm 41 years old.
-  const NAMES = ['Girl', 'Boy', 'Horse', 'Poo', 'Face', 'Giant', 'Super', 'Butt', 'Captain', 'Lazer']
+  const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
   const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
   const getRandomName = () => NAMES[getRandomInt(0, NAMES.length)]
   const getRandomUser = () => `${ getRandomName() }${ getRandomName() }${ getRandomName() }`
   const user = getRandomUser()
   const channel = Channel(conn, user, receiveChatMessage)
-  channel.send("yow")
+  channel.send("We built this city on rock and roll!")
 
   var db = datascript.db_with(datascript.empty_db(), [[":db/add", 1, "name", "Terin"],
                          [":db/add", 1, "age", 17]])
