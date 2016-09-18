@@ -2,6 +2,8 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
+import Persons from '../../persons/components/persons'
+
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
@@ -20,6 +22,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
+    <Persons />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />

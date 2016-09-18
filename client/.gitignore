@@ -2,6 +2,7 @@
 
 jest
 src/configs/url.js
+src/configs/json-imports.js
 *.json.g*
 
 # dependencies
