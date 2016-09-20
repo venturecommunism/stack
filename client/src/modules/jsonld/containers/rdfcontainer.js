@@ -14,12 +14,11 @@ var doc = {
 
 const getServerTime = () => {
 
-  const promise = promises.expand(doc)
+  const promise = promises.toRDF(doc, {format: 'application/nquads'})
 
   return promise
-  .then((result) => {
-    const data = JSON.stringify(result)
-    return {data}
+  .then((nquads) => {
+    return {data: nquads}
   })
 }
 
