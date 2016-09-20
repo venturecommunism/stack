@@ -1,8 +1,8 @@
-import React from 'react'
+//import React from 'react'
 
 import {composeWithPromise} from 'react-komposer'
 
-import Time from '../components/time.jsx'
+//import Time from '../components/time.jsx'
 //const Time = ({time}) => (<div>{time}</div>)
 
 // Assume this get's the time from the Server
@@ -18,6 +18,5 @@ const composerFunction = (props) => {
 	return getServerTime();
 }
 
-const Clock = composeWithPromise(composerFunction)(Time)
+export default (component) => composeWithPromise(composerFunction)(component)
 
-export default Clock

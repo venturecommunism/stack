@@ -10,7 +10,7 @@ import jsonContainer from '../../persons/containers/jsoncontainer'
 //import json from '../../persons/queries/persons'
 
 const jsonQueryContainer = jsonContainer(Time)
-//const promiseContainer = Promise(Time)
+const PromiseContainer = Promise(Time)
 //jsonld
 
 import AllUsersComponent from './allusers'
@@ -31,8 +31,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <Promise />
-    {/* <promiseContainer /> */}
+    {/* <Promise /> */}
+    <PromiseContainer />
     <Time />
     <jsonQueryContainer />
     <AllUsers />
