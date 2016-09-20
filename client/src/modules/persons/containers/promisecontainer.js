@@ -1,12 +1,9 @@
 import React from 'react'
 
-// Import the composeWithPromise function, you may get this via NPM.
-// const {composeWithPromise} = require('react-komposer');
-// import {composeWithPromise} from 'react-komposer'
 import {composeWithPromise} from 'react-komposer'
 
-// Create a component to display Time
-const Time = ({time}) => (<div>{time}</div>);
+import Time from '../components/time.jsx'
+//const Time = ({time}) => (<div>{time}</div>)
 
 // Assume this get's the time from the Server
 const getServerTime = () => {
@@ -19,11 +16,8 @@ const getServerTime = () => {
 // Create the composer function and tell how to fetch data
 const composerFunction = (props) => {
 	return getServerTime();
-};
+}
 
-// Compose the container
-const Loading = () => (<p>Waiting for Server Time ...</p>);
-const Clock = composeWithPromise(composerFunction)(Time, Loading);
+const Clock = composeWithPromise(composerFunction)(Time)
 
 export default Clock
-

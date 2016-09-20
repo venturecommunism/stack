@@ -1,4 +1,4 @@
-import { composeWithPromise } from 'mantra-core'
+import {composeWithPromise} from 'react-komposer'
 
 import {promises} from 'jsonld'
 

@@ -3,13 +3,14 @@ import React from 'react'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
 //import Persons from '../../persons/components/persons'
-import Clock from '../../persons/components/composewithpromise'
+import Promise from '../../persons/containers/promisecontainer'
 import Time from '../../persons/components/time'
 //jsonld
 import jsonContainer from '../../persons/containers/jsoncontainer'
 //import json from '../../persons/queries/persons'
 
 const jsonQueryContainer = jsonContainer(Time)
+//const promiseContainer = Promise(Time)
 //jsonld
 
 import AllUsersComponent from './allusers'
@@ -30,7 +31,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <Clock />
+    <Promise />
+    {/* <promiseContainer /> */}
     <Time />
     <jsonQueryContainer />
     <AllUsers />
