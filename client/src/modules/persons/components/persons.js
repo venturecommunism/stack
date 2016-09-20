@@ -1,16 +1,29 @@
 import React from 'react'
 
-import PersonsQuery from '../queries/persons'
+//import jsonContainer from '../containers/jsoncontainer'
+//import json from '../queries/persons'
 
-const PersonsComponent = ({ result }) => (
+//const jsonQuery = jsonContainer(json)
+
+const PersonsComponent = ({ json }) => (
   <div>
+    {/* <jsonQuery /> */}
     <h3>A list of persons</h3>
-    <ul>
-      {result.map((person) => (
+{json.name}
+{/*    <ul>
+      {json.map((person) => (
         <li key={`${JSON.stringify(person)}`}>{`${JSON.stringify(person)}`}</li>
       ))}
     </ul>
+*/}    {/* <button onClick={ () =>
+      transact([
+
+        actions.import()
+
+      ])
+    }>Import
+    </button> */}
   </div>
 )
 
-export default PersonsQuery(PersonsComponent)
+export default PersonsComponent

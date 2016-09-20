@@ -2,7 +2,14 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import Persons from '../../persons/components/persons'
+//import Persons from '../../persons/components/persons'
+import Time from '../../persons/components/time'
+//jsonld
+import jsonContainer from '../../persons/containers/jsoncontainer'
+//import json from '../../persons/queries/persons'
+
+const jsonQueryContainer = jsonContainer(Time)
+//jsonld
 
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
@@ -22,7 +29,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <Persons />
+    <Time />
+    <jsonQueryContainer />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />

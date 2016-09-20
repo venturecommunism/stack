@@ -1,9 +1,6 @@
-//import { withDatascriptQuery } from '../../../lib/react-datascript'
+import { composeWithPromise } from 'mantra-core'
 
-//import jsonld from 'jsonld'
 import {promises} from 'jsonld'
-
-var imagine
 
 var doc = {
   "@context": "http://json-ld.org/contexts/person.jsonld",
@@ -20,7 +17,13 @@ jsonld.toRDF(doc, {format: 'application/nquads'}, function(err, nquads) {
 })
 */
 
-var promise = promises.toRDF(doc, {format: 'application/nquads'})
+const promise = promises.toRDF(doc, {format: 'application/nquads'})
+
+promise
+.then((nquads) => {
+  console.log(nquads)
+})
+/*
 promise.then(function(nquads) {
   imagine = nquads
   console.log(imagine)
@@ -28,12 +31,20 @@ promise.then(function(nquads) {
 }, function(err) {
   console.log(err)
 })
+*/
 
+const onPropsChange = (props) => {
+    promise
+    .then((nquads) => {
+//not showing up
+console.log("test")
+      return {
+        nquads,
+      }
+    })
+}
 
-/**
- * A higher order component that declares a query for returning names
- * of all users in the graph
- */
-const json = doc
+export default (component) => composeWithPromise(
+  onPropsChange
+)(component)
 
-export default json
