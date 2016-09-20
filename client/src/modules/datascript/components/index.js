@@ -9,7 +9,7 @@ import JSONLDExpandContainer from '../../jsonld/containers/jsonldexpandcontainer
 import RDFContainer from '../../jsonld/containers/rdfcontainer'
 
 const JSONContainer = JSONLDExpandContainer(SimpleStringifyComponent)
-const TriplesContainer = RDFContainer(SimpleDataComponent)
+const TriplesContainer = RDFContainer(SimpleStringComponent)
 
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
