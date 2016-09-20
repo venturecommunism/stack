@@ -3,14 +3,14 @@ import React from 'react'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
 //import Persons from '../../persons/components/persons'
-import Promise from '../../persons/containers/promisecontainer'
+//import Promise from '../../persons/containers/promisecontainer'
 import Time from '../../persons/components/time'
 //jsonld
 import JsonContainer from '../../persons/containers/jsoncontainer'
 //import json from '../../persons/queries/persons'
 
 const JsonQueryContainer = JsonContainer(Time)
-const PromiseContainer = Promise(Time)
+//const PromiseContainer = Promise(Time)
 //jsonld
 
 import AllUsersComponent from './allusers'
@@ -33,8 +33,8 @@ const Root = () => (
   <div>
     <JsonQueryContainer />
     {/* <Promise /> */}
-    <PromiseContainer />
-    <Time />
+    {/* <PromiseContainer /> */}
+    {/* <Time /> */}
     <jsonQueryContainer />
     <AllUsers />
     <AllUsersFromIndex />

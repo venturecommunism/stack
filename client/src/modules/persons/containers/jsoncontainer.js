@@ -16,15 +16,8 @@ const getServerTime = () => {
 
   return promise
   .then((nquads) => {
-    return nquads
+    return {data: nquads}
   })
-
-/*
-  return new Promise((resolve) => {
-    const time = new Date().toString()
-    setTimeout(() => resolve({time}), 2000)
-  })
-*/
 }
 
 const composerFunction = (props) => {

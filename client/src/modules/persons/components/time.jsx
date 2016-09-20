@@ -1,3 +1,3 @@
 import React from 'react'
 
-export default ({time}) => (<div><p>{time}test</p></div>)
+export default ({data}) => (<div><pre>{data}</pre></div>)
