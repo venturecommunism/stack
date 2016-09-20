@@ -10,41 +10,25 @@ var doc = {
   "spouse": "http://dbpedia.org/resource/Cynthia_Lennon"
 }
 
+const getServerTime = () => {
+
+  const promise = promises.toRDF(doc, {format: 'application/nquads'})
+
+  return promise
+  .then((nquads) => {
+    return nquads
+  })
+
 /*
-jsonld.toRDF(doc, {format: 'application/nquads'}, function(err, nquads) {
-  imagine = nquads
-  console.log(imagine)
-})
+  return new Promise((resolve) => {
+    const time = new Date().toString()
+    setTimeout(() => resolve({time}), 2000)
+  })
 */
-
-const promise = promises.toRDF(doc, {format: 'application/nquads'})
-
-promise
-.then((nquads) => {
-  console.log(nquads)
-})
-/*
-promise.then(function(nquads) {
-  imagine = nquads
-  console.log(imagine)
-  return imagine
-}, function(err) {
-  console.log(err)
-})
-*/
-
-const onPropsChange = (props) => {
-    promise
-    .then((nquads) => {
-//not showing up
-console.log("test")
-      return {
-        nquads,
-      }
-    })
 }
 
-export default (component) => composeWithPromise(
-  onPropsChange
-)(component)
+const composerFunction = (props) => {
+  return getServerTime()
+}
 
+export default (component) => composeWithPromise(composerFunction)(component)
