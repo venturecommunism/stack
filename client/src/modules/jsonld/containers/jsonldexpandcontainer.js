@@ -1,3 +1,5 @@
+//TODO: reimplement this with the local datascript cache so it doesn't refresh automatically
+
 import {composeWithPromise} from 'react-komposer'
 
 import {promises} from 'jsonld'
@@ -12,11 +14,12 @@ var doc = {
 
 const getServerTime = () => {
 
-  const promise = promises.toRDF(doc, {format: 'application/nquads'})
+  const promise = promises.expand(doc)
 
   return promise
-  .then((nquads) => {
-    return {data: nquads}
+  .then((result) => {
+    const data = JSON.stringify(result)
+    return {data}
   })
 }
 

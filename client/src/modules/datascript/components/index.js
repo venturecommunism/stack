@@ -2,16 +2,14 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-//import Persons from '../../persons/components/persons'
-//import Promise from '../../persons/containers/promisecontainer'
-import Time from '../../persons/components/time'
-//jsonld
-import JsonContainer from '../../persons/containers/jsoncontainer'
-//import json from '../../persons/queries/persons'
+import SimpleDataComponent from '../../jsonld/components/data'
+import SimpleStringifyComponent from '../../jsonld/components/stringify'
 
-const JsonQueryContainer = JsonContainer(Time)
-//const PromiseContainer = Promise(Time)
-//jsonld
+import RDFContainer from '../../jsonld/containers/rdfcontainer'
+import JSONLDExpandContainer from '../../jsonld/containers/jsonldexpandcontainer'
+
+const TriplesContainer = RDFContainer(SimpleDataComponent)
+const JSONContainer = JSONLDExpandContainer(SimpleStringifyComponent)
 
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
@@ -31,11 +29,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <JsonQueryContainer />
-    {/* <Promise /> */}
-    {/* <PromiseContainer /> */}
-    {/* <Time /> */}
-    <jsonQueryContainer />
+    <TriplesContainer />
+    <JSONContainer />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />
