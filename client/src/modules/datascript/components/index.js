@@ -2,15 +2,6 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import SimpleStringifyComponent from '../../jsonld/components/stringify'
-import SimpleStringComponent from '../../jsonld/components/stringdata'
-
-import JSONLDExpandContainer from '../../jsonld/containers/jsonldexpandcontainer'
-import RDFContainer from '../../jsonld/containers/rdfcontainer'
-
-const JSONContainer = JSONLDExpandContainer(SimpleStringifyComponent)
-const TriplesContainer = RDFContainer(SimpleStringComponent)
-
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
@@ -29,8 +20,6 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <JSONContainer />
-    <TriplesContainer />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />
