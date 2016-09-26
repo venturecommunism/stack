@@ -1,4 +1,5 @@
 import {promises} from 'jsonld'
+import parser from 'rdf-nx-parser'
 import datascript from 'datascript'
 
 export default {
@@ -20,6 +21,14 @@ export default {
 
       console.log(nquads)
 
+      const quad = parser.parseTriple(nquads)
+
+      var triple = '<http://dbpedia.org/resource/John_Lennon> <http://xmlns.com/foaf/0.1/name> "John Lennon" .'
+
+      var parsedtriple = parser.parseTriple(triple)
+
+      console.log(parsedtriple)
+
       const transact = (conn, data, txMsg) => {
         console.log("conn", conn)
         console.log("data", data)
@@ -31,7 +40,7 @@ export default {
 
         {
           ':db/id': -1,
-          name: `Tx ${new Date().getTime()}`,
+          name: `${parsedtriple.object.value}`,
           follows: ['name', 'Jane']
         }
 
