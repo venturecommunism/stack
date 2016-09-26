@@ -1,9 +1,8 @@
 import {promises} from 'jsonld'
 import parser from 'rdf-nx-parser'
-import datascript from 'datascript'
 
 export default {
-  import({conn}) {
+  import({conn, transact}) {
     console.log(conn)
 
     var doc = {
@@ -17,40 +16,29 @@ export default {
     const promise = promises.toRDF(doc, {format: 'application/nquads'})
 
     return promise
-    .then((nquads) => {
+    .then((ntriples) => {
 
-      console.log(nquads)
+      console.log(ntriples)
 
-      const quad = parser.parseTriple(nquads)
+      ntriples.split(" .").map( triple => transacttriple(triple+" .") )
 
-      var triple = '<http://dbpedia.org/resource/John_Lennon> <http://xmlns.com/foaf/0.1/name> "John Lennon" .'
+      function transacttriple(triple) {
+        console.log("triple", triple)
+        var parsedtriple = parser.parseTriple(triple)
 
-      var parsedtriple = parser.parseTriple(triple)
+        console.log(parsedtriple)
 
-      console.log(parsedtriple)
+        transact(conn, [
 
-      const transact = (conn, data, txMsg) => {
-        console.log("conn", conn)
-        console.log("data", data)
-        console.log("txMsg", txMsg)
-        datascript.transact(conn, data, txMsg);
+          {
+            ':db/id': -1,
+            name: `${parsedtriple.object.value}`,
+            follows: ['name', 'Jane']
+          }
+
+        ])
       }
 
-      transact(conn, [
-
-        {
-          ':db/id': -1,
-          name: `${parsedtriple.object.value}`,
-          follows: ['name', 'Jane']
-        }
-
-      ])
-
-
-      return {
-        data: nquads
-      }
     })
   },
 }
-
