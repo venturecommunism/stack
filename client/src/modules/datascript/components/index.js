@@ -6,8 +6,8 @@ import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
 
-import Button from '../../jsonld/components/button.jsx'
-const ActionsButton = ActionsMapper('button', Button)
+import ImportUI from '../../jsonld/components/importui.jsx'
+const ActionsImportUI = ActionsMapper('importui', ImportUI)
 
 import allUserQuery from '../queries/alluser'
 const AllUsers = allUserQuery(AllUsersComponent)
@@ -23,7 +23,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
-    <ActionsButton />
+    <ActionsImportUI />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />

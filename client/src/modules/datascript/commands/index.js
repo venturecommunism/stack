@@ -1,9 +1,9 @@
 import followertree from './followertree'
-import button from './button'
+import importui from './importui'
 
 const actions = {
   followertree,
-  button,
+  importui,
 }
 
 export default actions
