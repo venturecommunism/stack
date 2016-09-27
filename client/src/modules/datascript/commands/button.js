@@ -1,5 +1,4 @@
 import { promises } from 'jsonld'
-import parser from 'rdf-nx-parser'
 
 export default {
   import({conn, transact}) {
@@ -12,52 +11,24 @@ export default {
       "spouse": "http://dbpedia.org/resource/Cynthia_Lennon"
     }
 
-    const promise = promises.toRDF(doc, {format: 'application/nquads'})
+    const promiseexpand = promises.expand(doc)
 
-    return promise
-    .then((ntriples) => {
-      var name = ''
-      var born = ''
-      var spouse = ''
+    return promiseexpand
+    .then((expanded) => {
+      const promisecompact = promises.compact(expanded, "http://json-ld.org/contexts/person.jsonld")
 
-      ntriples.split(" .").map( triple => transacttriple(triple+" .") )
+      return promisecompact
+      .then((compacted) => {
+        transact(conn, [
 
-      function transacttriple(triple) {
-        if (!parser.parseTriple(triple)) {
-          return
-        }
-        var parsedtriple = parser.parseTriple(triple)
+          {
+            ':db/id': -1,
+            ...compacted
+          }
 
-        const jsonld = {
-          name: "http://xmlns.com/foaf/0.1/name",
-          born: "http://schema.org/birthDate",
-          spouse: "http://schema.org/spouse"
-        }
+        ])
 
-        if (parsedtriple.predicate.value === jsonld.name) {
-          name = parsedtriple.object.value
-        }
-        if (parsedtriple.predicate.value === jsonld.born) {
-          born = parsedtriple.object.value
-        }
-        if (parsedtriple.predicate.value === jsonld.spouse) {
-          spouse = parsedtriple.object.value
-        }
-      }
-
-      transact(conn, [
-
-        {
-          ':db/id': -1,
-          "@id": "http://dbpedia.org/resource/John_Lennon",
-          "name": `${name}`,
-          "born": `${born}`,
-          "spouse": `${spouse}`,
-//          "follows": ['name', 'Jane']
-        }
-
-      ])
-
+      })
     })
   },
 }
