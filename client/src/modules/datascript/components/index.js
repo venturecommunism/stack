@@ -2,9 +2,14 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
+import JWT from '../../clientjwt/components/jwt.jsx'
+
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
+
+import ImportUI from '../../jsonld/components/importui.jsx'
+const ActionsImportUI = ActionsMapper('importui', ImportUI)
 
 import allUserQuery from '../queries/alluser'
 const AllUsers = allUserQuery(AllUsersComponent)
@@ -20,6 +25,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
+    <JWT />
+    <ActionsImportUI />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />
