@@ -8,6 +8,7 @@
   "dependencies": {
     "datascript": "^0.15.3",
     "jsonld": "^0.4.11",
+    "jsrsasign": "^6.1.1",
     "mantra-core": "^1.7.0",
     "phoenix": "^1.2.0",
     "promise-sqlite": "^1.3.0",
