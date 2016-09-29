@@ -2,25 +2,23 @@ import React from 'react'
 
 import {KJUR, KEYUTIL} from 'jsrsasign'
 
-/*
 // Header
-var oHeader = {alg: 'HS256', typ: 'JWT'}
+var oHeaderHS = {alg: 'HS256', typ: 'JWT'}
 // Payload
-var oPayload = {}
-var tNow = KJUR.jws.IntDate.get('now')
-var tEnd = KJUR.jws.IntDate.get('now + 1day')
-oPayload.iss = 'http://foo.com'
-oPayload.sub = 'mailto:mike@foo.com'
-oPayload.nbf = tNow
-oPayload.iat = tNow
-oPayload.exp = tEnd
-oPayload.jti = 'id123456'
-oPayload.aud = 'http://foo.com/employee'
+var oPayloadHS = {}
+var tNowHS = KJUR.jws.IntDate.get('now')
+var tEndHS = KJUR.jws.IntDate.get('now + 1day')
+oPayloadHS.iss = 'http://foo.com'
+oPayloadHS.sub = 'mailto:mike@foo.com'
+oPayloadHS.nbf = tNowHS
+oPayloadHS.iat = tNowHS
+oPayloadHS.exp = tEndHS
+oPayloadHS.jti = 'id123456'
+oPayloadHS.aud = 'http://foo.com/employee'
 // Sign JWT, password=secret
-var sHeader = JSON.stringify(oHeader)
-var sPayload = JSON.stringify(oPayload)
-var sJWT = KJUR.jws.JWS.sign('HS256', sHeader, sPayload, {utf8: 'secret'})
-*/
+var sHeaderHS = JSON.stringify(oHeaderHS)
+var sPayloadHS = JSON.stringify(oPayloadHS)
+var sHSJWT = KJUR.jws.JWS.sign('HS256', sHeaderHS, sPayloadHS, {utf8: 'secret'})
 
 // Header
 var oHeader = {alg: 'RS256', typ: 'JWT'}
@@ -76,23 +74,40 @@ strVar += '-----END RSA PRIVATE KEY-----'
 // to convert the public key to pem for verification:
 // openssl rsa -in id_rsa -pubout -out id_rsa.pub.pem
 
-/*
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApwcONliJk7t7gU5+0V+2
-rh8ubQ40nhj83G1kuh+7sLWRjrvgJFziUspCDVSOpyEOT7+ZOsJauCqQpV1NyaXV
-ppd6FhezmizjNMJ06DU3tzD3RcKXBBIYJm3n8+jwgMvYperGAIVMMEBWPTBYy+HA
-5KcxOK85JGKoPtVFD/IAtpSAudOVddNsi/Lg383Zm+Dn859kXZXI40q7o7vHhvFK
-K4yI6NF3phakxIJz8ffs+ceWzPAKFyAqqcViKynRVoZS5zRNA+AJpN5aalX2tQsR
-YQ8Ok0G0yLt4iBnP8KYVK53nxNKWgirXWdDxz9YnJecMH4VjS2Qxv2nouisSQ2Fh
-lwIDAQAB
------END PUBLIC KEY-----
-*/
+var pubVar = ''
+pubVar += '-----BEGIN PUBLIC KEY-----'
+pubVar += 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApwcONliJk7t7gU5+0V+2'
+pubVar += 'rh8ubQ40nhj83G1kuh+7sLWRjrvgJFziUspCDVSOpyEOT7+ZOsJauCqQpV1NyaXV'
+pubVar += 'ppd6FhezmizjNMJ06DU3tzD3RcKXBBIYJm3n8+jwgMvYperGAIVMMEBWPTBYy+HA'
+pubVar += '5KcxOK85JGKoPtVFD/IAtpSAudOVddNsi/Lg383Zm+Dn859kXZXI40q7o7vHhvFK'
+pubVar += 'K4yI6NF3phakxIJz8ffs+ceWzPAKFyAqqcViKynRVoZS5zRNA+AJpN5aalX2tQsR'
+pubVar += 'YQ8Ok0G0yLt4iBnP8KYVK53nxNKWgirXWdDxz9YnJecMH4VjS2Qxv2nouisSQ2Fh'
+pubVar += 'lwIDAQAB'
+pubVar += '-----END PUBLIC KEY-----'
 
 var prvKey = KEYUTIL.getKey(strVar, 'passphrase')
 
 var sJWT = KJUR.jws.JWS.sign('RS256', sHeader, sPayload, prvKey)
 
+console.log(sHSJWT)
 console.log(sJWT)
+
+var pubkey = KEYUTIL.getKey(pubVar)
+
+try {
+  var isHSValid = KJUR.jws.JWS.verifyJWT(sHSJWT, {utf8: 'secret'}, {alg: ['HS256']})
+} catch (err) {
+  console.log(err)
+}
+
+try {
+  var isValid = KJUR.jws.JWS.verifyJWT(sJWT, pubkey, {alg: ['RS256']})
+} catch (err) {
+  console.log(err)
+}
+
+console.log('Is HS test valid?', isHSValid)
+console.log('Is RSA test valid?', isValid)
 
 export default () => (
   <div>JWT component</div>
