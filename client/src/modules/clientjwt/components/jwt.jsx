@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {KJUR, KEYUTIL} from 'jsrsasign'
+import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
 
 // Header
 var oHeaderHS = {alg: 'HS256', typ: 'JWT'}
@@ -108,6 +108,12 @@ try {
 
 console.log('Is HS test valid?', isHSValid)
 console.log('Is RSA test valid?', isValid)
+
+var headerObj = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(sJWT.split(".")[0]))
+var payloadObj = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(sJWT.split(".")[1]))
+
+console.log("header", headerObj)
+console.log("payload", payloadObj)
 
 export default () => (
   <div>JWT component</div>
