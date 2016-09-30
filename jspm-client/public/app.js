@@ -1,29 +1,10 @@
-import 'capaj/systemjs-hot-reloader/default-listener'
+import {initContext} from './configs/context'
+import {createApp} from 'mantra-core'
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, browserHistory } from 'react-router'
+const context = initContext()
+const app = createApp(context)
 
-import Home from './modules/demo/routes/home'
-import { IntlProvider, addLocaleData } from 'react-intl'
-import en from 'react-intl/locale-data/en'
-addLocaleData(en)
+import demoModule from './modules/demo/index'
 
-const routes = <Route path='/' component={Home} />
-
-class RenderForcer extends React.Component {
-  componentWillMount () {
-    this.forceUpdate()  // a little hack to help us rerender when this module is reloaded
-  }
-  render () {
-    return <IntlProvider locale='en'>
-      <Router history={browserHistory}>
-        {routes}
-      </Router>
-    </IntlProvider>
-  }
-}
-
-ReactDOM.render((
-  <RenderForcer />
-), document.getElementById('app'))
+app.loadModule(demoModule)
+app.init()
