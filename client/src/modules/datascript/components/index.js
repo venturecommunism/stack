@@ -2,6 +2,11 @@ import React from 'react'
 
 import ActionsMapper from '../../core/containers/actionsmapper'
 
+import Dashboard from '../../ec_dashboard/components/dashboard.jsx'
+
+import CheckoutComponent from '../../ec_checkout/components/checkout.jsx'
+const Checkout = ActionsMapper('checkout', CheckoutComponent)
+
 import JWT from '../../clientjwt/components/jwt.jsx'
 
 import AllUsersComponent from './allusers'
@@ -25,6 +30,8 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Root = () => (
   <div>
+    <Dashboard />
+    <Checkout />
     <JWT />
     <ActionsImportUI />
     <AllUsers />
