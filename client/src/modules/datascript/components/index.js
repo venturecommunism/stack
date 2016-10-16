@@ -4,8 +4,9 @@ import ActionsMapper from '../../core/containers/actionsmapper'
 
 import Dashboard from '../../ec_dashboard/components/dashboard.jsx'
 
+import shoppingCartQuery from '../../ec_checkout/queries/shoppingcart'
 import CheckoutComponent from '../../ec_checkout/components/checkout.jsx'
-const Checkout = ActionsMapper('checkout', CheckoutComponent)
+const Checkout = shoppingCartQuery(ActionsMapper('checkout', CheckoutComponent))
 
 import JWT from '../../clientjwt/components/jwt.jsx'
 

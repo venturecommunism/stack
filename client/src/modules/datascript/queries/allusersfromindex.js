@@ -24,7 +24,7 @@ import { withDatascriptQuery } from '../../../lib/react-datascript'
  */
 const allUsersFromIndex = withDatascriptQuery({
   dbConn: (conn) => (
-    datascript.datoms(datascript.db(conn), ':aevt')
+    datascript.datoms(datascript.db(conn), ':eavt')
   )
 })
 

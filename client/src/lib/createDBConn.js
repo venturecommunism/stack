@@ -19,6 +19,10 @@ export default () => {
     follows: {
       ':db/cardinality': ':db.cardinality/many',
       ':db/valueType': ':db.type/ref'
+    },
+    'shoppingcart/thing': {
+      ':db/cardinality': ':db.cardinality/one',
+      ':db/unique': ':db.unique/identity'
     }
   }
 
