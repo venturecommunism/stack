@@ -6,8 +6,6 @@ export default {
     // console.log('transact', transact)
     // console.log('event', e)
 
-    // the following creates and deletes some nodes if and only if the first entity id it created is 4. subsequent clicks create entities 5, 6, 7, etc.
-
     var log = []
     var meta = []
     datascript.listen(conn, function(report) {
