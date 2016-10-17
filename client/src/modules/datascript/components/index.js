@@ -8,13 +8,13 @@ import shoppingCartQuery from '../../ec_checkout/queries/shoppingcart'
 import CheckoutComponent from '../../ec_checkout/components/checkout.jsx'
 const Checkout = shoppingCartQuery(ActionsMapper('checkout', CheckoutComponent))
 
-//import Subindex from './subindex'
+import Subindex from './subindex'
 
 const Root = () => (
   <div>
     <Dashboard />
     <Checkout />
-    {/* <Subindex /> */}
+    <Subindex />
   </div>
 )
 
