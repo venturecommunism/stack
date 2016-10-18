@@ -7,6 +7,8 @@ import url from './url'
 const socket = new Socket(url)
 const conn = createDBConn()
 const transact = datascript.transact
+var log = []
+var meta = []
 
 // fires when we receive a message
 const receiveChatMessage = (conn, message) => {
@@ -26,9 +28,6 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 }
-
-var log = []
-var meta = []
 
 // fires when we transact data
 datascript.listen(conn, function(report) {
