@@ -3,6 +3,7 @@ import createDBConn from '../lib/createDBConn'
 import { Socket } from 'phoenix'
 import datascript from 'datascript'
 
+const socket = new Socket(url)
 const conn = createDBConn()
 
 var log = []
@@ -14,7 +15,7 @@ datascript.listen(conn, function(report) {
 
 export const initContext = () => {
   return {
-    socket: new Socket(url),
+    socket: socket,
     conn: conn,
     transact: datascript.transact,
     log: log,
