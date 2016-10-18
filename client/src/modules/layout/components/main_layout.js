@@ -11,7 +11,7 @@ const Layout = ({links = () => null, content = () => null }) => (
       { links() }
     </div>
     <p className='App-intro'>
-      To get started, edit <code>src/modules/datascript/components/index.js</code> and save to reload.
+      To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
     { content() }
   </div>
