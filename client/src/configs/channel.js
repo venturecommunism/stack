@@ -1,6 +1,6 @@
 import { Socket } from 'phoenix'
 
-import url from '../../configs/url'
+import url from './url'
 
 const TIMEOUT = 10000
 const LOBBY = 'rooms:lobby'
