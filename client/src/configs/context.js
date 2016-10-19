@@ -24,22 +24,20 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(me)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
-  transact(conn, [{
-    ':db/id': -1,
-    name: `Follower of ${message.user} ${new Date().getTime()}`,
-    follows: ['name', 'Jane']
-  }], {'foreign': true})
+  console.log(JSON.stringify(message.body))
+  transact(conn, message.body, {'foreign': true})
 }
 
+const channel = Channel(conn, user, receiveChatMessage)
+
 // fires when we transact data
-datascript.listen(conn, function(report) {
+datascript.listen(conn, {channel}, function(report) {
   log.push(report.tx_data)
   meta.push(report.tx_meta)
 
   if (report.tx_meta && report.tx_meta.foreign) return
 
-  const channel = Channel(conn, user, receiveChatMessage)
-  channel.send("We built this city on rock and roll!")
+  channel.send(report.tx_data)
 
 })
 
@@ -47,6 +45,7 @@ export const initContext = () => {
   return {
     socket: socket,
     conn: conn,
+    channel: channel,
     transact: transact,
     log: log,
     meta: meta,
