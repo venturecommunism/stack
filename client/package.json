@@ -6,6 +6,7 @@
     "react-scripts": "0.4.1"
   },
   "dependencies": {
+    "akkad": "^1.4.0",
     "datascript": "^0.15.3",
     "jsonld": "^0.4.11",
     "jsrsasign": "^6.1.1",
