@@ -2,6 +2,7 @@ import React from 'react';
 import {Akkad, Scene, Material, shapes, cameras, lights, systems} from "akkad";
 
 const {FreeCamera} = cameras;
+//const {WebVRFreeCamera} = cameras;
 const {HemisphericLight} = lights;
 const {
     Position,

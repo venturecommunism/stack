@@ -7,7 +7,7 @@ div[data-reactroot] div, canvas {
 overflow: hidden;
 }
 
-div.App, div.App div {
+div.App, div.App div, div[data-reactroot] div.App {
 overflow: visible;
 width: auto;
 height: auto;
