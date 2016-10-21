@@ -23,7 +23,7 @@ const {
     Ground
 } = shapes;
 
-export default ({actions}) => (
+export default ({actions, result}) => (
             <div>
                 <div style={{color: '#FFF', fontSize: '2em', position: 'fixed', height: '20px', width: '20px'}}>
                     {/*this.context.appState.get("lastKeyPressed")*/}
@@ -49,7 +49,7 @@ export default ({actions}) => (
                         segments={24}
                         diameter={2}
                     >
-<Trigger onClick={actions.togglefullscreen} />
+<Trigger onClick={() => actions.togglefullscreen(null, result)} />
                         <Position vector={[-2, 0, 0]} />
                     </Sphere>
                     <Cylinder>

@@ -23,7 +23,11 @@ export default () => {
     'shoppingcart/thing': {
       ':db/cardinality': ':db.cardinality/one',
       ':db/unique': ':db.unique/identity'
-    }
+    },
+    'app/fullscreen': {
+      ':db/cardinality': ':db.cardinality/one',
+      ':db/unique': ':db.unique/identity'
+    },
   }
 
   /**
