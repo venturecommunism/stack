@@ -9,17 +9,9 @@ const {FreeCamera} = cameras;
 const {HemisphericLight} = lights;
 const {Mesh, Position, Rotate, Trigger} = systems;
 
-const {
-    Box,
-    Sphere,
-    Cylinder,
-    Torus,
-    Ground
-} = shapes;
+const {Sphere} = shapes;
 
-class MeshPage extends Component {
-    render() {
-        return (
+export default ({actions, result}) => (
             <div>
                 <Akkad>
                     <Scene>
@@ -43,7 +35,7 @@ class MeshPage extends Component {
                         segments={24}
                         diameter={.15}
                     >
-<Trigger onClick={() => alert("you clicked")} />
+<Trigger onClick={() => actions.togglefullscreen(null, result)} />
                         <Position vector={[-17.92, 1.22, -18.47]} />
                     </Sphere>
                     </Scene>
@@ -53,7 +45,4 @@ class MeshPage extends Component {
 </div> */}
             </div>
         );
-    }
-}
 
-export default MeshPage;
