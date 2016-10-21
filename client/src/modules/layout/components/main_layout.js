@@ -7,7 +7,7 @@ import './styles/akkad.css'
 import TriggersPage from '../../triggers/components/TriggersPage'
 
 const Layout = ({links = () => null, content = () => null }) => (
-  <div>{ (1 === 2) ? <div className='App'>
+  <div>{ (1 === 1) ? <div className='App'>
     <div className='App-header'>
       <img src={logo} className='App-logo' alt='logo' />
       <h2>Under Construction</h2>
