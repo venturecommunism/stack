@@ -48,7 +48,7 @@ export default ({actions}) => (
                         segments={24}
                         diameter={2}
                     >
-<Trigger onClick={() => alert("Clicked sphere")} />
+<Trigger onClick={actions.togglefullscreen} />
                         <Position vector={[-2, 0, 0]} />
                     </Sphere>
                     <Cylinder>

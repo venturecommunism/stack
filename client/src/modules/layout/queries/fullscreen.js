@@ -6,9 +6,9 @@ import { withDatascriptQuery } from '../../../lib/react-datascript'
  */
 const fullScreenStateQuery = withDatascriptQuery({
   query: `
-    [:find ?fullscreenstate
-     :where [?e "app/fullscreenstate"]
-            [?e "app/fullscreenstate" ?fullscreenstate]]`
+    [:find ?fullscreen
+     :where [?e "app/fullscreen"]
+            [?e "app/fullscreen" ?fullscreen]]`
 })
 
 export default fullScreenStateQuery
