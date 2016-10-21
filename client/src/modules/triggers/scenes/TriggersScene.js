@@ -17,7 +17,6 @@ const {
 const {
     Box,
     Sphere,
-    Disc,
     Cylinder,
     Torus,
     Ground
@@ -31,7 +30,6 @@ class TriggersScene extends Component {
 
     render() {
         const {testKeyDown} = this.context.actions;
-        const {setRandomDiffuseColor} = this.context.actions;
         return (
             <div>
                 <div style={{color: '#FFF', fontSize: '2em', position: 'fixed', height: '20px', width: '20px'}}>
