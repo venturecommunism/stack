@@ -16,7 +16,7 @@ class MeshPage extends Component {
                 <Akkad>
                     <Scene>
                         <FreeCamera
-                            position={[0, 0, 100]}
+                            position={[0, 1, 0]}
                             target={[0, 0, 0]}
                         />
                         <HemisphericLight />
@@ -34,7 +34,7 @@ class MeshPage extends Component {
                     </Scene>
                 </Akkad>
 <div style={{visibility: "hidden", width: "40px", height: "40px"}}>
-<iframe width="420" height="345" src="http://www.youtube.com/embed/WY2w2-CAKgM?autoplay=1" frameborder="0"></iframe>
+<iframe width="420" height="345" src="http://www.youtube.com/v/WY2w2-CAKgM&autoplay=1&loop=1&playlist=WY2w2-CAKgM" frameborder="0"></iframe>
 </div>
             </div>
         );
