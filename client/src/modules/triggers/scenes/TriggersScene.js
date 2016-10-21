@@ -34,7 +34,7 @@ class TriggersScene extends Component {
         const {setRandomDiffuseColor} = this.context.actions;
         return (
             <div>
-                <div>
+                <div style={{color: '#FFF', 'font-size': '2em', position: 'fixed', height: '20px', width: '20px'}}>
                     {this.context.appState.get("lastKeyPressed")}
                 </div>
                 <Akkad>

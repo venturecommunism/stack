@@ -10,11 +10,7 @@ class Landing extends Component {
     render() {
         return (
             <Akkad actions={triggerActions}>
-                <h2>
-                    Triggers Demo
-                </h2>
-                <p>A small demo of various triggers</p>
-                    <TriggersScene />
+              <TriggersScene />
             </Akkad>
         );
     }
