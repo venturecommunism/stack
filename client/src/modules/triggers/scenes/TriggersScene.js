@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import {Akkad, Scene, Material, shapes, cameras, lights, systems} from "akkad";
 
 const {FreeCamera} = cameras;
@@ -22,22 +22,14 @@ const {
     Ground
 } = shapes;
 
-class TriggersScene extends Component {
-    static contextTypes = {
-        actions: PropTypes.object,
-        appState: PropTypes.object
-    }
-
-    render() {
-        const {testKeyDown} = this.context.actions;
-        return (
+export default ({actions}) => (
             <div>
                 <div style={{color: '#FFF', fontSize: '2em', position: 'fixed', height: '20px', width: '20px'}}>
-                    {this.context.appState.get("lastKeyPressed")}
+                    {/*this.context.appState.get("lastKeyPressed")*/}
                 </div>
                 <Akkad>
                 <Scene>
-                    <Trigger onKeyDown={testKeyDown} />
+                    {/*<Trigger onKeyDown={testKeyDown} />*/}
                     <CollisionsEnabled />
                     <Gravity vector={[0, -0.9, 0]} />
                     <FreeCamera
@@ -94,8 +86,4 @@ class TriggersScene extends Component {
                 </Scene>
                 </Akkad>
             </div>
-        );
-    }
-}
-
-export default TriggersScene;
+        )
