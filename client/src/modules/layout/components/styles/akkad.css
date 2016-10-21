@@ -1,4 +1,5 @@
 html, body, #react-root, div[data-reactroot], div[data-reactroot] div, canvas {
+overflow: hidden;
 width: 100%;
 height: 100%;
 }
