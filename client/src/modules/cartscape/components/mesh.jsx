@@ -16,13 +16,13 @@ class MeshPage extends Component {
                 <Akkad>
                     <Scene>
                         <FreeCamera
-                            position={[0, 1, 0]}
-                            target={[0, 0, 0]}
+                            position={[-24, 2, -24]}
+                            target={[10, 0, 100]}
                         />
                         <HemisphericLight />
                         <Mesh
                             path={hillvalleypath}
-                            fileName={'hillvalley.babylon'}
+                            fileName={'HillValley.babylon'}
                         >
                             <Position vector={[0, 0, 0]}/>
                             <Rotate
