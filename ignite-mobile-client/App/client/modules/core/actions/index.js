@@ -1,4 +1,0 @@
-/* IMPORTS */
-export default {
-  /* CALLS */
-};
