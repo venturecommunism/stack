@@ -9,9 +9,11 @@
     "clean": "watchman watch-del-all"
   },
   "dependencies": {
+    "datascript": "^0.15.4",
     "eslint-plugin-react-native": "^1.1.0-beta",
     "mantra-plus": "^2.0.6",
     "mantra-redux": "^1.0.3",
+    "phoenix": "^1.2.1",
     "react": "15.0.2",
     "react-komposer-plus": "^2.0.6",
     "react-native": "^0.26.3",
