@@ -1,4 +1,5 @@
 import { parse } from './edn'
+import Symbol from 'es6-symbol'
 
 export default function parseQueryAttributes (query) {
   const parsedQuery = parse(query.trim())
