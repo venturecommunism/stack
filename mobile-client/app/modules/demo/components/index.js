@@ -6,7 +6,6 @@ import ActionsMapper from '../../core/containers/actionsmapper'
 
 import JWT from '../../clientjwt/components/jwt.jsx'
 import ImportUI from '../../jsonld/components/index.jsx'
-*/
 
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
@@ -21,7 +20,6 @@ const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
 import allUserEdgesQuery from '../queries/alluseredges'
 const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
 
-/*
 import followerTreePullQuery from '../queries/followertreepull'
 const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', FollowerTreeComponent))
 */
@@ -31,11 +29,10 @@ const Demo = () => (
 <Text>Demo</Text>
 {/*
     <JWT />
-    <ImportUI /> */}
+    <ImportUI />
     <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />
-{/*
     <FollowerTree entityIds={[['name', 'Jane']]} /> */}
   </View>
 )
