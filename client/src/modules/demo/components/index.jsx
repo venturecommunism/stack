@@ -1,5 +1,6 @@
 import React from 'react'
 
+import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
 import JWT from '../../clientjwt/components/jwt.jsx'
@@ -12,6 +13,9 @@ import FollowerTreeComponent from './followertree'
 import allUserQuery from '../queries/alluser'
 const AllUsers = allUserQuery(AllUsersComponent)
 
+import PlainResultComponent from './plainresult'
+const AllUsersDataContainer = DataContainer(PlainResultComponent)
+
 import allUsersFromIndex from '../queries/allusersfromindex'
 const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
 
@@ -23,6 +27,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
+    <AllUsersDataContainer />
     <JWT />
     <ImportUI />
     <AllUsers />
