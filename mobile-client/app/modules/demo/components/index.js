@@ -1,6 +1,8 @@
 import React from 'react'
 import {View, Text} from 'react-native'
 
+import DataContainer from '../../core/containers/datacontainer'
+
 /*
 import ActionsMapper from '../../core/containers/actionsmapper'
 
@@ -10,7 +12,12 @@ import ImportUI from '../../jsonld/components/index.jsx'
 import AllUsersComponent from './allusers'
 import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
+*/
 
+import PlainResultComponent from './plainresult'
+const AllUsersDataContainer = DataContainer(PlainResultComponent)
+
+/*
 import allUserQuery from '../queries/alluser'
 const AllUsers = allUserQuery(AllUsersComponent)
 
@@ -27,6 +34,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 const Demo = () => (
   <View>
 <Text>Demo</Text>
+<AllUsersDataContainer />
 {/*
     <JWT />
     <ImportUI />
