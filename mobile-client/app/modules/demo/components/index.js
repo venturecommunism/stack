@@ -2,10 +2,9 @@ import React from 'react'
 import {View, Text} from 'react-native'
 
 import DataContainer from '../../core/containers/datacontainer'
-
-/*
 import ActionsMapper from '../../core/containers/actionsmapper'
 
+/*
 import JWT from '../../clientjwt/components/jwt.jsx'
 import ImportUI from '../../jsonld/components/index.jsx'
 
@@ -15,7 +14,7 @@ import FollowerTreeComponent from './followertree'
 */
 
 import PlainResultComponent from './plainresult'
-const AllUsersDataContainer = DataContainer(PlainResultComponent)
+const AllUsersDataContainer = DataContainer(ActionsMapper('followertree', PlainResultComponent))
 
 /*
 import allUserQuery from '../queries/alluser'

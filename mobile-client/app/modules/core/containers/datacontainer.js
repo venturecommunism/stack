@@ -12,11 +12,11 @@ const dataComposer = ({ context }, onData) => {
      :where [?u "name"]
             [?u "name" ?user]]`
 
-  let result = datascript.datoms(datascript.db(conn), ':eavt')
+//  let result = datascript.datoms(datascript.db(conn), ':eavt')
 
   const qArgs = [query, datascript.db(conn)]
 //  let result = datascript.q(...qArgs)
-  onData(null, {result})
+  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
 }
 
 const options = {
