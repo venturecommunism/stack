@@ -3,10 +3,14 @@ import datascript from 'datascript'
 
 const dataComposer = ({ context }, onData) => {
   const {conn} = context()
-  console.log(conn)
-  console.log(datascript)
 
-  const result = {'this': 'whimple'}
+  var query = `
+    [:find ?user
+     :where [?u "name"]
+            [?u "name" ?user]]`
+
+  const qArgs = [query, datascript.db(conn)]
+  let result = datascript.q(...qArgs)
   onData(null, {result})
 }
 
