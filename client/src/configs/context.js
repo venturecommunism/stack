@@ -34,6 +34,27 @@ datascript.listen(conn, {channel}, function(report) {
   log.push(report.tx_data)
   meta.push(report.tx_meta)
 
+  console.log("tx:", report.tx_data)
+  report.tx_data.forEach(function(item) {
+    if (item.a === 'v') {
+      console.log("BEGIN")
+      console.log("VALUE", item.v)
+    }
+    if (item.a === 'tx') {
+      console.log("TX", item.tx)
+    }
+    if (item.a === 'e') {
+      console.log("ENTITY", item.e)
+    }
+    if (item.a === 'added') {
+      console.log("ADDED", item.added)
+    }
+    if (item.a === 'a') {
+      console.log("ATTRIBUTE", item.v)
+      console.log("END")
+    }
+  })
+
   if (report.tx_meta && report.tx_meta.remote) return
 
   channel.send(report.tx_data)
