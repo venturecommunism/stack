@@ -24,28 +24,21 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
-  console.log("catching tx:", message.body)
-  message.body.forEach(function(item) {
-    if (item.a === 'v') {
-      console.log("BEGIN")
-      console.log("VALUE", item.v)
+  let tx = {}
+  for (var i = 0; i < message.body.length; i++){
+    if (tx.tx && tx.tx === message.body[i].tx) {
+      tx[message.body[i].a] = message.body[i].v
+    } else if (!tx.tx) {
+      tx.tx = message.body[i].tx
+      tx[message.body[i].a] = message.body[i].v
     }
-    if (item.a === 'tx') {
-      console.log("TX", item.tx)
-    }
-    if (item.a === 'e') {
-      console.log("ENTITY", item.e)
-    }
-    if (item.a === 'added') {
-      console.log("ADDED", item.added)
-    }
-    if (item.a === 'a') {
-      console.log("ATTRIBUTE", item.v)
-      console.log("END")
-    }
-  })
+  }
+  delete tx.tx
 
-  transact(conn, message.body, {'remote': true})
+  transact(conn, [{
+    ':db/id': -1,
+    ...tx
+  }], {'remote': true})
 }
 
 const channel = Channel(conn, me, receiveChatMessage)
@@ -56,27 +49,6 @@ datascript.listen(conn, {channel}, function(report) {
   meta.push(report.tx_meta)
 
   if (report.tx_meta && report.tx_meta.remote) return
-
-  console.log("tx:", report.tx_data)
-  report.tx_data.forEach(function(item) {
-    if (item.a === 'v') {
-      console.log("BEGIN")
-      console.log("VALUE", item.v)
-    }
-    if (item.a === 'tx') {
-      console.log("TX", item.tx)
-    }
-    if (item.a === 'e') {
-      console.log("ENTITY", item.e)
-    }
-    if (item.a === 'added') {
-      console.log("ADDED", item.added)
-    }
-    if (item.a === 'a') {
-      console.log("ATTRIBUTE", item.v)
-      console.log("END")
-    }
-  })
 
   channel.send(report.tx_data)
 })
