@@ -61,5 +61,6 @@ export default function () {
     Scene,
     Actions,
     AppRegistry,
+    me,
   };
 }
