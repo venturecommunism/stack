@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Akkad, Scene, shapes, cameras, lights, systems} from 'akkad';
 
 // copy https://github.com/BabylonJS/Samples/Scenes/hillvalley into a new directory named hillvalley under meshserver then start the python script
@@ -7,7 +7,7 @@ const hillvalleypath = 'http://localhost:8000/hillvalley/'
 //const {ArcRotateCamera} = cameras;
 const {FreeCamera} = cameras;
 const {HemisphericLight} = lights;
-const {Mesh, Position, Rotate, Trigger} = systems;
+const {Mesh, Position, Trigger} = systems;
 
 const {Sphere} = shapes;
 

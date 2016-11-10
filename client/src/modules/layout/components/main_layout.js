@@ -12,7 +12,7 @@ import './styles/akkad.css'
 import CartScape from '../../cartscape/components/index.jsx'
 
 const Layout = ({result, conn}) => (
-  <div>{console.log(result) } { result && result.length === 0 ? <div className='App'>
+  <div>{ result && result.length === 0 ? <div className='App'>
     <div className='App-header'>
       <img src={logo} className='App-logo' alt='logo' />
       <h2>Under Construction</h2>
