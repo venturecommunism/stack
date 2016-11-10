@@ -34,7 +34,13 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
-  transact(conn, message.body, {'remote': true})
+  const tx = {}
+  message.body.map(function(s){ tx[s.a] = s.v })
+
+  transact(conn, [{
+    ':db/id': -1,
+    ...tx
+  }], {'remoteuser': message.user})
 }
 
 const channel = Channel(conn, me, receiveChatMessage)
@@ -44,7 +50,7 @@ datascript.listen(conn, {channel}, function(report) {
   log.push(report.tx_data)
   meta.push(report.tx_meta)
 
-  if (report.tx_meta && report.tx_meta.remote) return
+  if (report.tx_meta && report.tx_meta.remoteuser) return
 
   channel.send(report.tx_data)
 })
