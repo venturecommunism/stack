@@ -11,7 +11,6 @@ import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
 
 import allUserQuery from '../queries/alluser'
-const AllUsers = allUserQuery(AllUsersComponent)
 
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
@@ -27,10 +26,9 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-    <AllUsersDataContainer />
+    <AllUsersDataContainer query={allUserQuery} />
     <JWT />
     <ImportUI />
-    <AllUsers />
     <AllUsersFromIndex />
     <AllUserEdges />
     <FollowerTree entityIds={[['name', 'Jane']]} />
