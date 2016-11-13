@@ -1,26 +1,24 @@
-defmodule Chat.Web do
+defmodule Mychat.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Chat.Web, :controller
-      use Chat.Web, :view
+      use Mychat.Web, :controller
+      use Mychat.Web, :view
 
-  Keep the definitions in this module short and clean,
-  mostly focused on imports, uses and aliases.
+  The definitions below will be executed for every view,
+  controller, etc, so keep them short and clean, focused
+  on imports, uses and aliases.
+
+  Do NOT define functions inside the quoted expressions
+  below.
   """
 
-  def view do
+  def model do
     quote do
-      use Phoenix.View, root: "web/templates"
-
-      # Import URL helpers from the router
-      import Chat.Router.Helpers
-
-      # Import all HTML functions (forms, tags, etc)
-      use Phoenix.HTML
+      # Define common model functionality
     end
   end
 
@@ -28,17 +26,37 @@ defmodule Chat.Web do
     quote do
       use Phoenix.Controller
 
-      # Alias the data repository as a convenience
-      alias Chat.Repo
-
-      # Import URL helpers from the router
-      import Chat.Router.Helpers
+      import Mychat.Router.Helpers
+      import Mychat.Gettext
     end
   end
 
-  def model do
+  def view do
     quote do
-      use Ecto.Model
+      use Phoenix.View, root: "web/templates"
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
+
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      import Mychat.Router.Helpers
+      import Mychat.ErrorHelpers
+      import Mychat.Gettext
+    end
+  end
+
+  def router do
+    quote do
+      use Phoenix.Router
+    end
+  end
+
+  def channel do
+    quote do
+      use Phoenix.Channel
+      import Mychat.Gettext
     end
   end
 

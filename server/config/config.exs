@@ -6,12 +6,11 @@
 use Mix.Config
 
 # Configures the endpoint
-config :chat, Chat.Endpoint,
-  url: [host: "xx.xxx.xxx.xxx"],
-  root: Path.expand("..", __DIR__),
-  secret_key_base: "/RjKJmMO6raXPRTq63qTqid1x6lVKTOP+FTxZHfX6Ogd+1xYmH6eZZFhBu1CIwtg",
-  debug_errors: false,
-  pubsub: [name: Chat.PubSub,
+config :mychat, Mychat.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "5IkJ4msbA/4DOBci99bIGv7ksxZ3u6NJng+YwICKpLw8XXRZiS7FUtYA7WYSIwaw",
+  render_errors: [view: Mychat.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Mychat.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
