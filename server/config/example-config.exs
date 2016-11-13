@@ -7,7 +7,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :mychat, Mychat.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "xx.xxx.xxx.xxx"],
   secret_key_base: "5IkJ4msbA/4DOBci99bIGv7ksxZ3u6NJng+YwICKpLw8XXRZiS7FUtYA7WYSIwaw",
   render_errors: [view: Mychat.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Mychat.PubSub,

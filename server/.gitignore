@@ -1,3 +1,5 @@
+config/config.exs
+
 # App artifacts
 /_build
 /db
