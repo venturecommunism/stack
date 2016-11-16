@@ -13,7 +13,6 @@ export default function (injectDeps, { AppRegistry, Scene, Router }, context, ac
   const App = () => (
     <Router>
       <Scene key="drawer" initial component={DrawerLayout}>
-<DBConnProvider key="connprovider" conn={ conn } >
         <Scene key="root" hideNavBar>
           <Scene
             key="main"
@@ -34,7 +33,6 @@ export default function (injectDeps, { AppRegistry, Scene, Router }, context, ac
             component={SignInPage}
           />
         </Scene>
-</DBConnProvider>
       </Scene>
     </Router>
   );

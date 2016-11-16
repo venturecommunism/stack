@@ -35,7 +35,7 @@ const receiveChatMessage = (conn, message) => {
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
   const tx = {}
-  message.body.map(function(s){ tx[s.a] = s.v })
+  message.body.map( s => tx[s.a] = s.v )
 
   transact(conn, [{
     ':db/id': -1,
