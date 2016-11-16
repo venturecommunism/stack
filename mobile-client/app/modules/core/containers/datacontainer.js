@@ -7,20 +7,17 @@ import Channel from '../../../configs/channel'
 
 const transact = datascript.transact
 
-const dataComposer = ({ context }, onData) => {
+const dataComposer = ({ context, query }, onData) => {
   const {conn, me} = context()
 //  console.log(conn)
   console.log("me", me)
 
-  var query = `
-    [:find ?user
-     :where [?u "name"]
-            [?u "name" ?user]]`
-
 //  let result = datascript.datoms(datascript.db(conn), ':eavt')
 
+console.log(query)
   const qArgs = [query, datascript.db(conn)]
-//  let result = datascript.q(...qArgs)
+  let result = datascript.q(...qArgs)
+console.log("DATA CONTAINER RESULT", result)
 //  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
 
 
@@ -47,14 +44,15 @@ datascript.listen(conn, function(report) {
 
 //  if (!report.tx_meta || !report.tx_meta.remoteuser) return
 
-  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
+//  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
+  onData(null, {result: result})
 //  if (report.tx_meta && report.tx_meta.remote) return
 
 //  channel.send(report.tx_data)
 })
 
-  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
-
+//  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
+  onData(null, {result: result})
 
 }
 

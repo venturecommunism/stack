@@ -13,6 +13,7 @@ import AllUserEdgesComponent from './alluseredges'
 import FollowerTreeComponent from './followertree'
 */
 
+import allUserQuery from '../queries/alluser'
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(ActionsMapper('followertree', PlainResultComponent))
 
@@ -33,7 +34,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 const Demo = () => (
   <View>
 <Text>Demo</Text>
-<AllUsersDataContainer />
+<AllUsersDataContainer query={allUserQuery} />
 {/*
     <JWT />
     <ImportUI />
