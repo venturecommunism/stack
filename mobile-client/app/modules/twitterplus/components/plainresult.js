@@ -2,9 +2,27 @@ import React from 'react'
 
 import {
   View,
-  Text,
-  ListView
+  Text
 } from 'react-native'
+
+import ListView from 'react-native-controlled-listview'
+
+export default ({result}) => (
+  <View>
+{console.log("result", result)}
+<Text>Yow         {JSON.stringify(result, null, 2)}
+</Text>
+  {/* <ListView
+    items={result}
+    renderRow={([e, user, tweet]) => (
+      <Text style={styles.row}>{console.log("test")} {user}, {tweet}</Text>
+    )}
+    renderSectionHeader={(sectionData, initial) => (
+      <Text style={styles.sectionHeader}>{initial}</Text>  
+    )}
+  />*/}
+  </View>
+)
 
 /*
 export default ({ result }) => (
@@ -21,11 +39,14 @@ export default ({ result }) => (
 )
 */
 
+
+/*
 class ListviewExample extends React.Component {
 
   constructor (props) {
     super(props)
 
+console.log("props", this.props)
 
     const dataObjects = [
       {title: 'First Title', description: 'First Description'},
@@ -53,13 +74,13 @@ class ListviewExample extends React.Component {
 
 console.log(dataObjects)
     const dataResult = this.props.result
-console.log("dataResult", dataResult)
+console.log("dataResult", this.props.result)
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+      dataSource: ds.cloneWithRows(dataResult)
     }
 
   }
@@ -71,12 +92,12 @@ console.log("dataResult", dataResult)
   *
   * e.g.
     return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
-  _renderRow (rowData) {
+  *************************************************************
+  _renderRow (e, user, tweet) {
     return (
       <View>
-        <Text>{rowData.title}</Text>
-        <Text>{rowData.description}</Text>
+        <Text>{user}</Text>
+        <Text>{tweet}</Text>
       </View>
     )
   }
@@ -97,7 +118,7 @@ console.log("dataResult", dataResult)
         })
       }
     }
-  *************************************************************/
+  *************************************************************
 
   render () {
     return (
@@ -112,3 +133,4 @@ console.log("dataResult", dataResult)
 }
 
 export default ListviewExample
+*/

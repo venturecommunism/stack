@@ -30,12 +30,21 @@ console.log("me", me)
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 console.log("REMOTE DATA")
   const tx = {}
-  message.body.map(function(s){ tx[s.a] = s.v })
 
-  transact(conn, [{
-    ':db/id': -1,
-    ...tx
-  }], {'remoteuser': message.user})
+    if (message.tweet) {
+      transact(conn, [{
+        ':db/id': -1,
+        ...message
+      }], {'remoteuser': 'system tweets'})
+    } else {
+
+    message.body.map(function(s){ tx[s.a] = s.v })
+
+    transact(conn, [{
+      ':db/id': -1,
+      ...tx
+    }], {'remoteuser': message.user})
+  }
 }
 
 const channel = Channel(conn, me, receiveChatMessage)
