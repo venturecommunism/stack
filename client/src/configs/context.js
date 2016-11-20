@@ -24,13 +24,21 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
-  const tx = {}
-  message.body.map(s => tx[s.a] = s.v)
+    if (message.tweet) {
+      transact(conn, [{
+        ':db/id': -1,
+        ...message
+      }], {'remoteuser': 'system tweets'})
+    } else {
 
-  transact(conn, [{
-    ':db/id': -1,
-    ...tx
-  }], {'remoteuser': message.user})
+    const tx = {}
+    message.body.map(s => tx[s.a] = s.v)
+
+    transact(conn, [{
+      ':db/id': -1,
+      ...tx
+    }], {'remoteuser': message.user})
+  }
 }
 
 const channel = Channel(conn, me, receiveChatMessage)
