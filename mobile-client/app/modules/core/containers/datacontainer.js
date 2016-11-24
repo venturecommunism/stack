@@ -15,9 +15,9 @@ const dataComposer = ({ context, query }, onData) => {
 //  let result = datascript.datoms(datascript.db(conn), ':eavt')
 
 console.log(query)
-  const qArgs = [query, datascript.db(conn)]
+  var qArgs = [query, datascript.db(conn)]
   let result = datascript.q(...qArgs)
-console.log("DATA CONTAINER RESULT", result)
+ console.log("DATA CONTAINER RESULT", result)
 //  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
 
 
@@ -51,19 +51,24 @@ const channel = Channel(conn, me, receiveChatMessage)
 
 datascript.listen(conn, function(report) {
 
+  const qArgs = [query, datascript.db(conn)]
+  let result = datascript.q(...qArgs)
+
 //  if (!report.tx_meta || !report.tx_meta.remoteuser) return
 
 //  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
-  onData(null, {result: result})
+  onData(null, {result: datascript.q(...qArgs)})
 //  if (report.tx_meta && report.tx_meta.remote) return
 
 //  channel.send(report.tx_data)
 })
 
 //  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
-  onData(null, {result: result})
+  onData(null, {result: datascript.q(...qArgs)})
 
 }
+
+
 
 const options = {
   loadingHandler: () => (<Text>loading</Text>),
