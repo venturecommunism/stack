@@ -1,10 +1,16 @@
 import React from 'react'
 
+function Comparator(a, b) {
+   if (a[0] < b[0]) return -1
+   if (a[0] > b[0]) return 1
+   return 0
+}
+
 export default ({ result }) => (
   <div>
     <h3>Twitter Stream</h3>
     <ul>
-      {result.reverse().map(([e, user, tweet]) => (
+      {result.sort(Comparator).map(([e, user, tweet]) => (
         <li key={e}>
           <div>{`@${user} said:`}</div>
           <div>{`${tweet}`}</div>

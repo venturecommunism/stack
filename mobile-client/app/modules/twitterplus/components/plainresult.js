@@ -7,10 +7,17 @@ import {
 
 import ListView from 'react-native-controlled-listview'
 
+function Comparator(a, b) {
+   if (a[0] < b[0]) return -1
+   if (a[0] > b[0]) return 1
+   return 0
+}
+
 export default ({result}) => (
   <View>
 {console.log("result", result)}
-<Text>Yow         {JSON.stringify(result, null, 2)}
+{console.log(Comparator)}
+<Text>{JSON.stringify(result.sort(Comparator), null, 2)}
 </Text>
   {/* <ListView
     items={result}
