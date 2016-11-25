@@ -10,10 +10,10 @@ import ActionsMapper from '../../core/containers/actionsmapper'
 import allTweetsQuery from '../queries/alltweets'
 
 import PlainResultComponent from './plainresult'
-const AllUsersDataContainer = DataContainer(PlainResultComponent)
+const AllTweetsDataContainer = DataContainer(PlainResultComponent)
 
 export default () => (
   <View>
-    <AllUsersDataContainer query={allTweetsQuery} />
+    <AllTweetsDataContainer query={allTweetsQuery} />
   </View>
 )

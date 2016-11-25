@@ -3,13 +3,13 @@ import React from 'react'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import allUserQuery from '../queries/alluser'
+import allTweetsQuery from '../queries/alltweets'
 
 import PlainResultComponent from './plainresult'
-const AllUsersDataContainer = DataContainer(PlainResultComponent)
+const AllTweetsDataContainer = DataContainer(PlainResultComponent)
 
 export default () => (
   <div>
-    <AllUsersDataContainer query={allUserQuery} />
+    <AllTweetsDataContainer query={allTweetsQuery} />
   </div>
 )
