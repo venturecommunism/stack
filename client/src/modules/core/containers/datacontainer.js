@@ -6,22 +6,17 @@ const dataComposer = ({ context, query }, onData) => {
 
   var elem = log[log.length-1]
 
-  elem ? console.log(elem.map(s => elem[s.a] = s.v)) : ''
-  var db = elem ? datascript.db_with(datascript.db(conn), [[
-      ':db/retract',
-      1,
-      'name',
-      'John'
-    ]]) : datascript.db(conn) 
+  elem ? console.log("ENTITY ID", log[log.length-1][0].e) : ''
 
-  elem ? console.log("irregular", 
-    datascript.db_with(datascript.db(conn), [[
-      ':db/retract',
-      1,
-      'name',
-      'John'
-    ]])
-  ) : console.log("regular", datascript.db(conn))
+  var e = elem ? log[log.length-1][0].e : ''
+  elem ? console.log("LOG ITEM", elem.map(s => elem[s.a] = s.v)) : ''
+
+  var db = elem ? datascript.db_with(datascript.db(conn), [[
+    ':db/retract',
+    1,
+    'name',
+    'John'
+  ]]) : datascript.db(conn)
 
   const qArgs = [query, db]
   let result = datascript.q(...qArgs)
