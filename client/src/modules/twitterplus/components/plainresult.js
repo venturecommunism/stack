@@ -1,4 +1,6 @@
 import React from 'react'
+import counter from '../observables/counter'
+import {observer} from 'mobx-react'
 
 function Comparator(a, b) {
    if (a[0] < b[0]) return 1
@@ -6,9 +8,10 @@ function Comparator(a, b) {
    return 0
 }
 
-export default ({ result }) => (
+const PlainResult = ({ result }) => (
   <div>
     <h3>Twitter Stream</h3>
+    <div onClick={() => counter.value++}>click to increase counter value: {counter.value}</div>
     <ul>
       {result.sort(Comparator).slice(0,5).map(([e, user, tweet]) => (
         <li key={e}>
@@ -20,3 +23,5 @@ export default ({ result }) => (
     </ul>
   </div>
 )
+
+export default observer(PlainResult)
