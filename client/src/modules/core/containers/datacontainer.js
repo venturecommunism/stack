@@ -42,10 +42,11 @@ const dataComposer = ({ context, query, counter }, onData) => {
   }
 
 
-  var db = bool ? datascript.db_with(datascript.db(conn), tx_whole) : datascript.db(conn)
+  var db = bool ? datascript.db_with(datascript.db(conn), [tx_whole[0]]) : datascript.db(conn)
 
   const qArgs = [query, db]
   let result = datascript.q(...qArgs)
+console.log("RESULT", result)
   onData(null, {result, counter})
 }
 
