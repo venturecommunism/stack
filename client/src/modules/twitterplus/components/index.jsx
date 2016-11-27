@@ -8,8 +8,10 @@ import allTweetsQuery from '../queries/alltweets'
 import PlainResultComponent from './plainresult'
 const AllTweetsDataContainer = DataContainer(PlainResultComponent)
 
+import counter from '../observables/counter'
+
 export default () => (
   <div>
-    <AllTweetsDataContainer query={allTweetsQuery} />
+    <AllTweetsDataContainer query={allTweetsQuery} counter={counter} />
   </div>
 )
