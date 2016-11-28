@@ -1,7 +1,7 @@
 import React from 'react'
 
 import DataContainer from '../../core/containers/datacontainer'
-import ActionsMapper from '../../core/containers/actionsmapper'
+// import ActionsMapper from '../../core/containers/actionsmapper'
 
 import allTweetsQuery from '../queries/alltweets'
 
