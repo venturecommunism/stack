@@ -1,0 +1,44 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electron/electron-quick-start.git"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/electron/electron-quick-start/issues"
+  },
+  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.0",
+    "electron-react-scripts": "0.1.0"
+  },
+  "dependencies": {
+    "akkad": "^1.4.0",
+    "datascript": "^0.15.5",
+    "jsonld": "^0.4.11",
+    "jsrsasign": "^6.2.2",
+    "mantra-core": "^1.7.0",
+    "mobx": "^2.6.3",
+    "mobx-react": "^4.0.3",
+    "phoenix": "^1.2.1",
+    "react": "15.2.1",
+    "react-dom": "15.2.1",
+    "react-komposer": "^2.0.0",
+    "react-mounter": "^1.2.0"
+  }
+}
