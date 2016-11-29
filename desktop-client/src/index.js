@@ -5,15 +5,15 @@ const context = initContext()
 const app = createApp(context)
 
 import coreModule from './modules/core'
-import cartScapeModule from './modules/cartscape/index'
+//import cartScapeModule from './modules/cartscape/index'
 import demoModule from './modules/demo'
-import ec_checkoutModule from './modules/ec_checkout'
-import twitterplus from './modules/twitterplus'
+//import ec_checkoutModule from './modules/ec_checkout'
+//import twitterplus from './modules/twitterplus'
 
 app.loadModule(coreModule)
-app.loadModule(cartScapeModule)
+//app.loadModule(cartScapeModule)
 app.loadModule(demoModule)
-app.loadModule(ec_checkoutModule)
-app.loadModule(twitterplus)
+//app.loadModule(ec_checkoutModule)
+//app.loadModule(twitterplus)
 app.init()
 

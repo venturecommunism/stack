@@ -9,7 +9,7 @@ import Feed from '../../core/components/index'
 import fullScreenQuery from '../queries/fullscreen'
 
 import './styles/akkad.css'
-import CartScape from '../../cartscape/components/index.jsx'
+import CartScape from '../../cartscape/components/index'
 
 const Layout = ({result, conn}) => (
   <div>{ result && result.length === 0 ? <div className='App'>
