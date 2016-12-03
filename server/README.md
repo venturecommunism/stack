@@ -1,4 +1,10 @@
-# Execercises (Elmoin Meetup August 2016)
+To build the server for electron:
+
+mix release.init
+mix release.clean
+MIX_ENV=prod mix release
+
+# Exercises (Elmoin Meetup August 2016)
 
 We'll look at a simple chat application written in Elixir/Phoenix and replace the existing JavaScript-Code with Elm. 
 

@@ -17,7 +17,7 @@ defmodule Mychat.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Mychat, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :extwitter, :gettext]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :oauth, :cowboy, :logger, :extwitter, :gettext]]
   end
 
   # Specifies which paths to compile per environment.
@@ -35,6 +35,7 @@ defmodule Mychat.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:oauth, github: "tim/erlang-oauth"},
-     {:extwitter, github: "parroty/extwitter"}]
+     {:extwitter, github: "parroty/extwitter"},
+     {:distillery, "~> 0.10"}]
   end
 end
