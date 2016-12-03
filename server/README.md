@@ -1,6 +1,7 @@
 To build the server for electron:
 
 mix release.init
+nano rel/config.exs [make sure if it says 'default_environment: :dev' to change it to 'default_environment: :prod']
 mix release.clean
 MIX_ENV=prod mix release
 

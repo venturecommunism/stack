@@ -15,7 +15,7 @@ defmodule Mychat.RoomChannel do
     broadcast! socket, "user:entered", %{user: msg["user"]} 
     push socket, "join", %{status: "connected"} 
 
-    stream = ExTwitter.stream_filter(track: "pheonix", timeout: :infinity) |>
+    stream = ExTwitter.stream_filter(track: "phoenix", timeout: :infinity) |>
       Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)
     Enum.to_list(stream)
 
