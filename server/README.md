@@ -3,6 +3,7 @@ To build the server for electron:
 mix release.init
 nano rel/config.exs [make sure if it says 'default_environment: :dev' to change it to 'default_environment: :prod']
 mix release.clean
+change url in configs/example-config.exs to 'localhost'
 MIX_ENV=prod mix release
 
 # Exercises (Elmoin Meetup August 2016)
