@@ -10,22 +10,35 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600, frame: false})
 
-  // and load the index.html of the app.
-  // mainWindow.loadURL(`file://${__dirname}/index.html`)
-  mainWindow.loadURL(`http://localhost:3000/`)
+  const subex = require('child_process').spawn('~/apps/stack/server/rel/mychat/bin/mychat', ['start'])
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  var rq = require('request-promise')
+  var mainAddr = 'http://localhost:4000'
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
+  var startUp = function(){
+    rq(mainAddr)
+      .then(function(htmlString){
+        console.log('server started!')
+        // TODO: get elixir to start more smoothly
+        const subex = require('child_process').spawn('~/apps/stack/server/rel/mychat/bin/mychat', ['restart'])
+
+        mainWindow = new BrowserWindow({width: 800, height: 600, frame: false})
+        mainWindow.loadURL(`http://localhost:3000/`)
+        mainWindow.on('closed', function () {
+          // put an array if your app supports multi windows
+          mainWindow = null
+        })
+
+      })
+      .catch(function(err){
+        console.log('waiting for the server start...')
+        startUp()
+      })
+  }
+
+  // fire!
+  startUp()
 }
 
 // This method will be called when Electron has finished

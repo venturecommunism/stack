@@ -39,6 +39,7 @@
     "react": "15.2.1",
     "react-dom": "15.2.1",
     "react-komposer": "^2.0.0",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "request-promise": "^4.1.1"
   }
 }
