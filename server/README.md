@@ -1,10 +1,14 @@
 To build the server for electron:
 
-mix release.init
-nano rel/config.exs [make sure if it says 'default_environment: :dev' to change it to 'default_environment: :prod']
-mix release.clean
-change url in configs/example-config.exs to 'localhost'
+sudo apt-get install -y build-essential
+
+change url in configs/example-config.exs to 'localhost'. save as configs/example.exs
+
+set twitter API keys
+
 MIX_ENV=prod mix release
+
+(mix release.clean to try again)
 
 # Exercises (Elmoin Meetup August 2016)
 
