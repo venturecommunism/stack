@@ -1,5 +1,6 @@
 defmodule Mychat.RoomChannel do
   use Mychat.Web, :channel
+  use Export.Python
 
   def join("rooms:lobby", message, socket) do 
     Process.flag(:trap_exit, true) 
@@ -14,6 +15,9 @@ defmodule Mychat.RoomChannel do
   def handle_info({:after_join, msg}, socket) do 
     broadcast! socket, "user:entered", %{user: msg["user"]} 
     push socket, "join", %{status: "connected"} 
+
+    {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
+    IO.puts py |> Python.call("pytest", "upcase", ["hello"])
 
     stream = ExTwitter.stream_filter(track: "phoenix", timeout: :infinity) |>
       Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)

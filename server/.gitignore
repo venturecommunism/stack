@@ -1,4 +1,5 @@
 config/config.exs
+lib/python/*.pyc
 
 # App artifacts
 /_build
