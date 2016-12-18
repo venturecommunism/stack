@@ -11,7 +11,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
 
-  const subex = require('child_process').spawn('~/apps/stack/server/rel/mychat/bin/mychat', ['start'])
+  const subex = require('child_process').spawn('../server/rel/mychat/bin/mychat', ['start'])
 
   var rq = require('request-promise')
   var mainAddr = 'http://localhost:4000'
@@ -20,8 +20,9 @@ function createWindow () {
     rq(mainAddr)
       .then(function(htmlString){
         console.log('server started!')
+
         // TODO: get elixir to start more smoothly
-        const subex = require('child_process').spawn('~/apps/stack/server/rel/mychat/bin/mychat', ['restart'])
+        const subex = require('child_process').spawn('../server/rel/mychat/bin/mychat', ['restart'])
 
         mainWindow = new BrowserWindow({width: 800, height: 600, frame: false})
         mainWindow.loadURL(`http://localhost:3000/`)
