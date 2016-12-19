@@ -61,6 +61,13 @@ export default () => {
  :where [?e "tweet"]
         [?e "tweet" ?tweet]
         [?e "user" ?user]]`
+    },
+    {
+      ':db/id': -5,
+      name: 'Stringified Result',
+      query: `[:find ?user
+ :where [?u "name"]
+        [?u "name" ?user]]`
     }
   ]
 
