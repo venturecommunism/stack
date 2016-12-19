@@ -4,8 +4,8 @@ import DataContainer from '../../core/containers/componentcontainer'
 
 import allUserQuery from '../queries/alluser'
 
-import PlainResultComponent from './plainresult'
-const AllUsersDataContainer = DataContainer(PlainResultComponent)
+import QueryBuilderComponent from './querybuilder'
+const AllUsersDataContainer = DataContainer(QueryBuilderComponent)
 
 const QueryBuilder = () => (
   <div>

@@ -53,6 +53,14 @@ export default () => {
     {
       ':db/id': -3,
       name: 'Jane'
+    },
+    {
+      ':db/id': -4,
+      name: 'Twitter Stream',
+      query: `[:find ?e ?user ?tweet
+ :where [?e "tweet"]
+        [?e "tweet" ?tweet]
+        [?e "user" ?user]]`
     }
   ]
 

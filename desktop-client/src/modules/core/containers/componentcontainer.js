@@ -4,9 +4,10 @@ import datascript from 'datascript'
 const dataComposer = ({ context, query }, onData) => {
   const {conn} = context()
 
-  var find = `?user`
-  var where = `[?u "name"]
-               [?u "name" ?user]`
+  var find = `?e ?user ?query`
+  var where = `[?e "name"]
+               [?e "name" ?user]
+               [?e "query" ?query]`
 
   let new_query = `
   [:find ${find}
