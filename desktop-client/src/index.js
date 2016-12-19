@@ -9,11 +9,13 @@ import coreModule from './modules/core'
 import demoModule from './modules/demo'
 import ec_checkoutModule from './modules/ec_checkout'
 import twitterplus from './modules/twitterplus'
+import querybuilder from './modules/querybuilder'
 
 app.loadModule(coreModule)
 //app.loadModule(cartScapeModule)
 app.loadModule(demoModule)
 app.loadModule(ec_checkoutModule)
 app.loadModule(twitterplus)
+app.loadModule(querybuilder)
 app.init()
 
