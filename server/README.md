@@ -10,6 +10,8 @@ MIX_ENV=prod mix release
 
 (mix release.clean to try again)
 
+cp -r lib/python rel/mychat/lib/
+
 # Exercises (Elmoin Meetup August 2016)
 
 We'll look at a simple chat application written in Elixir/Phoenix and replace the existing JavaScript-Code with Elm. 
