@@ -16,8 +16,13 @@ const dataComposer = ({ context, query, counter }, onData) => {
   }
 
   const qArgs = [query, db]
-  let result = datascript.q(...qArgs)
-  onData(null, {result, counter})
+  try {
+    var result = datascript.q(...qArgs)
+    onData(null, {result, counter})
+  } catch (error) {
+    var error = {error: 'Bad query.'}
+    onData(null, {error, counter})
+  }
 }
 
 export default (component) => composeAll(
