@@ -1,7 +1,7 @@
-import followertree from './followertree'
+import updatequery from './updatequery'
 
 const actions = {
-  followertree,
+  updatequery,
 }
 
 export default actions
