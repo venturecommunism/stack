@@ -17,7 +17,7 @@ defmodule Mychat.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Mychat, []},
-     applications: [:erlport, :export, :phoenix, :phoenix_pubsub, :phoenix_html, :oauth, :cowboy, :logger, :extwitter, :gettext]]
+     applications: [:datomic_gen_server, :erlport, :export, :phoenix, :phoenix_pubsub, :phoenix_html, :oauth, :cowboy, :logger, :extwitter, :gettext]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,6 +38,7 @@ defmodule Mychat.Mixfile do
      {:extwitter, github: "parroty/extwitter"},
      {:distillery, "~> 0.10"},
      {:export, "~> 0.0.7"},
-     {:erlport, github: "hdima/erlport", manager: :make}]
+     {:erlport, github: "hdima/erlport", manager: :make},
+     {:datomic_gen_server, "~> 2.2.5"}]
   end
 end

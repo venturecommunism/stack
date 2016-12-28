@@ -5,6 +5,13 @@ defmodule Mychat.RoomChannel do
   def join("rooms:lobby", message, socket) do 
     Process.flag(:trap_exit, true) 
     send(self, {:after_join, message}) 
+
+    DatomicGenServer.start_link(
+      "datomic:free://localhost:4334/example-db",
+      true,
+      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
+    )
+
     {:ok, socket} 
   end 
   
@@ -15,6 +22,15 @@ defmodule Mychat.RoomChannel do
   def handle_info({:after_join, msg}, socket) do 
     broadcast! socket, "user:entered", %{user: msg["user"]} 
     push socket, "join", %{status: "connected"} 
+
+#    DatomicGenServer.start_link(
+#      "datomic:free://localhost:4334/responsive-db",
+#      true,
+#      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
+#    )
+    query = "[:find ?c ?doc :where [?c :db/doc \"This is an example\"] [?c :db/doc ?doc]]"
+    result = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
+    IO.inspect result
 
     {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
     IO.puts py |> Python.call("pytest", "upcase", ["hello"])

@@ -1,3 +1,4 @@
+rel/mychat/*
 config/config.exs
 lib/python/*.pyc
 
