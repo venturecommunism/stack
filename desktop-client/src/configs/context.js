@@ -24,6 +24,19 @@ const receiveChatMessage = (conn, message) => {
 
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
+    if (message.user == 'system') {
+      console.log("MESSAGE:")
+      var txreport = transact(conn, message.body, {'remoteuser': 'system'})
+      var array_of_arrays = []
+      function somefunc(s) {
+        console.log(s)
+        return [':db/add', s.a, s.v]
+      }
+      message.body.map(s => array_of_arrays.push(somefunc(s)) )
+
+      transact(conn, array_of_arrays, {'remoteuser': message.user})
+    } else
+
     if (message.tweet) {
       transact(conn, [{
         ':db/id': -1,
