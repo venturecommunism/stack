@@ -27,10 +27,15 @@ const receiveChatMessage = (conn, message) => {
     if (message.user == 'system') {
       var array_of_arrays = []
       function org_transaction(s) {
+        console.log(s.tx)
         return [':db/add', s.e, s.a, s.v]
       }
 
-      message.body.map(s => array_of_arrays.push(org_transaction(s)) )
+      function sort_func(a, b) {
+        return a.tx - b.tx
+      }
+
+      message.body.sort(sort_func).map(s => array_of_arrays.push(org_transaction(s)) )
 
       transact(conn, array_of_arrays, {'remoteuser': message.user})
     } else
