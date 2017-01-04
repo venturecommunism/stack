@@ -1,3 +1,55 @@
+defmodule MySublistToMap do
+  def fourth([ head | [] ], map) do
+    nextmap = %{"op" => head}
+    Map.merge(map, nextmap)
+  end
+
+  def third([ head | tail ], map) do
+    nextmap = %{"tx" => head}
+    newmap = Map.merge(map, nextmap)
+    fourth(tail, newmap)
+  end
+
+  def second([ head | tail ], map) do
+    nextmap = %{"v" => head}
+    newmap = Map.merge(map, nextmap)
+    third(tail, newmap)
+  end
+
+  def first([ head | tail ]) do
+#    Enum.map(head, fn x -> IO.inspect x end)
+    newmap = %{"e" => head, "a" => ":db/doc"}
+    second(tail, newmap)
+  end
+end
+
+defmodule MyList do
+  def second([ head | [] ], list) do
+    list ++ [MySublistToMap.first(head)]
+  end
+
+  def second([ head | tail ], list) do
+    newlist = list ++ [MySublistToMap.first(head)]
+    second(tail, newlist)
+  end
+
+  def first([ head | tail ]) do
+    newlist = [MySublistToMap.first(head)]
+    second(tail, newlist)
+  end
+end
+
+defmodule TransactionLogger do
+  def parse(msg) do
+    base_one = byte_size("\#{")
+    <<_::binary-size(base_one), rest::binary>> = msg
+    base_two = byte_size(rest) - byte_size("\}\n")
+    <<inner::binary-size(base_two), _::binary>> = rest
+    final_list = Exdn.to_elixir! "[" <> inner <> "]"
+    IO.inspect MyList.first(final_list)
+  end
+end
+
 defmodule Mychat.RoomChannel do
   use Mychat.Web, :channel
   use Export.Python
@@ -7,7 +59,7 @@ defmodule Mychat.RoomChannel do
     send(self, {:after_join, message}) 
 
     DatomicGenServer.start_link(
-      "datomic:free://localhost:4334/example-db",
+      "datomic:free://localhost:4334/responsive-db",
       true,
       [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
     )
@@ -23,14 +75,10 @@ defmodule Mychat.RoomChannel do
     broadcast! socket, "user:entered", %{user: msg["user"]} 
     push socket, "join", %{status: "connected"} 
 
-#    DatomicGenServer.start_link(
-#      "datomic:free://localhost:4334/responsive-db",
-#      true,
-#      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
-#    )
-    query = "[:find ?c ?doc :where [?c :db/doc \"This is an example\"] [?c :db/doc ?doc]]"
-    result = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
-    IO.inspect result
+    query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
+    {:ok, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
+    TransactionLogger.parse(edn)
+    IO.puts push socket, "new:msg", %{"user" => "system", "body" => TransactionLogger.parse(edn)}
 
     {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
     IO.puts py |> Python.call("pytest", "upcase", ["hello"])
