@@ -25,19 +25,32 @@ const receiveChatMessage = (conn, message) => {
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 
     if (message.user == 'system') {
-      var array_of_arrays = []
       function org_transaction(s) {
-        console.log(s.tx)
         return [':db/add', s.e, s.a, s.v]
       }
 
       function sort_func(a, b) {
-        return a.tx - b.tx
+        return b.tx - a.tx
       }
 
-      message.body.sort(sort_func).map(s => array_of_arrays.push(org_transaction(s)) )
+      var sorted_body = message.body.sort(sort_func)
 
-      transact(conn, array_of_arrays, {'remoteuser': message.user})
+      function recurse_array(whole, part) {
+        if (whole.length < 1 || part.length > 0 && whole[whole.length - 1].tx != part[part.length - 1].tx) {
+          var array_of_arrays = []
+          part.map(s => array_of_arrays.push(org_transaction(s)) )
+          transact(conn, array_of_arrays, {'remoteuser': message.user})
+          if (whole.length < 1) return
+          recurse_array(whole, [])
+        } else {
+          part.push(whole[whole.length - 1])
+          whole.splice(whole.length - 1, 1)
+          recurse_array(whole, part)
+        }
+      }
+
+      recurse_array(sorted_body, [])
+
     } else
 
     if (message.tweet) {
