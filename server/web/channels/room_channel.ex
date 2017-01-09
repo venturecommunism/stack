@@ -77,8 +77,8 @@ defmodule Mychat.RoomChannel do
 
     query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
     {:ok, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
-    TransactionLogger.parse(edn)
-    IO.puts push socket, "new:msg", %{"user" => "system", "body" => TransactionLogger.parse(edn)}
+    grouped_tx = TransactionLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
+    Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
 
     {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
     IO.puts py |> Python.call("pytest", "upcase", ["hello"])
