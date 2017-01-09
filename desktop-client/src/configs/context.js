@@ -35,6 +35,16 @@ const receiveChatMessage = (conn, message) => {
 
       var sorted_body = message.body.sort(sort_func)
 
+      var tx_id = message.body[0].tx
+      var bool_val = true
+      message.body.map( s => s.tx != tx_id ? bool_val = false : '')
+      if (bool_val == true) {
+        var single_tx = []
+        message.body.map(s => single_tx.push(org_transaction(s)) )
+        transact(conn, single_tx, {'remoteuser': message.user})
+        return
+      }
+
       function recurse_array(whole, part) {
         if (whole.length < 1 || part.length > 0 && whole[whole.length - 1].tx != part[part.length - 1].tx) {
           var array_of_arrays = []
