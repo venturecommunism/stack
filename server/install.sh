@@ -18,9 +18,12 @@ rm -r deps/datomic_gen_server/priv/datomic_gen_server_peer
 cp -r ../server-extras/datomic_gen_server_peer deps/datomic_gen_server/priv
 cd deps/datomic_gen_server/priv/datomic_gen_server_peer
 lein uberjar
-# docker ps # to find the container id
-# docker exec -it CONTAINER-ID /bin/bash
-# root@CONTAINER-ID:/datomic-free-0.9.5530# bin/groovysh
-# groovy:000> import datomic.Peer
-# groovy:000> uri = "datomic:free://localhost:4334/responsive-db"
-# groovy:000> Peer.createDatabase(uri)
+echo 'IP Address is:' $IP_ADDR
+echo 'To find the container id do:'
+echo 'docker ps'
+echo 'Then, using the container id do:'
+echo 'docker exec -it CONTAINER-ID /bin/bash'
+echo 'root@CONTAINER-ID:/datomic-free-0.9.5530# bin/groovysh'
+echo 'groovy:000> import datomic.Peer'
+echo 'groovy:000> uri = "datomic:free://localhost:4334/responsive-db"'
+echo 'groovy:000> Peer.createDatabase(uri)'
