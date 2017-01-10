@@ -1,3 +1,5 @@
+run_it () {
+
 sudo apt-get update && sudo apt-get install -y git
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb && sudo apt-get update && sudo apt-get install -y esl-erlang elixir build-essential
 git clone https://github.com/venturecommunism/stack.git
@@ -30,3 +32,6 @@ echo 'exit the groovy shell and datomic container (exit, exit)'
 echo 'cd stack/server'
 echo 'mix phoenix.server'
 echo 'IP Address is:' $IP_ADDR
+}
+
+run_it
