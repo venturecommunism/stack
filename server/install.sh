@@ -10,6 +10,10 @@ wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 mv lein /usr/bin/lein
 chmod a+x /usr/bin/lein
 sudo apt-get install -y openjdk-7-jre-headless
+cd stack/server
+mix local.hex --force
+mix local.rebar --force
+mix deps.get
 rm -r stack/server/deps/datomic_gen_server/priv/datomic_gen_server_peer
 cp -r stack/server-extras/datomic_gen_server_peer stack/server/deps/datomic_gen_server/priv
 echo 'cd stack/server/deps/datomic_gen_server/priv/datomic_gen_server_peer'
@@ -23,8 +27,4 @@ echo 'groovy:000> import datomic.Peer'
 echo 'groovy:000> uri = "datomic:free://localhost:4334/responsive-db"'
 echo 'groovy:000> Peer.createDatabase(uri)'
 echo 'exit the groovy shell and datomic container'
-echo 'cd ../.. # to stack/server'
-echo 'mix local.hex --force'
-echo 'mix local.rebar --force'
-echo 'mix deps.get'
 echo 'IP Address is:' $IP_ADDR
