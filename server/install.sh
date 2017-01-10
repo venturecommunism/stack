@@ -18,6 +18,7 @@ rm -r deps/datomic_gen_server/priv/datomic_gen_server_peer
 cp -r ../server-extras/datomic_gen_server_peer deps/datomic_gen_server/priv
 cd deps/datomic_gen_server/priv/datomic_gen_server_peer
 lein uberjar
+# docker ps # to find the container id
 # docker exec -it CONTAINER-ID /bin/bash
 # root@CONTAINER-ID:/datomic-free-0.9.5530# bin/groovysh
 # groovy:000> import datomic.Peer
