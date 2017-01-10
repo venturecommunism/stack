@@ -8,3 +8,11 @@ sed -i -e "s/xx.xxx.xxx.xxx/$IP_ADDR/g" config/config.exs
 mix local.hex --force
 mix local.rebar --force
 mix deps.get
+sudo apt-get install -y docker.io
+docker run -d -p 4334-4336:4334-4336 --name datomic-free akiel/datomic-free
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+mv lein /usr/bin/lein
+chmod a+x /usr/bin/lein
+sudo apt-get install -y openjdk-7-jre-headless
+cd deps/datomic_gen_server/priv/datomic_gen_server_peer
+lein uberjar
