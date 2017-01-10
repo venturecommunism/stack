@@ -14,5 +14,12 @@ wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 mv lein /usr/bin/lein
 chmod a+x /usr/bin/lein
 sudo apt-get install -y openjdk-7-jre-headless
+rm -r deps/datomic_gen_server/priv/datomic_gen_server_peer
+cp -r ../server-extras/datomic_gen_server_peer deps/datomic_gen_server/priv
 cd deps/datomic_gen_server/priv/datomic_gen_server_peer
 lein uberjar
+# docker exec -it CONTAINER-ID /bin/bash
+# root@CONTAINER-ID:/datomic-free-0.9.5530# bin/groovysh
+# groovy:000> import datomic.Peer
+# groovy:000> uri = "datomic:free://localhost:4334/responsive-db"
+# groovy:000> Peer.createDatabase(uri)
