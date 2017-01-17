@@ -23,7 +23,41 @@ defmodule MySublistToMap do
   end
 end
 
+defmodule MyLogQuerySublistToMap do
+  def fifth([ head | [] ], map) do
+    nextmap = %{"op" => head}
+    Map.merge(map, nextmap)
+  end
+
+  def fourth([ head | tail ], map) do
+    nextmap = %{"tx" => head}
+    newmap = Map.merge(map, nextmap)
+    fifth(tail, newmap)
+  end
+
+  def third([ head | tail ], map) do
+    nextmap = %{"v" => head}
+    newmap = Map.merge(map, nextmap)
+    fourth(tail, newmap)
+  end
+
+  def second([ head | tail ], map) do
+    nextmap = %{"a" => head}
+    newmap = Map.merge(map, nextmap)
+    third(tail, newmap)
+  end
+
+  def first([ head | tail ]) do
+    newmap = %{"e" => head}
+    second(tail, newmap)
+  end
+end
+
 defmodule MyList do
+  def second([], list) do
+    list
+  end
+
   def second([ head | [] ], list) do
     list ++ [MySublistToMap.first(head)]
   end
@@ -37,9 +71,45 @@ defmodule MyList do
     newlist = [MySublistToMap.first(head)]
     second(tail, newlist)
   end
+
 end
 
-defmodule TransactionLogger do
+defmodule MyLogQueryList do
+  def second([], list) do
+    list
+  end
+
+  def second([ head | [] ], list) do
+    list ++ [MyLogQuerySublistToMap.first(head)]
+  end
+
+  def second([ head | tail ], list) do
+    newlist = list ++ [MyLogQuerySublistToMap.first(head)]
+    second(tail, newlist)
+  end
+
+  def first([ head | tail ]) do
+    newlist = [MyLogQuerySublistToMap.first(head)]
+    second(tail, newlist)
+  end
+
+  def chopfirst([ _ | tail ]) do
+    first(tail)
+  end
+end
+
+defmodule TransactionLogQueryLogger do
+  def parse(msg) do
+    base_one = byte_size("\#{")
+    <<_::binary-size(base_one), rest::binary>> = msg
+    base_two = byte_size(rest) - byte_size("\}\n")
+    <<inner::binary-size(base_two), _::binary>> = rest
+    final_list = Exdn.to_elixir! "[" <> inner <> "]"
+    IO.inspect MyLogQueryList.chopfirst(final_list)
+  end
+end
+
+defmodule TransactionRegularQueryLogger do
   def parse(msg) do
     base_one = byte_size("\#{")
     <<_::binary-size(base_one), rest::binary>> = msg
@@ -75,9 +145,15 @@ defmodule Mychat.RoomChannel do
     broadcast! socket, "user:entered", %{user: msg["user"]} 
     push socket, "join", %{status: "connected"} 
 
-    query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
-    {:ok, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
-    grouped_tx = TransactionLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
+#   query = "[:find ?e ?v ?tx ?op :where [62 :db/doc ?v ?tx ?op] [?e :db/doc ?v ?tx ?op]]"
+#    query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
+#    query = "[:find (count ?tx) :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]]]"
+#    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?tx :where [(tx-data ?log ?tx)[[?e ?a ?v _ ?op]]]]"
+#    query = "[:find (count ?tx) ?tx :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]]]"
+    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
+    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
+    IO.inspect edn
+    grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
     Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
 
     {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
