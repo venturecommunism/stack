@@ -39,7 +39,7 @@ defmodule Mychat.Mixfile do
      {:distillery, "~> 0.10"},
      {:export, "~> 0.0.7"},
      {:erlport, github: "hdima/erlport", manager: :make},
-     {:datomic_gen_server, "~> 2.2.5"},
+     {:datomic_gen_server, github: "venturecommunism/datomic_gen_server"},
      {:exdn, "~> 2.1.2"}]
   end
 end

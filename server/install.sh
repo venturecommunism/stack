@@ -16,8 +16,7 @@ cd stack/server
 mix local.hex --force
 mix local.rebar --force
 mix deps.get
-rm -r deps/datomic_gen_server/priv/datomic_gen_server_peer
-cp -r ../server-extras/datomic_gen_server_peer deps/datomic_gen_server/priv
+cp ../server-extras/datomic_gen_server_peer/datomic-free-0.9.5544.jar deps/datomic_gen_server/priv/datomic_gen_server_peer
 cd deps/datomic_gen_server/priv/datomic_gen_server_peer
 lein uberjar
 echo 'Container ID for your running datomic can be found here:'
