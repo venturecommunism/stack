@@ -39,7 +39,7 @@ const receiveChatMessage = (conn, message) => {
       var bool_val = true
       message.body.map( s => s.tx != tx_id ? bool_val = false : '')
       if (bool_val == true) {
-        var single_tx = []
+        var single_tx = [[':db/add', 0, 'app/sync', tx_id]]
         message.body.map(s => single_tx.push(org_transaction(s)) )
         transact(conn, single_tx, {'remoteuser': message.user})
         return
@@ -47,7 +47,8 @@ const receiveChatMessage = (conn, message) => {
 
       function recurse_array(whole, part) {
         if (whole.length < 1 || part.length > 0 && whole[whole.length - 1].tx != part[part.length - 1].tx) {
-          var array_of_arrays = []
+          var tx_id = part[0].tx
+          var array_of_arrays = [[':db/add', 0, 'app/sync', tx_id]]
           part.map(s => array_of_arrays.push(org_transaction(s)) )
           transact(conn, array_of_arrays, {'remoteuser': message.user})
           if (whole.length < 1) return

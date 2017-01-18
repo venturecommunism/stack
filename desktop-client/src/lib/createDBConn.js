@@ -28,6 +28,10 @@ export default () => {
       ':db/cardinality': ':db.cardinality/one',
       ':db/unique': ':db.unique/identity'
     },
+    'app/sync': {
+      ':db/cardinality': ':db.cardinality/one',
+      ':db/unique': ':db.unique/identity'
+    },
   }
 
   /**
