@@ -128,6 +128,10 @@ defmodule MyLogQueryList do
     second(tail, newlist)
   end
 
+  def chopfirst([]) do
+    []
+  end
+
   def chopfirst([ _ | tail ]) do
     first(tail)
   end
@@ -267,6 +271,18 @@ defmodule Mychat.RoomChannel do
   def handle_in("new:msg", msg, socket) do 
     IO.puts "MSG"
     IO.inspect msg
+
+    %{"body" => %{"syncpoint" => latest_tx}} = msg 
+
+    IO.puts latest_tx
+
+    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
+
+    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx, [], [:options, {:client_timeout, 100_000}])
+    IO.puts edn
+    grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
+    Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
+
     broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]} 
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])} 
   end
