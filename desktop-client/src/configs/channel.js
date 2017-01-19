@@ -1,4 +1,5 @@
 import { Socket } from 'phoenix'
+import datascript from 'datascript'
 
 import url from './url'
 
@@ -23,7 +24,7 @@ export default (conn, user, onChat) => {
   // join the channel and listen for admittance
   chan.join()
     .receive('ignore', () => console.log('Access denied.'))
-    .receive('ok', () => console.log('Access granted.'))
+    .receive('ok', () => syncfunc())
     .receive('timeout', () => console.log('Must be a MongoDB.'))
 
   // add some channel-level event handlers
@@ -35,6 +36,13 @@ export default (conn, user, onChat) => {
 
   // you can can listen to multiple types
   chan.on('user:entered', msg => console.log('say hello to ', msg))
+  function syncfunc() {
+    console.log('Access Granted. Syncing...')
+    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
+    var syncpoint = datascript.q(query, datascript.db(conn))
+    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
+    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
+  }
 
   // a function to shut it all down
   const close = () => socket.disconnect()
