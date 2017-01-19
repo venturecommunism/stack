@@ -66,7 +66,6 @@ defmodule MyIndexSublistToMap do
   end
 
   def third([{:tag, :inst, date} | tail], map) do
-    IO.inspect date
     nextmap = %{"v" => date}
     newmap = Map.merge(map, nextmap)
     fourth(tail, newmap)
@@ -161,7 +160,7 @@ defmodule TransactionLogQueryLogger do
     base_two = byte_size(rest) - byte_size("\}\n")
     <<inner::binary-size(base_two), _::binary>> = rest
     final_list = Exdn.to_elixir! "[" <> inner <> "]"
-    IO.inspect MyLogQueryList.chopfirst(final_list)
+    MyLogQueryList.chopfirst(final_list)
   end
 end
 
@@ -172,7 +171,7 @@ defmodule TransactionRegularQueryLogger do
     base_two = byte_size(rest) - byte_size("\}\n")
     <<inner::binary-size(base_two), _::binary>> = rest
     final_list = Exdn.to_elixir! "[" <> inner <> "]"
-    IO.inspect MyList.first(final_list)
+    MyList.first(final_list)
   end
 end
 
@@ -187,8 +186,7 @@ defmodule TransactionIndexLogger do
 #    IO.inspect final_list = Exdn.to_elixir! "[" <> inner <> "]", (fn({:tag, :datom, {:vector, val}}) -> val end), [{:datom, (fn x -> x end)}]
     list = Exdn.to_reversible "(" <> inner <> ")"
     {:list, final_list} = list
-    IO.inspect final_list
-    IO.inspect MyIndexList.first(final_list)
+    MyIndexList.first(final_list)
   end
 end
 
@@ -228,6 +226,31 @@ defmodule Mychat.RoomChannel do
 #              :in $ [[?e ?a ?v ?t ?added]]
 #              :where [?a :db/ident ?aname]]"
 
+#    query = "[:find ?e ?aname ?v ?tx ?op :where [?e ?a ?v ?tx ?op] [?a :db/ident ?aname]]"
+
+#    {:error, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
+#    {:ok, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
+#    IO.puts edn
+#    grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
+#    Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
+
+#    {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
+#    IO.puts py |> Python.call("pytest", "upcase", ["hello"])
+
+#    stream = ExTwitter.stream_filter(track: "phoenix", timeout: :infinity) |>
+#      Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)
+#    Enum.to_list(stream)
+
+    {:noreply, socket} 
+  end 
+  
+  def terminate(_reason, _socket) do 
+    :ok 
+  end
+
+  def handle_in("new:msg", %{"body" => %{"syncpoint" => "none"}, "user" => user}, socket) do
+    IO.puts "MSG FALSE"
+
     query = "[:find ?e ?aname ?v ?tx ?op :where [?e ?a ?v ?tx ?op] [?a :db/ident ?aname]]"
 
 #    {:error, edn} = DatomicGenServer.q(DatomicGenServerLink, query, [], [:options, {:client_timeout, 100_000}])
@@ -236,21 +259,14 @@ defmodule Mychat.RoomChannel do
     grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
     Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
 
-    {:ok, py} = Python.start(python_path: Path.expand("lib/python"))
-    IO.puts py |> Python.call("pytest", "upcase", ["hello"])
-
-    stream = ExTwitter.stream_filter(track: "phoenix", timeout: :infinity) |>
-      Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)
-    Enum.to_list(stream)
-
-    {:noreply, socket} 
-  end 
-  
-  def terminate(_reason, _socket) do 
-    :ok 
+    push socket, "join", %{status: "connected"}
+    broadcast! socket, "new:msg", %{user: user, body: %{"syncpoint": false, "user": user}}
+    {:reply, {:ok, %{msg: %{"syncpoint": false, "user": user}}}, assign(socket, :user, user)}
   end
   
   def handle_in("new:msg", msg, socket) do 
+    IO.puts "MSG"
+    IO.inspect msg
     broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]} 
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])} 
   end
