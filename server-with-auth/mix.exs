@@ -27,7 +27,8 @@ defmodule PhoenixTrello.Mixfile do
       :phoenix_ecto,
       :postgrex,
       :comeonin,
-      :ex_machina
+      :ex_machina,
+      :tzdata
     ]]
   end
 
@@ -53,7 +54,9 @@ defmodule PhoenixTrello.Mixfile do
       {:ex_machina, "~> 1.0.2"},
       {:exactor, "~> 2.2.0"},
       {:hound, "~> 1.0.2"},
-      {:mix_test_watch, "~> 0.2", only: :dev}
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:datomic_gen_server, github: "venturecommunism/datomic_gen_server"},
+      {:exdn, "~> 2.1.2"}
      ]
   end
 
