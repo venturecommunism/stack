@@ -254,6 +254,7 @@ defmodule PhoenixTrello.UserChannel do
 #    query = "[:find (count ?tx) ?tx :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]]]"
 
     query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
+    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 :where [(tx-ids ?log ?t1 nil) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
 
 #    query = ":eavt"
 #    query = "[:find ?e ?aname ?v ?t ?added
@@ -263,7 +264,7 @@ defmodule PhoenixTrello.UserChannel do
 #    query = "[:find ?e ?aname ?v ?tx ?op :where [?e ?a ?v ?tx ?op] [?a :db/ident ?aname]]"
 
 
-    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx, [], [:options, {:client_timeout, 100_000}])
+    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx - 1 , [], [:options, {:client_timeout, 100_000}])
     IO.puts edn
     grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
     Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
