@@ -2,7 +2,7 @@
   "certifi": {:hex, :certifi, "0.7.0", "861a57f3808f7eb0c2d1802afeaae0fa5de813b0df0979153cbafcd853ababaf", [:rebar3], []},
   "cowboy": {:hex, :cowboy, "1.0.4", "a324a8df9f2316c833a470d918aaf73ae894278b8aa6226ce7a9bf699388f878", [:make, :rebar], [{:cowlib, "~> 1.0.0", [hex: :cowlib, optional: false]}, {:ranch, "~> 1.0", [hex: :ranch, optional: false]}]},
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], []},
-  "datomic_gen_server": {:git, "https://github.com/venturecommunism/datomic_gen_server.git", "a5646813d3fcab5f78f9170db87fb32c483efc3b", []},
+  "datomic_gen_server": {:git, "https://github.com/venturecommunism/datomic_gen_server.git", "d35a0c94e435ae963fde886a5e634959fffba4f3", []},
   "distillery": {:hex, :distillery, "0.10.1", "14fccade4b8ab849b99e21c4bdfaa1092dbacdce8afd33f5c369c6e114385b0e", [:mix], []},
   "erldn": {:hex, :erldn, "1.0.5", "9b01d37c438058ae3945c94f96a8cab42d9989adc267ae2ffd7f3f6e4209f313", [:make, :rebar], []},
   "erlport": {:git, "https://github.com/hdima/erlport.git", "246b7722d62b87b48be66d9a871509a537728962", []},
