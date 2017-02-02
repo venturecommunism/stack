@@ -1,11 +1,14 @@
 import React from 'react'
 
-const PlainResultComponent = ({ result }) => (
+const PeersComponent = ({ result }) => (
   <div>
-{console.log("Result", result)}
     <h3>Peers </h3>
-    <div>test: {result[0]}</div>
+    <ul>
+      {result.map((peer) => (
+        <li key={peer}>{`${peer} is a Peer`}</li>
+      ))}
+    </ul>
   </div>
 )
 
-export default PlainResultComponent
+export default PeersComponent

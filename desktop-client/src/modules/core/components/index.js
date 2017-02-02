@@ -9,12 +9,12 @@ import Demo from '../../demo/components/index'
 
 const Root = () => (
   <div>
+    <Demo />
     <QueryBuilder />
     <TwitterPlus />
     {/* <CartScape /> */}
     <Dashboard />
     <Checkout />
-    <Demo />
   </div>
 )
 
