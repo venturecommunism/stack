@@ -4,8 +4,6 @@ import { Socket } from 'phoenix'
 import Channel from './channel'
 import url from './url'
 
-/******* peerjs ********/
-
 import Peer from 'peerjs'
 
 var peer = new Peer({
@@ -84,6 +82,7 @@ const receiveChatMessage = (conn, message) => {
 
     if (message.body.id) {
       peers.push(message.body.id)
+      transact(conn, [[':db/add', -1, ':app/peer', message.body.id]], {'remoteuser': 'system tweets'})
     } else
 
     if (message.tweet) {
@@ -115,13 +114,9 @@ datascript.listen(conn, {channel}, function(report) {
   channel.send(report.tx_data)
 })
 
-peer.on('open', function(id){
-  console.log(id)
-  channel.send({id: id})
-})
-
 export const initContext = () => {
   return {
+    peer: peer,
     peers: peers,
     socket: socket,
     conn: conn,

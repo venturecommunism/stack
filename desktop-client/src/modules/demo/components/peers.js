@@ -1,10 +1,10 @@
 import React from 'react'
 
-const PlainResultComponent = ({ peers }) => (
+const PlainResultComponent = ({ result }) => (
   <div>
-{console.log("Peers", peers)}
+{console.log("Result", result)}
     <h3>Peers </h3>
-    <div>test: {peers[0]}</div>
+    <div>test: {result[0]}</div>
   </div>
 )
 
