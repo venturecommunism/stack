@@ -4,6 +4,52 @@ import { Socket } from 'phoenix'
 import Channel from './channel'
 import url from './url'
 
+/******* peerjs ********/
+
+import Peer from 'peerjs'
+
+var peer = new Peer({
+  // Set API key for cloud server (you don't need this if you're running your
+  // own.
+  key: 'x7fwx2kavpy6tj4i',
+  // Set highest debug level (log everything!).
+  debug: 3,
+  // Set a logging function:
+  logFunction: function() {
+    var copy = Array.prototype.slice.call(arguments).join(' ')
+    console.log(copy)
+  }
+})
+var connectedPeers = {}
+
+// Show this peer's ID.
+
+//peer.on('open', function(id){
+//  console.log(id)
+//})
+
+// Connect
+
+var rtconn = peer.connect('another-peers-id')
+
+console.log(rtconn)
+
+rtconn.on('open', function(){
+  rtconn.send('hi!')
+})
+
+// Receive
+
+peer.on('connection', function(conn) {
+  rtconn.on('data', function(data){
+    // Will print 'hi!'
+    console.log(data)
+  })
+})
+
+/******* peerjs ********/
+
+
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 const getRandomName = () => NAMES[getRandomInt(0, NAMES.length)]
@@ -64,6 +110,10 @@ const receiveChatMessage = (conn, message) => {
 
     } else
 
+    if (message.body.id) {
+      console.log("Got an id:", message.body.id)
+    } else
+
     if (message.tweet) {
       transact(conn, [{
         ':db/id': -1,
@@ -92,6 +142,12 @@ datascript.listen(conn, {channel}, function(report) {
 
   channel.send(report.tx_data)
 })
+
+peer.on('open', function(id){
+  console.log(id)
+  channel.send({id: id})
+})
+
 
 export const initContext = () => {
   return {
