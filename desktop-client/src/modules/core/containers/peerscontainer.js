@@ -13,28 +13,31 @@ const dataComposer = ({ context }, onData) => {
 
   // Handle a connection object.
   function connect(c) {
+      c.on('data', function(data) {
+        console.log("Incoming Data:", data)
+        })
+
     // Handle a chat connection.
     if (c.label === 'chat') {
       console.log(c.peer)
-
       c.on('data', function(data) {
         console.log(data)
         })
       c.on('close', function() {
-        delete connectedPeers[c.peer];
-      });
+        delete connectedPeers[c.peer]
+      })
     } else if (c.label === 'file') {
       c.on('data', function(data) {
         // If we're getting a file, create a URL for it.
         if (data.constructor === ArrayBuffer) {
-          var dataView = new Uint8Array(data);
-          var dataBlob = new Blob([dataView]);
-          var url = window.URL.createObjectURL(dataBlob);
+          var dataView = new Uint8Array(data)
+          var dataBlob = new Blob([dataView])
+          var url = window.URL.createObjectURL(dataBlob)
           console.log(url)
         }
-      });
+      })
     }
-    connectedPeers[c.peer] = 1;
+    connectedPeers[c.peer] = 1
   }
 
   var query = `[:find ?id
@@ -49,6 +52,14 @@ const dataComposer = ({ context }, onData) => {
   const qArgs = [query, db]
   try {
     var result = datascript.q(...qArgs)
+
+    var webrtc = peer.connect(result[0])
+    console.log("Webrtc:", webrtc)
+    webrtc.on('open', function(){
+      // alert("SENT")
+      webrtc.send('hi!')
+    })
+
     onData(null, {result})
   } catch (error) {
     var error = {error: 'Bad query.'}
