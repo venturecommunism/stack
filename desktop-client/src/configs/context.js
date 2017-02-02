@@ -13,42 +13,13 @@ var peer = new Peer({
   // own.
   key: 'x7fwx2kavpy6tj4i',
   // Set highest debug level (log everything!).
-  debug: 3,
+  debug: 0,
   // Set a logging function:
   logFunction: function() {
     var copy = Array.prototype.slice.call(arguments).join(' ')
     console.log(copy)
   }
 })
-var connectedPeers = {}
-
-// Show this peer's ID.
-
-//peer.on('open', function(id){
-//  console.log(id)
-//})
-
-// Connect
-
-var rtconn = peer.connect('another-peers-id')
-
-console.log(rtconn)
-
-rtconn.on('open', function(){
-  rtconn.send('hi!')
-})
-
-// Receive
-
-peer.on('connection', function(conn) {
-  rtconn.on('data', function(data){
-    // Will print 'hi!'
-    console.log(data)
-  })
-})
-
-/******* peerjs ********/
-
 
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
@@ -61,6 +32,7 @@ const conn = createDBConn()
 const transact = datascript.transact
 var log = []
 var meta = []
+var peers = []
 
 // fires when we receive a message
 const receiveChatMessage = (conn, message) => {
@@ -111,7 +83,7 @@ const receiveChatMessage = (conn, message) => {
     } else
 
     if (message.body.id) {
-      console.log("Got an id:", message.body.id)
+      peers.push(message.body.id)
     } else
 
     if (message.tweet) {
@@ -148,9 +120,9 @@ peer.on('open', function(id){
   channel.send({id: id})
 })
 
-
 export const initContext = () => {
   return {
+    peers: peers,
     socket: socket,
     conn: conn,
     channel: channel,
