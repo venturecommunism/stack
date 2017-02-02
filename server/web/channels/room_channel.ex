@@ -200,13 +200,14 @@ defmodule Mychat.RoomChannel do
 
   def join("rooms:lobby", message, socket) do 
     Process.flag(:trap_exit, true) 
-    send(self, {:after_join, message}) 
+#    send(self, {:after_join, message}) 
 
     DatomicGenServer.start_link(
       "datomic:free://localhost:4334/responsive-db",
       true,
       [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
     )
+#    send(self, {:after_join, message})
 
     {:ok, socket} 
   end 
@@ -215,9 +216,9 @@ defmodule Mychat.RoomChannel do
     {:error, %{reason: "can't do this"}} 
   end 
   
-  def handle_info({:after_join, msg}, socket) do 
-    broadcast! socket, "user:entered", %{user: msg["user"]} 
-    push socket, "join", %{status: "connected"} 
+##  def handle_info({:after_join, msg}, socket) do 
+##    broadcast! socket, "user:entered", %{user: msg["user"]} 
+##    push socket, "join", %{status: "connected"} 
 
 #   query = "[:find ?e ?v ?tx ?op :where [62 :db/doc ?v ?tx ?op] [?e :db/doc ?v ?tx ?op]]"
 #    query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
@@ -245,8 +246,8 @@ defmodule Mychat.RoomChannel do
 #      Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)
 #    Enum.to_list(stream)
 
-    {:noreply, socket} 
-  end 
+##    {:noreply, socket} 
+##  end 
   
   def terminate(_reason, _socket) do 
     :ok 
