@@ -200,13 +200,14 @@ defmodule Mychat.RoomChannel do
 
   def join("rooms:lobby", message, socket) do 
     Process.flag(:trap_exit, true) 
-    send(self, {:after_join, message}) 
+#    send(self, {:after_join, message}) 
 
     DatomicGenServer.start_link(
       "datomic:free://localhost:4334/responsive-db",
       true,
       [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
     )
+#    send(self, {:after_join, message})
 
     {:ok, socket} 
   end 
@@ -215,9 +216,9 @@ defmodule Mychat.RoomChannel do
     {:error, %{reason: "can't do this"}} 
   end 
   
-  def handle_info({:after_join, msg}, socket) do 
-    broadcast! socket, "user:entered", %{user: msg["user"]} 
-    push socket, "join", %{status: "connected"} 
+##  def handle_info({:after_join, msg}, socket) do 
+##    broadcast! socket, "user:entered", %{user: msg["user"]} 
+##    push socket, "join", %{status: "connected"} 
 
 #   query = "[:find ?e ?v ?tx ?op :where [62 :db/doc ?v ?tx ?op] [?e :db/doc ?v ?tx ?op]]"
 #    query = "[:find ?e ?v ?tx ?op :where [?e :db/doc ?v ?tx ?op]]"
@@ -245,8 +246,8 @@ defmodule Mychat.RoomChannel do
 #      Stream.map(fn(x) -> IO.puts push socket, "new:msg", %{"user" => x.user.screen_name, "tweet" => x.text} end)
 #    Enum.to_list(stream)
 
-    {:noreply, socket} 
-  end 
+##    {:noreply, socket} 
+##  end 
   
   def terminate(_reason, _socket) do 
     :ok 
@@ -276,9 +277,10 @@ defmodule Mychat.RoomChannel do
 
     IO.puts latest_tx
 
-    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 ?t2 :where [(tx-ids ?log ?t1 ?t2) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
+    query = "[:find ?e ?a ?v ?tx ?op :in ?log ?t1 :where [(tx-ids ?log ?t1 nil) [?tx ...]] [(tx-data ?log ?tx) [[?e ?a ?v _ ?op]]]]"
 
-    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx, [], [:options, {:client_timeout, 100_000}])
+    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx - 1 , [], [:options, {:client_timeout, 100_000}])
+
     IO.puts edn
     grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
     Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
