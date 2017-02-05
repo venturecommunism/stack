@@ -111,7 +111,23 @@ datascript.listen(conn, {channel}, function(report) {
 
   if (report.tx_meta && report.tx_meta.remoteuser) return
 
-  channel.send(report.tx_data)
+  var query = `[:find ?id
+                :where [?e ":app/peer" ?id]]`
+
+  var db = datascript.db(conn)
+
+  const qArgs = [query, db]
+  var result = datascript.q(...qArgs)
+  console.log('RESULT', result)
+
+  result.map( s => {
+    var webrtc = peer.connect(s)
+    webrtc.on('open', function(){
+      webrtc.send(JSON.stringify(report.tx_data))
+    })
+  })
+
+  // channel.send(report.tx_data)
 })
 
 export const initContext = () => {
