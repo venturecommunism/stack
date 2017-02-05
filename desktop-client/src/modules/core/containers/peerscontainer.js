@@ -20,9 +20,6 @@ const dataComposer = ({ context }, onData) => {
     // Handle a chat connection.
     if (c.label === 'chat') {
       console.log(c.peer)
-      c.on('data', function(data) {
-        console.log(data)
-        })
       c.on('close', function() {
         delete connectedPeers[c.peer]
       })
@@ -54,13 +51,9 @@ const dataComposer = ({ context }, onData) => {
     var result = datascript.q(...qArgs)
 
     var webrtc = peer.connect(result[0])
-    console.log("Webrtc:", webrtc)
     webrtc.on('open', function(){
-      // alert("SENT")
-      webrtc.send('hi!')
+      onData(null, {result, webrtc})
     })
-
-    onData(null, {result})
   } catch (error) {
     var error = {error: 'Bad query.'}
     onData(null, {error})

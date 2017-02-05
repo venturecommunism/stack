@@ -14,7 +14,7 @@ import FollowerTreeComponent from './followertree'
 import allUserQuery from '../queries/alluser'
 
 import PeersComponent from './peers'
-const AllPeersContainer = PeersContainer(PeersComponent)
+const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
