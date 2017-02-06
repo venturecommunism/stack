@@ -130,6 +130,24 @@ datascript.listen(conn, {channel}, function(report) {
   // channel.send(report.tx_data)
 })
 
+peer.on('connection', connect)
+
+function connect(c) {
+  c.on('data', function(data) {
+    const tx = {}
+
+    console.log(c)
+    console.log(data)
+
+    JSON.parse(data).map(s => tx[s.a] = s.v)
+    console.log('c', c)
+    transact(conn, [{
+      ':db/id': -1,
+      ...tx
+    }], {'remoteuser': c.peer})
+  })
+}
+
 export const initContext = () => {
   return {
     peer: peer,
