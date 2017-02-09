@@ -84,7 +84,7 @@ peer.on('call', (call) => {
 
     var webrtc = peer.connect(result[0])
 //    webrtc.on('open', function(){
-      onData(null, {result, webrtc, conn})
+      onData(null, {result, webrtc, conn, Peer: peer})
 //    })
   } catch (error) {
     var error = {error: 'Bad query.'}

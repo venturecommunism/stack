@@ -40,7 +40,7 @@ var peer = new Peer({
     this.state =  {
       hash: id,
 //      peer: new Peer(id, {key: '45ebf7pheel8fr'})
-      peer: webrtc,
+      peer: props.Peer,
       peerid: result[0],
     };
   }
@@ -67,11 +67,13 @@ console.log("matching stuff")
   }
 
   getMedia(options, success, error) {
+console.log('getmedia')
     navigator.getUserMedia(options, success, error);
   }
 
   onReceiveCall(call) {
-    this.getMedia({audio: true, video: true}, (stream) => {
+console.log('about to answer..')
+    this.getMedia({audio: true, video: false}, (stream) => {
       console.log("answering..");
       call.answer(stream)
     }, (err) => console.log(err));
@@ -83,19 +85,22 @@ console.log("matching stuff")
   }
 
   onReceiveStream(stream) {
+console.log('yow')
     var video = document.querySelector('.video-call');
     video.src = window.URL.createObjectURL(stream);
+console.log(video.src)
   }
 
   prepareSelfVideo() {
-    this.getMedia({audio: false, video: true}, (stream) => {
+console.log('preparing self video')
+    this.getMedia({audio: true, video: false}, (stream) => {
         var video = document.querySelector('.video-self');
         video.src = window.URL.createObjectURL(stream);
       }, (err) => console.log(err));
   }
 
   call(id) {
-    this.getMedia({audio: true, video: true}, (stream) => {
+    this.getMedia({audio: true, video: false}, (stream) => {
         var call = this.state.peer.call(id, stream);
         console.log("calling..");
         call.on('stream', this.onReceiveStream);
@@ -103,6 +108,7 @@ console.log("matching stuff")
   }
 
   componentWillUnmount() {
+console.log('will unmount')
     this.state.peer.disconnect();
   }
 
