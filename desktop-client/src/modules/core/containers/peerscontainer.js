@@ -11,6 +11,38 @@ const dataComposer = ({ context }, onData) => {
 
   var connectedPeers = {}
 
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+
+peer.on('call', (call) => {
+
+    if (navigator.mediaDevices) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', (remoteStream) => {
+                // Show stream in some video/canvas element.
+                video.src = window.URL.createObjectURL(remoteStream);
+            })
+        })
+            .catch((err) => {
+                console.log('Failed to get local stream', err);
+            })
+
+
+    } else {
+        navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', (remoteStream) => {
+                // Show stream in some video/canvas element.
+                video.src = window.URL.createObjectURL(remoteStream);
+            });
+        }, (err) => {
+            console.log('Failed to get local stream', err);
+        });
+    }
+
+
+})
+
   // Handle a connection object.
   function connect(c) {
       c.on('data', function(data) {
@@ -51,9 +83,9 @@ const dataComposer = ({ context }, onData) => {
     var result = datascript.q(...qArgs)
 
     var webrtc = peer.connect(result[0])
-    webrtc.on('open', function(){
-      onData(null, {result, webrtc})
-    })
+//    webrtc.on('open', function(){
+      onData(null, {result, webrtc, conn})
+//    })
   } catch (error) {
     var error = {error: 'Bad query.'}
     onData(null, {error})
