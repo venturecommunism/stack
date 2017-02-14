@@ -13,8 +13,8 @@ import FollowerTreeComponent from './followertree'
 
 import allUserQuery from '../queries/alluser'
 
-import AudioVideoComponent from './audiovideo'
-const AudioVideoContainer = PeersContainer(ActionsMapper('peers', AudioVideoComponent))
+// import AudioVideoComponent from './audiovideo'
+// const AudioVideoContainer = PeersContainer(ActionsMapper('peers', AudioVideoComponent))
 
 import PeersComponent from './peers'
 const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
@@ -33,7 +33,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-    <AudioVideoContainer />
+    {/* <AudioVideoContainer /> */}
     <AllPeersContainer />
     <AllUsersDataContainer query={allUserQuery} />
     <JWT />

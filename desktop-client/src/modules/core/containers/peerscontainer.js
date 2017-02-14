@@ -11,6 +11,7 @@ const dataComposer = ({ context }, onData) => {
 
   var connectedPeers = {}
 
+/*
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
 
 peer.on('call', (call) => {
@@ -40,8 +41,9 @@ peer.on('call', (call) => {
         });
     }
 
-
 })
+
+*/
 
   // Handle a connection object.
   function connect(c) {

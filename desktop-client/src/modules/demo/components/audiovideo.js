@@ -46,11 +46,11 @@ var peer = new Peer({
   }
 
   componentDidMount() {
-    navigator.getUserMedia = (
+/*    navigator.getUserMedia = (
       navigator.getUserMedia || navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia || navigator.msGetUserMedia
     );
-
+*/
     this.state.peer.on('open', (id) => console.log('Peer ID: ' + id));
     this.state.peer.on('call', this.onReceiveCall.bind(this));
     this.prepareSelfVideo();
@@ -66,11 +66,12 @@ console.log("matching stuff")
 //    }
   }
 
+/*
   getMedia(options, success, error) {
 console.log('getmedia')
     navigator.getUserMedia(options, success, error);
   }
-
+*/
   onReceiveCall(call) {
 console.log('about to answer..')
     this.getMedia({audio: true, video: false}, (stream) => {
