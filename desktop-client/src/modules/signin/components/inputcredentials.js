@@ -17,7 +17,7 @@ var Editor = React.createClass({
     const {result, actions} = this.props
     return (
       <form id="noter-save-form">
-        <textarea rows="8" cols="45" id="noter-text-area" name="textarea" value={this.state.value} onChange={this.handleChange}></textarea>
+        <textarea rows="20" cols="45" id="noter-text-area" name="textarea" value={this.state.value} onChange={this.handleChange}></textarea>
       </form>
     )
   }
