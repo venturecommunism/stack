@@ -7,7 +7,8 @@ var Editor = React.createClass({
     }
   },
   handleChange: function(event) {
-    const {inputcredentials} = this.props.actions
+console.log(this.props.actions)
+    const {inputcredentials} = this.props.actions.inputcredentials
     const {result} = this.props
 
     this.setState({value: event.target.value})

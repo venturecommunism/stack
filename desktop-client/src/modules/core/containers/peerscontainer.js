@@ -1,7 +1,10 @@
 import { useDeps, compose, composeAll } from 'mantra-core'
 import datascript from 'datascript'
 
-const dataComposer = ({ context }, onData) => {
+const dataComposer = ({ context, actions }, onData) => {
+console.log('CONTEXT', Object.keys(context()))
+console.log('ACTIONS', actions())
+
   const {peer, channel, conn} = context()
 
   peer.on('connection', connect)
@@ -86,7 +89,7 @@ peer.on('call', (call) => {
 
     var webrtc = peer.connect(result[0])
 //    webrtc.on('open', function(){
-      onData(null, {result, webrtc, conn, Peer: peer})
+      onData(null, {result, webrtc, conn, Peer: peer, actions: actions()})
 //    })
   } catch (error) {
     var error = {error: 'Bad query.'}
