@@ -3,7 +3,7 @@ import React from 'react'
 var Editor = React.createClass({
   getInitialState: function() {
     return {
-      value: this.props.result[0][2]
+      value: ''
     }
   },
   handleChange: function(event) {

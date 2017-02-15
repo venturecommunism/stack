@@ -6,7 +6,7 @@ import ActionsMapper from '../../core/containers/actionsmapper'
 import jwtQuery from '../queries/storedjwt'
 
 import SignInComponent from './signin'
-const SignInDataContainer = DataContainer(ActionsMapper('updatequery', SignInComponent))
+const SignInDataContainer = DataContainer(ActionsMapper('inputcredentials', SignInComponent))
 
 const SignIn = () => (
   <div>
