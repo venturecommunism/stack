@@ -4,7 +4,7 @@ import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import JWT from '../../clientjwt/components/jwt'
+// import JWT from '../../clientjwt/components/jwt'
 // import ImportUI from '../../jsonld/components/index.jsx'
 
 import AllUsersComponent from './allusers'
@@ -36,7 +36,7 @@ const Demo = () => (
     {/* <AudioVideoContainer /> */}
     <AllPeersContainer />
     <AllUsersDataContainer query={allUserQuery} />
-    <JWT />
+    {/* <JWT /> */}
     {/* <ImportUI /> */}
     <AllUsersFromIndex />
     <AllUserEdges />

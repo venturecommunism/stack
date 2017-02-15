@@ -2,8 +2,8 @@ import { useDeps, compose, composeAll } from 'mantra-core'
 import datascript from 'datascript'
 
 const dataComposer = ({ context, actions }, onData) => {
-console.log('CONTEXT', Object.keys(context()))
-console.log('ACTIONS', actions())
+  // console.log('CONTEXT', Object.keys(context()))
+  // console.log('ACTIONS', actions())
 
   const {peer, channel, conn} = context()
 
