@@ -3,15 +3,15 @@ import React from 'react'
 import DataContainer from '../../core/containers/componentcontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import allUserQuery from '../queries/alluser'
+import jwtQuery from '../queries/storedjwt'
 
-import QueryBuilderComponent from './querybuilder'
-const AllUsersDataContainer = DataContainer(ActionsMapper('updatequery', QueryBuilderComponent))
+import SignInComponent from './signin'
+const SignInDataContainer = DataContainer(ActionsMapper('updatequery', SignInComponent))
 
-const QueryBuilder = () => (
+const SignIn = () => (
   <div>
-    <AllUsersDataContainer query={allUserQuery} />
+    <SignInDataContainer query={jwtQuery} />
   </div>
 )
 
-export default QueryBuilder
+export default SignIn
