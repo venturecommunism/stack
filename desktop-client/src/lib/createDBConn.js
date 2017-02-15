@@ -32,6 +32,9 @@ export default () => {
       ':db/cardinality': ':db.cardinality/one',
       ':db/unique': ':db.unique/identity'
     },
+    'app/secrets': {
+      ':db/cardinality': ':db.cardinality/many'
+    },
     'app/sync': {
       ':db/cardinality': ':db.cardinality/one',
       ':db/unique': ':db.unique/identity'
@@ -76,6 +79,11 @@ export default () => {
       query: `[:find ?user
  :where [?u "name"]
         [?u "name" ?user]]`
+    },
+    {
+      ':db/id': -5,
+      name: 'Secrets',
+      'app/secrets': ['app/secrets', 'app/credentials']
     }
   ]
 

@@ -113,7 +113,7 @@ datascript.listen(conn, {channel}, function(report) {
   log.push(report.tx_data)
   meta.push(report.tx_meta)
 
-  if (report.tx_meta && report.tx_meta.remoteuser) return
+  if (report.tx_meta && report.tx_meta.remoteuser || report.tx_meta.secrets) return
 
   var query = `[:find ?id
                 :where [?e ":app/peer" ?id]]`

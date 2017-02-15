@@ -13,6 +13,6 @@ export default {
       console.log('verified')
     }
 
-    transact(conn, [{':db/add': -1, 'name': 'Credentials', 'app/credentials': ref }])
+    transact(conn, [{':db/add': -1, 'name': 'Credentials', 'app/credentials': ref }], {'secrets': 'true'})
   },
 }
