@@ -10,7 +10,7 @@ const QueryBuilderComponent = ({ result, actions }) => (
   <div>
     <UpdateQuery result={result} actions={actions} />
     {result.map( s =>
-      <div>
+      <div key={s[0]}>
       <h3>{s[0]}: {s[1]}</h3>
       <GenericComponentContainer query={s[2]} />
       </div>

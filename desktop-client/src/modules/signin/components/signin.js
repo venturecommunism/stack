@@ -2,17 +2,17 @@ import React from 'react'
 
 import DataContainer from '../../core/containers/datacontainer'
 import GenericComponent from './genericcomponent'
-import UpdateQuery from './updatequery'
+import InputCredentials from './inputcredentials'
 
 const GenericComponentContainer = DataContainer(GenericComponent)
 
 const QueryBuilderComponent = ({ result, actions }) => (
   <div>
-    <UpdateQuery result={result} actions={actions} />
+    <InputCredentials result={result} actions={actions} />
     {result.map( s =>
-      <div>
-      <h3>{s[0]}: {s[1]}</h3>
-      <GenericComponentContainer query={s[2]} />
+      <div key={s[0]}>
+        <h3>{s[0]}: {s[1]}</h3>
+        <GenericComponentContainer query={s[2]} />
       </div>
     )}
   </div>

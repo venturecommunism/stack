@@ -1,7 +1,7 @@
-import updatequery from './updatequery'
+import inputcredentials from './inputcredentials'
 
 const actions = {
-  updatequery,
+  inputcredentials,
 }
 
 export default actions

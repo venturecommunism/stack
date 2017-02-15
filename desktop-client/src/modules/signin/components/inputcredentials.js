@@ -7,11 +7,11 @@ var Editor = React.createClass({
     }
   },
   handleChange: function(event) {
-    const {updatequery} = this.props.actions
+    const {inputcredentials} = this.props.actions
     const {result} = this.props
 
     this.setState({value: event.target.value})
-    updatequery(event.target.value, result)
+    inputcredentials(event.target.value, result)
   },
   render: function() {
     const {result, actions} = this.props
