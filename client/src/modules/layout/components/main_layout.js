@@ -9,10 +9,10 @@ import Feed from '../../core/components/index'
 import fullScreenQuery from '../queries/fullscreen'
 
 import './styles/akkad.css'
-import CartScape from '../../cartscape/components/index.jsx'
+//import CartScape from '../../cartscape/components/index.jsx'
 
 const Layout = ({result, conn}) => (
-  <div>{ result && result.length === 0 ? <div className='App'>
+  <div><div className='App'>
     <div className='App-header'>
       <img src={logo} className='App-logo' alt='logo' />
       <h2>Under Construction</h2>
@@ -22,7 +22,7 @@ const Layout = ({result, conn}) => (
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
     <Feed conn={conn} />
-  </div> : <CartScape />}</div>
+  </div></div>
 )
 
 export default fullScreenQuery(Layout)
