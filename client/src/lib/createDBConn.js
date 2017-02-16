@@ -28,6 +28,17 @@ export default () => {
       ':db/cardinality': ':db.cardinality/one',
       ':db/unique': ':db.unique/identity'
     },
+    'app/credentials': {
+      ':db/cardinality': ':db.cardinality/one',
+      ':db/unique': ':db.unique/identity'
+    },
+    'app/secrets': {
+      ':db/cardinality': ':db.cardinality/many'
+    },
+    'app/sync': {
+      ':db/cardinality': ':db.cardinality/one',
+      ':db/unique': ':db.unique/identity'
+    },
   }
 
   /**
@@ -53,6 +64,26 @@ export default () => {
     {
       ':db/id': -3,
       name: 'Jane'
+    },
+    {
+      ':db/id': -4,
+      name: 'Twitter Stream',
+      query: `[:find ?e ?user ?tweet
+ :where [?e "tweet"]
+        [?e "tweet" ?tweet]
+        [?e "user" ?user]]`
+    },
+    {
+      ':db/id': -5,
+      name: 'Stringified Result',
+      query: `[:find ?user
+ :where [?u "name"]
+        [?u "name" ?user]]`
+    },
+    {
+      ':db/id': -5,
+      name: 'Secrets',
+      'app/secrets': ['app/secrets', 'app/credentials']
     }
   ]
 
