@@ -4,7 +4,7 @@ import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
-import JWT from '../../clientjwt/components/jwt.jsx'
+// import JWT from '../../clientjwt/components/jwt'
 import ImportUI from '../../jsonld/components/index.jsx'
 
 import AllUsersComponent from './allusers'
@@ -13,8 +13,11 @@ import FollowerTreeComponent from './followertree'
 
 import allUserQuery from '../queries/alluser'
 
-import AudioVideoComponent from './audiovideo'
-const AudioVideoContainer = PeersContainer(ActionsMapper('peers', AudioVideoComponent))
+// import AudioVideoComponent from './audiovideo'
+// const AudioVideoContainer = PeersContainer(ActionsMapper('peers', AudioVideoComponent))
+
+import PeersComponent from './peers'
+const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
@@ -30,9 +33,10 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-    <AudioVideoContainer />
+    {/* <AudioVideoContainer /> */}
+    <AllPeersContainer />
     <AllUsersDataContainer query={allUserQuery} />
-    <JWT />
+    {/* <JWT /> */}
     <ImportUI />
     <AllUsersFromIndex />
     <AllUserEdges />
