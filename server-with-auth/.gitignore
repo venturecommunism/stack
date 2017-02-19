@@ -1,4 +1,5 @@
 config/config.exs
+priv/keys
 
 # App artifacts
 /_build
