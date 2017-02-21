@@ -6,6 +6,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
 
+console.log('PROPS', props)
 
 console.log(Object.keys(props))
 console.log(props.result)

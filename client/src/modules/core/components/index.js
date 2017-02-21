@@ -7,6 +7,7 @@ import '../../layout/components/styles/index.css'
 import credentialsQuery from '../../layout/queries/credentials'
 import CredentialsContainer from '../../clientjwt/components/index'
 
+import Demo from '../../demo/components/index'
 import QueryBuilder from '../../querybuilder/components/index'
 import TwitterPlus from '../../twitterplus/components/index'
 //import CartScape from '../../cartscape/components/index'
@@ -23,6 +24,7 @@ const Root = ({result}) => (
     <p className='App-intro'>
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
+    <Demo />
     <QueryBuilder />
     <TwitterPlus />
     {/* <CartScape /> */}

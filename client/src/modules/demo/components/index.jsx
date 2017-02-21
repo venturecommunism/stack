@@ -1,5 +1,7 @@
 import React from 'react'
 
+import SimpleDataContainer from '../../core/containers/simplertcontainer'
+// import AudioVideoContainer from '../../core/containers/audiovideocontainer'
 import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
@@ -14,13 +16,15 @@ import FollowerTreeComponent from './followertree'
 import allUserQuery from '../queries/alluser'
 
 // import AudioVideoComponent from './audiovideo'
-// const AudioVideoContainer = PeersContainer(ActionsMapper('peers', AudioVideoComponent))
+// const AudioVideo = AudioVideoContainer(ActionsMapper('peers', AudioVideoComponent))
 
 import PeersComponent from './peers'
 const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
+
+const SimpleData = SimpleDataContainer(PlainResultComponent)
 
 import allUsersFromIndex from '../queries/allusersfromindex'
 const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
@@ -33,7 +37,9 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-    {/* <AudioVideoContainer /> */}
+    <SimpleData />
+{ console.log('index.jsx') }
+    {/* <AudioVideo /> */}
     <AllPeersContainer />
     <AllUsersDataContainer query={allUserQuery} />
     <JWT />
