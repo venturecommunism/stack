@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SimpleDataContainer from '../../core/containers/simplertcontainer'
+import RnDataContainer from '../../core/containers/rncontainer'
 // import AudioVideoContainer from '../../core/containers/audiovideocontainer'
 import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
@@ -24,7 +24,7 @@ const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 
-const SimpleData = SimpleDataContainer(PlainResultComponent)
+const RnData = RnDataContainer(PlainResultComponent)
 
 import allUsersFromIndex from '../queries/allusersfromindex'
 const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
@@ -37,7 +37,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-    <SimpleData />
+    <RnData />
 { console.log('index.jsx') }
     {/* <AudioVideo /> */}
     <AllPeersContainer />
