@@ -9,7 +9,7 @@ export default (conn, user, onChat) => {
   // construct a socket
 //  const socket = new Socket(url)
 
-  const socket = new Socket(url, { params: {token: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0ODc3NzIxNTMsImlhdCI6MTQ4NzUxMjk1MywiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6ImY4ZjA2OGE1LTg1ZGMtNDZiNC1iMWYzLTgzNWUwMjMwMDhkNSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.f4zywKdUYi_xpyhmBWqpKXXdPIC8Bnd7rc0VOX0gK9ykCb7zdKVPsLSSE9zJ-6GIa1HBCYkcraKTFd6nF2h27Q"} } )
+  const socket = new Socket(url, { params: {token: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0ODgwNDAzNjIsImlhdCI6MTQ4Nzc4MTE2MiwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6IjYwZGNjOWU1LWQyM2ItNDUzYi1iNTY5LWI3ZjA4NGFmNTc4YyIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.2iSXb2WdQWG7OLbYX9qBGADNIbMQ8aiVOTi-5m7waWjW5K-wYBn82rGNZsrJJ0bPBvSYBe8VYLQ0V0wGBIJh1A"} } )
 
   // configure the event handlers
   socket.onOpen(event => console.log('Connected.'))
