@@ -11,6 +11,7 @@ import ec_checkoutModule from './modules/ec_checkout'
 import twitterplus from './modules/twitterplus'
 import querybuilder from './modules/querybuilder'
 import signin from './modules/signin'
+import webrtcvideo from './modules/webrtcvideo'
 
 app.loadModule(coreModule)
 //app.loadModule(cartScapeModule)
@@ -19,5 +20,6 @@ app.loadModule(ec_checkoutModule)
 app.loadModule(twitterplus)
 app.loadModule(querybuilder)
 app.loadModule(signin)
+app.loadModule(webrtcvideo)
 app.init()
 
