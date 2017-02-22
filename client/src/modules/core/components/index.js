@@ -4,6 +4,8 @@ import logo from '../../layout/components/images/fivepetal.svg'
 import '../../layout/components/styles/app.css'
 import '../../layout/components/styles/index.css'
 
+import '../../webrtcvideo/components/index'
+
 import credentialsQuery from '../../layout/queries/credentials'
 import CredentialsContainer from '../../clientjwt/components/index'
 
@@ -15,6 +17,8 @@ import Dashboard from '../../ec_dashboard/components/dashboard'
 import Checkout from '../../ec_checkout/components/index'
 import JWT from '../../clientjwt/components/jwt'
 
+import WebRTCVideo from '../../webrtcvideo/components/index'
+
 const Root = ({result}) => (
   <div>{ result && result.length !== 0 ? <div>
     <div className='App-header'>
@@ -25,6 +29,7 @@ const Root = ({result}) => (
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
     <Demo />
+    <WebRTCVideo />
     <QueryBuilder />
     <TwitterPlus />
     {/* <CartScape /> */}

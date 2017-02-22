@@ -1,7 +1,7 @@
 import React from 'react'
 import MediaContainer from './MediaContainer'
 import CommunicationContainer from './CommunicationContainer'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import store from '../store'
 import io from 'socket.io-client'
 
@@ -15,7 +15,7 @@ class RoomPage extends React.Component {
   }).catch(e => alert('getUserMedia() error: ' + e.name))
   socket = io.connect()
   componentWillMount() {
-    this.props.addRoom();
+//    this.props.addRoom();
   }
   render(){
   	const href = window.location.href;
@@ -27,10 +27,12 @@ class RoomPage extends React.Component {
     );
   }
 }
+/*
 const mapStateToProps = store => ({rooms: new Set([...store.rooms])});
 const mapDispatchToProps = (dispatch, ownProps) => (
     {
       addRoom: () => store.dispatch({type: 'ADD_ROOM', room: ownProps.params.room})
     }
   );
-export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);
+*/
+export default (RoomPage);

@@ -3,7 +3,7 @@ import Remarkable from 'remarkable'
 import MediaContainer from './MediaContainer'
 import Communication from '../components/Communication'
 import store from '../store'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 class CommunicationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -98,4 +98,4 @@ const mapDispatchToProps = dispatch => (
       setAudio: boo => store.dispatch({type: 'SET_AUDIO', audio: boo})
     }
   );
-export default connect(mapStateToProps, mapDispatchToProps)(CommunicationContainer);
+export default (CommunicationContainer);

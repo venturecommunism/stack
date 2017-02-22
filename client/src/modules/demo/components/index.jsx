@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RnDataContainer from '../../core/containers/rncontainer'
+// import RnDataContainer from '../../core/containers/rncontainer'
 // import AudioVideoContainer from '../../core/containers/audiovideocontainer'
 import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
@@ -24,7 +24,7 @@ const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 
-const RnData = RnDataContainer(PlainResultComponent)
+// const RnData = RnDataContainer(PlainResultComponent)
 
 import allUsersFromIndex from '../queries/allusersfromindex'
 const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
@@ -41,7 +41,7 @@ const Demo = () => (
     {/* <AudioVideo /> */}
     <AllPeersContainer />
     <AllUsersDataContainer query={allUserQuery} />
-    <RnData />
+    {/* <RnData /> */}
     <JWT />
     <ImportUI />
     <AllUsersFromIndex />
