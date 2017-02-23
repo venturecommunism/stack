@@ -38,7 +38,7 @@ class VideoFeed extends Component {
   componentWillMount() {
     container = this;
     // establish socket connection
-    // socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
     // socket = io('https://iiiiii.herokuapp.com', {transports: ['websocket']}); }
   }
 
@@ -77,9 +77,9 @@ class VideoFeed extends Component {
 
     // auto join room
     // console.log("CHANGE BACK TO: this.props.moveId")
-    console.log('this is the moveId', this.props.moveId);
-    this.join(this.props.moveId);
-    // this.join(room);
+    // console.log('this is the moveId', this.props.moveId);
+    // this.join(this.props.moveId);
+    this.join(room);
   }
 
   componentWillUnmount() {
@@ -179,6 +179,7 @@ class VideoFeed extends Component {
 
 	    dataChannel.onopen = function () {
 	      console.log('dataChannel.onopen');
+dataChannel.send('test')
 	    };
 
 	    dataChannel.onclose = function () {
@@ -258,7 +259,7 @@ class VideoFeed extends Component {
   	        	height={ (3/4) * width * .10 }
   	        	style={{position: 'absolute', width: '30%', marginRight: '70%'}}/>
   	 
-  	        <ReactPlayer playing volume={0}
+  	        <ReactPlayer playing volume={5}
   	        	ref='remoteVideo' 
   	        	url={this.state.remoteStreamURL} 
   	        	width={(width - 180) * .392 } 
