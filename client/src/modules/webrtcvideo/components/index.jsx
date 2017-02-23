@@ -259,7 +259,7 @@ dataChannel.send('test')
   	        	height={ (3/4) * width * .10 }
   	        	style={{position: 'absolute', width: '30%', marginRight: '70%'}}/>
   	 
-  	        <ReactPlayer playing volume={5}
+  	        <ReactPlayer playing volume={1}
   	        	ref='remoteVideo' 
   	        	url={this.state.remoteStreamURL} 
   	        	width={(width - 180) * .392 } 
