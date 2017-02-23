@@ -7,6 +7,7 @@ import coreModule from './modules/core';
 import demoModule from './modules/demo'
 //import ec_checkoutModule from './modules/ec_checkout'
 import twitterplusModule from './modules/twitterplus'
+import webrtcvideoModule from './modules/webrtcvideo'
 
 // create context
 const context = initContext();
@@ -18,4 +19,5 @@ app.loadModule(coreModule);
 app.loadModule(demoModule)
 //app.loadModule(ec_checkoutModule)
 app.loadModule(twitterplusModule)
+app.loadModule(webrtcvideoModule)
 app.init();
