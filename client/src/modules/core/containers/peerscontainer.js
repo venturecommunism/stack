@@ -5,7 +5,7 @@ const dataComposer = ({ context, actions }, onData) => {
   // console.log('CONTEXT', Object.keys(context()))
   // console.log('ACTIONS', actions())
 
-  const {peer, channel, conn} = context()
+  const {peer, channel, conn, me} = context()
 
   peer.on('connection', connect)
   peer.on('error', function(err) {
@@ -80,7 +80,7 @@ peer.on('call', (call) => {
   var db = datascript.db(conn)
 
   peer.on('open', function(id){
-    channel.send({id: id})
+    channel.send({id: me})
   })
 
   const qArgs = [query, db]

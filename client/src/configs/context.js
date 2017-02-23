@@ -6,7 +6,7 @@ import url from './url'
 import publickey from './publickey'
 
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
-const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODcxMTE2NjQsImlhdCI6MTQ4NzExMTY2NCwiZXhwIjoxNDg3MTk4MDY0LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.pqcMDbUSeSX04fSwaOXqb7it6cBy6QaJhB_Ee7IrlJZtMYlVML7zmfB3FU7O494Qkh8n1luXKFSlEeytCNx5HHBSCCtOsBIG6aaqSmW-u2awwQgpzMFFD5MUTNqnOFnjw3DjPubNIQqMbC9Y5c7xvWlz6GFwP7YEOwjCVTitf1wEhN3b2iNBUF5DtUukFMnEMv2pEPi9PAzY0LzJHzJRg9Ntc7jqKi060ELppOcjOV1GSs-ofF1Z--xNXZbi5vULaYEyh6inN0wFDdoEz1lq6xSJUSFRMgCbULXRCqhtaK1A2Fhqg3aTRPInavXnJutozlgUYI7sbyXtVKbNSEWUyA'
+const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODc2Mjk5MjYsImlhdCI6MTQ4NzYyOTkyNiwiZXhwIjoxNDg3NzE2MzI2LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.iYZtlX1A1zPa2DjuymIP-Ml5Epl1_xvnd1TSf6NmUVqOUyvLLhNqLL7sBtb6vJXQOzaac796K4tH66YlehO6-Q4ZdBpFr97U8_Dq27aawJyZXE8YHqWRrqOHkWzAnyt-xLjZPLHn4CBLiNYJA5dGJbkmF0NubFN_LXcTTufUpsKcVSnOjcfv8sdWelFHj1vnYFhLAi8M4NkIgwjNID-vMyA8XsVxVCG-NnLON_fghdhskNkaLqH-_4Z4FV0brxuD46YTQ6gVkFv7BYKQt9tZT0OrrGCkun_1cEZ5Z0tj8vqoL-8uIKx7LBVEPGkLNlaEf5irKQUBPi-GzwrX45gv2Q'
 
 import Peer from 'peerjs'
 
@@ -148,7 +148,7 @@ function connect(c) {
     const isValid = KJUR.jws.JWS.verifyJWT(JSON.parse(data).creds, pubkey, {alg: ['RS256']})
 
     if (!isValid) {
-      console.log('unauthorized attempt')
+      console.log('unauthorized peer data')
       return
     }
 
@@ -167,6 +167,7 @@ function connect(c) {
     console.log('C.DATA RESULT', result)
 
     console.log(c.peer)
+    transact(conn, [[':db/add', -1, ':app/peer', c.peer]], {'remoteuser': 'system peers'})
     transact(conn, [{
       ':db/id': -1,
       ...tx
@@ -176,6 +177,7 @@ function connect(c) {
 
 export const initContext = () => {
   return {
+    me: me,
     peer: peer,
     peers: peers,
     socket: socket,

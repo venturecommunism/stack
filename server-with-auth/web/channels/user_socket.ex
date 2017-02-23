@@ -17,6 +17,8 @@ defmodule PhoenixTrello.UserSocket do
       {:ok, claims} ->
         case GuardianSerializer.from_token(claims["sub"]) do
           {:ok, user} ->
+IO.inspect token
+IO.inspect claims
             {:ok, assign(socket, :current_user, user)}
           {:error, _reason} ->
             :error

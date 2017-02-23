@@ -204,11 +204,11 @@ defmodule PhoenixTrello.UserChannel do
 
   def join("rooms:lobby", _params, socket) do
 
-    DatomicGenServer.start_link(
-      "datomic:free://localhost:4334/responsive-db",
-      true,
-      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
-    )
+#    DatomicGenServer.start_link(
+#      "datomic:free://localhost:4334/responsive-db",
+#      true,
+#      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
+#    )
 
 
     user_id = "1"
@@ -219,6 +219,28 @@ defmodule PhoenixTrello.UserChannel do
     else
       {:error, %{reason: "Invalid user"}}
     end
+  end
+
+  def handle_in("new:msg", %{"body" => %{"id" => id}, "user" => user}, socket) do
+    IO.puts "ID"
+    IO.inspect id
+
+    push socket, "join", %{status: "connected"}
+    broadcast! socket, "new:msg", %{user: user, body: %{"id": id, "user": user}}
+    {:reply, {:ok, %{msg: %{"id": id, "user": user}}}, assign(socket, :user, user)}
+  end
+
+  def handle_in("new:msg", msg, socket) do
+    IO.puts "MSG"
+    IO.inspect msg
+
+#    %{"body" => %{"from" => from}} = msg
+
+#    IO.inspect from
+
+    push socket, "join", %{status: "connected"}
+    broadcast! socket, "new:msg", %{user: msg["from"], body: msg["body"]}
+    {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["from"])}
   end
 
   def handle_in("new:msg", %{"body" => %{"syncpoint" => "none"}, "user" => user}, socket) do
@@ -264,10 +286,10 @@ defmodule PhoenixTrello.UserChannel do
 #    query = "[:find ?e ?aname ?v ?tx ?op :where [?e ?a ?v ?tx ?op] [?a :db/ident ?aname]]"
 
 
-    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx - 1 , [], [:options, {:client_timeout, 100_000}])
-    IO.puts edn
-    grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
-    Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
+#    {:ok, edn} = DatomicGenServer.qlog(DatomicGenServerLink, query, latest_tx - 1 , [], [:options, {:client_timeout, 100_000}])
+#    IO.puts edn
+#    grouped_tx = TransactionLogQueryLogger.parse(edn) |> Enum.group_by( fn(x) -> x["tx"] end )
+#    Enum.each(grouped_tx, fn({_, x}) -> IO.puts push socket, "new:msg", %{"user" => "system", "body" => x} end)
 
     broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}

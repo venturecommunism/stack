@@ -7,6 +7,8 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :phoenix_trello, PhoenixTrello.Endpoint,
+#  force_ssl: [host: "localhost", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -14,7 +16,17 @@ config :phoenix_trello, PhoenixTrello.Endpoint,
   check_origin: false,
   watchers: [
     node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color", cd: Path.expand("../", __DIR__)]
-  ]
+  ],
+
+  http: [port: 80],
+  https: [port: 443,
+          otp_app: :phoenix_trello,
+          keyfile: "priv/keys/localhost.key",
+          certfile: "priv/keys/localhost.cert"],
+  debug_errors: true,
+  code_reloader: true,
+  check_origin: false
+
 
 # Watch static and templates for browser reloading.
 config :phoenix_trello, PhoenixTrello.Endpoint,

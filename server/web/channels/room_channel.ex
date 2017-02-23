@@ -253,6 +253,15 @@ defmodule Mychat.RoomChannel do
     :ok 
   end
 
+  def handle_in("new:msg", %{"body" => %{"id" => id}, "user" => user}, socket) do
+    IO.puts "ID"
+    IO.inspect id
+
+    push socket, "join", %{status: "connected"}
+    broadcast! socket, "new:msg", %{user: user, body: %{"id": id, "user": user}}
+    {:reply, {:ok, %{msg: %{"id": id, "user": user}}}, assign(socket, :user, user)}
+  end
+
   def handle_in("new:msg", %{"body" => %{"syncpoint" => "none"}, "user" => user}, socket) do
     IO.puts "MSG FALSE"
 
