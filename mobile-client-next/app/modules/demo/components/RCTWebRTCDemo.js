@@ -381,4 +381,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('RCTWebRTCDemo', () => RCTWebRTCDemo);
+export default RCTWebRTCDemo
