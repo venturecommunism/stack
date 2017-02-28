@@ -9,10 +9,10 @@ import DataContainer from '../../core/containers/datacontainer'
 import fullScreenQuery from '../queries/fullscreen'
 
 import './styles/akkad.css'
-import CartScape from '../../cartscape/components/index'
+// import CartScape from '../../cartscape/components/index'
 
 const Layout = ({result, conn}) => (
-  <div>{ result && result.length === 0 ? <div className='App'><Feed conn={conn} /></div> : <CartScape />}</div>
+  <div><div className='App'><Feed conn={conn} /></div></div>
 )
 
 export default fullScreenQuery(Layout)
