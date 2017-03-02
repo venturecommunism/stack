@@ -5,48 +5,7 @@ const dataComposer = ({ context, actions }, onData) => {
   // console.log('CONTEXT', Object.keys(context()))
   // console.log('ACTIONS', actions())
 
-  const {peer, channel, conn} = context()
-
-  peer.on('connection', connect)
-  peer.on('error', function(err) {
-    console.log(err)
-  })
-
-  var connectedPeers = {}
-
-/*
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
-
-peer.on('call', (call) => {
-
-    if (navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-            call.answer(stream); // Answer the call with an A/V stream.
-            call.on('stream', (remoteStream) => {
-                // Show stream in some video/canvas element.
-                video.src = window.URL.createObjectURL(remoteStream);
-            })
-        })
-            .catch((err) => {
-                console.log('Failed to get local stream', err);
-            })
-
-
-    } else {
-        navigator.getUserMedia({ video: true, audio: true }, (stream) => {
-            call.answer(stream); // Answer the call with an A/V stream.
-            call.on('stream', (remoteStream) => {
-                // Show stream in some video/canvas element.
-                video.src = window.URL.createObjectURL(remoteStream);
-            });
-        }, (err) => {
-            console.log('Failed to get local stream', err);
-        });
-    }
-
-})
-
-*/
+  const {channel, conn} = context()
 
   // Handle a connection object.
   function connect(c) {
@@ -79,17 +38,11 @@ peer.on('call', (call) => {
 
   var db = datascript.db(conn)
 
-  peer.on('open', function(id){
-    channel.send({id: id})
-  })
-
   const qArgs = [query, db]
   try {
     var result = datascript.q(...qArgs)
 
-    var webrtc = peer.connect(result[0])
-//    webrtc.on('open', function(){
-      onData(null, {result, webrtc, conn, Peer: peer, actions: actions()})
+      onData(null, {result, conn, actions: actions()})
 //    })
   } catch (error) {
     var error = {error: 'Bad query.'}

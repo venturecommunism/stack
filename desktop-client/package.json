@@ -37,10 +37,15 @@
     "mobx-react": "^4.0.3",
     "peerjs": "^0.3.14",
     "phoenix": "^1.2.1",
-    "react": "15.2.1",
-    "react-dom": "15.2.1",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.1",
+    "react-html5video": "^2.0.0",
     "react-komposer": "^2.0.0",
     "react-mounter": "^1.2.0",
-    "request-promise": "^4.1.1"
+    "react-player": "^0.14.3",
+    "react-router": "^3.0.2",
+    "request-promise": "^4.1.1",
+    "socket.io-client": "^1.7.3"
   }
 }
