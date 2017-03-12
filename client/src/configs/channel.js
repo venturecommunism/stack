@@ -10,7 +10,7 @@ export default (conn, user, onChat) => {
 //  const socket = new Socket(url)
 
   const socket = new Socket(url, { params: {
-    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0ODkxNzQxMzEsImlhdCI6MTQ4ODkxNDkzMSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6IjZmZDQwNzFlLTk2ZDYtNDIwMi05MGRlLWJiMmZjZWQyM2RiZSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.7PhjgIfOq02CWkrXhbbBaTUWzYy1Tf17qvA_n5AZRaVjAKd01s3L-ihpfcLCxxiQXISRWdgt4Q81s_SlPc379A'
+    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0ODk1MzEzNzcsImlhdCI6MTQ4OTI3MjE3NywiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6IjEzNjEyMjViLTBkZWItNDg0ZC04ZjBmLWY4M2M0Y2ZhYjViYyIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.z37GM5h9iKEv-e67uAxFc3lst4Yeadr6BHUtYdmhX6sCCdlwAoRmxxOJQeU-T57n2nW0kY3j22MAfuhSLJmPYw'
   } } )
 
   // configure the event handlers
