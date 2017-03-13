@@ -4,8 +4,6 @@ import logo from '../../layout/components/images/fivepetal.svg'
 import '../../layout/components/styles/app.css'
 import '../../layout/components/styles/index.css'
 
-import '../../webrtcvideo/components/index'
-
 import credentialsQuery from '../../layout/queries/credentials'
 import CredentialsContainer from '../../clientjwt/components/index'
 
@@ -17,10 +15,14 @@ import Dashboard from '../../ec_dashboard/components/dashboard'
 import Checkout from '../../ec_checkout/components/index'
 import JWT from '../../clientjwt/components/jwt'
 
-import WebRTCVideo from '../../webrtcvideo/components/index'
+import GenericComponent from '../../querybuilder/components/genericcomponent'
+import WebRTCDataContainer from '../../core/containers/webrtcdatacontainer'
+const WrappedWebRTC = WebRTCDataContainer(GenericComponent)
+
+// import WebRTCVideo from '../../webrtcvideo/components/index'
 
 const Root = ({result}) => (
-  <div>{ result && result.length !== 0 ? <div>
+  <div>{ result && result.length === 0 ? <div>
     <div className='App-header'>
       <img src={logo} className='App-logo' alt='logo' />
       <h2>Under Construction</h2>
@@ -28,8 +30,9 @@ const Root = ({result}) => (
     <p className='App-intro'>
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
+    <WrappedWebRTC />
     <Demo />
-    <WebRTCVideo />
+    {/* <WebRTCVideo /> */}
     <QueryBuilder />
     <TwitterPlus />
     {/* <CartScape /> */}
