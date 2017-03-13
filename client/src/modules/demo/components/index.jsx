@@ -2,7 +2,7 @@ import React from 'react'
 
 // import RnDataContainer from '../../core/containers/rncontainer'
 // import AudioVideoContainer from '../../core/containers/audiovideocontainer'
-import PeersContainer from '../../core/containers/peerscontainer'
+// import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
 
@@ -19,7 +19,7 @@ import allUserQuery from '../queries/alluser'
 // const AudioVideo = AudioVideoContainer(ActionsMapper('peers', AudioVideoComponent))
 
 import PeersComponent from './peers'
-const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
+// const AllPeersContainer = PeersContainer(ActionsMapper('peers', PeersComponent))
 
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
@@ -39,7 +39,7 @@ const Demo = () => (
   <div>
 { console.log('index.jsx') }
     {/* <AudioVideo /> */}
-    <AllPeersContainer />
+    {/* <AllPeersContainer /> */}
     <AllUsersDataContainer query={allUserQuery} />
     {/* <RnData /> */}
     <JWT />
