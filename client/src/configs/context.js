@@ -6,6 +6,164 @@ import url from './url'
 import publickey from './publickey'
 import creds from './creds'
 
+import io from 'socket.io-client'
+
+/************************************* SOCKET IO******************************************/
+
+let RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection || window.msRTCPeerConnection;
+let RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription || window.msRTCSessionDescription;
+navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia;
+
+var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+let socket;
+var pcPeers = {};
+
+/************************************* SOCKET IO ******************************************/
+const room = 'MoveKick';
+
+    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+
+    socket.on('connect', (data) => {
+      console.log('connect');
+    });
+
+    socket.on('exchange', function(data){
+      console.log('exchange')
+      exchange(data);
+    });
+
+    socket.on('leave', function(socketId){
+      leave(socketId);
+    });
+
+
+    join(room);
+
+
+        function logError(error, message) {
+          console.log(message + ': ', error);
+        }
+
+        //
+        function join(roomID) {
+          socket.emit('join', roomID, (socketIds) =>{
+            console.log('join', socketIds);
+            for (var i in socketIds) {
+              var socketId = socketIds[i];
+              createPC(socketId, true);
+            }
+          });
+        }
+
+
+        function createPC(socketId, isOffer) {
+          var pc = new RTCPeerConnection(configuration);
+          pcPeers[socketId] = pc;
+
+          pc.onicecandidate = function (event) {
+            console.log('onicecandidate', event);
+            if (event.candidate) {
+              socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
+            }
+          };
+
+          function createOffer() {
+            pc.createOffer(function(desc) {
+              console.log('createOffer', desc);
+              pc.setLocalDescription(desc, function () {
+                console.log('setLocalDescription', pc.localDescription);
+                socket.emit('exchange', {'to': socketId, 'sdp': pc.localDescription });
+              }, logError);
+            }, logError);
+          }
+
+          pc.onnegotiationneeded = function () {
+            console.log('onnegotiationneeded');
+            if (isOffer) {
+              createOffer();
+            }
+          }
+
+          pc.oniceconnectionstatechange = function(event) {
+            console.log('oniceconnectionstatechange', event);
+            if (event.target.iceConnectionState === 'connected') {
+              createDataChannel();
+            }
+          };
+          pc.onsignalingstatechange = function(event) {
+            console.log('onsignalingstatechange', event);
+          };
+
+
+          function createDataChannel() {
+            if (pc.textDataChannel) {
+              return;
+            }
+            var dataChannel = pc.createDataChannel("text");
+
+            dataChannel.onerror = function (error) {
+              console.log("dataChannel.onerror", error);
+            };
+
+            dataChannel.onmessage = function (event) {
+              console.log("dataChannel.onmessage:", event.data);
+              if (event.data === 'capture') {
+                grabScreenshot();
+              }
+            };
+
+            dataChannel.onopen = function () {
+              console.log('dataChannel.onopen');
+    channel.send({id: pc.id})
+    dataChannel.send('test')
+            };
+
+            dataChannel.onclose = function () {
+              console.log("dataChannel.onclose");
+            };
+
+            pc.textDataChannel = dataChannel;
+          }
+
+          return pc;
+        }
+
+        // handle data exchange
+        function exchange(data) {
+          var fromId = data.from;
+          var pc;
+          if (fromId in pcPeers) {
+            pc = pcPeers[fromId];
+          } else {
+            pc = createPC(fromId, false);
+          }
+
+          if (data.sdp) {
+            console.log('exchange sdp', data);
+            pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
+              if (pc.remoteDescription.type == "offer")
+                pc.createAnswer(function(desc) {
+                  console.log('createAnswer', desc);
+                  pc.setLocalDescription(desc, function () {
+                    console.log('setLocalDescription', pc.localDescription);
+                    socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
+                  }, logError);
+                }, logError);
+            }, logError);
+          } else {
+            console.log('exchange candidate', data);
+            pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+          }
+        }
+
+        function leave(socketId) {
+          console.log('leave', socketId);
+          var pc = pcPeers[socketId];
+          pc.close();
+          delete pcPeers[socketId];
+        }
+
+
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
 
 import Peer from 'peerjs'
@@ -29,7 +187,7 @@ const getRandomName = () => NAMES[getRandomInt(0, NAMES.length)]
 const getRandomUser = () => `${ getRandomName() }${ getRandomName() }${ getRandomName() }`
 const me = getRandomUser()
 
-const socket = new Socket(url)
+const ex_socket = new Socket(url)
 const conn = createDBConn()
 const transact = datascript.transact
 var log = []
@@ -177,10 +335,11 @@ function connect(c) {
 
 export const initContext = () => {
   return {
+    pcPeers: pcPeers,
     me: me,
     peer: peer,
     peers: peers,
-    socket: socket,
+    socket: ex_socket,
     conn: conn,
     channel: channel,
     transact: transact,

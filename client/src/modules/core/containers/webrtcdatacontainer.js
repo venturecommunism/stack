@@ -167,7 +167,9 @@ const dataComposer = ({ context, actions }, onData) => {
   // console.log('CONTEXT', Object.keys(context()))
   // console.log('ACTIONS', actions())
 
-  const {peer, channel, conn, me} = context()
+  const {peer, channel, conn, me, pcPeers} = context()
+
+console.log('pcPeers', pcPeers)
 
   var connectedPeers = {}
 
@@ -202,12 +204,12 @@ const dataComposer = ({ context, actions }, onData) => {
 
   var db = datascript.db(conn)
 
-join(room, conn)
+// join(room, conn)
 
   const qArgs = [query, db]
   try {
     var result = datascript.q(...qArgs)
-console.log('webrtcdata result', result)
+// console.log('webrtcdata result', result)
 
 //          var pc = new RTCPeerConnection(configuration)
 //            var dataChannel = pc.createDataChannel("text");
