@@ -246,7 +246,7 @@ dataChannel.send('test')
 	}
 
 	render() {
-			console.log(this.state.width)
+			// console.log(this.state.width)
 			const { width } = this.state;
 	    return (
         <div className="panel panel-default">
