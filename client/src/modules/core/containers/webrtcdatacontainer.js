@@ -1,5 +1,5 @@
 import { useDeps, compose, composeAll } from 'mantra-core'
-import datascript from 'datascript'
+import datascript, {transact} from 'datascript'
 
 import io from 'socket.io-client'
 
@@ -24,11 +24,11 @@ const room = 'MoveKick';
 
     socket.on('exchange', function(data){
       console.log('exchange')
-      container.exchange(data);
+      exchange(data);
     });
 
     socket.on('leave', function(socketId){
-      container.leave(socketId);
+      leave(socketId);
     });
 
 
@@ -40,10 +40,11 @@ const room = 'MoveKick';
         }
 
         //
-        function join(roomID) {
+        function join(roomID, conn) {
           socket.emit('join', roomID, (socketIds) =>{
             console.log('join', socketIds);
             for (var i in socketIds) {
+transact(conn, [[':db/add', -1, ':app/peer', socketIds[i]]], {'remoteuser': 'system peers'})
               var socketId = socketIds[i];
               createPC(socketId, true);
             }
@@ -67,8 +68,8 @@ const room = 'MoveKick';
               pc.setLocalDescription(desc, function () {
                 console.log('setLocalDescription', pc.localDescription);
                 socket.emit('exchange', {'to': socketId, 'sdp': pc.localDescription });
-              }, container.logError);
-            }, container.logError);
+              }, logError);
+            }, logError);
           }
 
           pc.onnegotiationneeded = function () {
@@ -88,12 +89,6 @@ const room = 'MoveKick';
             console.log('onsignalingstatechange', event);
           };
 
-          pc.onaddstream = function (event) {
-            console.log('onaddstream', event);
-            let remoteStreamURL = URL.createObjectURL(event.stream);
-            container.setState({ remoteStreamURL });
-          };
-
 
           function createDataChannel() {
             if (pc.textDataChannel) {
@@ -108,13 +103,14 @@ const room = 'MoveKick';
             dataChannel.onmessage = function (event) {
               console.log("dataChannel.onmessage:", event.data);
               if (event.data === 'capture') {
-                container.grabScreenshot();
+                grabScreenshot();
               }
             };
 
             dataChannel.onopen = function () {
               console.log('dataChannel.onopen');
-dataChannel.send('test')
+    channel.send({id: pc.id})
+    dataChannel.send('test')
             };
 
             dataChannel.onclose = function () {
@@ -146,9 +142,9 @@ dataChannel.send('test')
                   pc.setLocalDescription(desc, function () {
                     console.log('setLocalDescription', pc.localDescription);
                     socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
-                  }, container.logError);
-                }, container.logError);
-            }, container.logError);
+                  }, logError);
+                }, logError);
+            }, logError);
           } else {
             console.log('exchange candidate', data);
             pc.addIceCandidate(new RTCIceCandidate(data.candidate));
@@ -172,11 +168,6 @@ const dataComposer = ({ context, actions }, onData) => {
   // console.log('ACTIONS', actions())
 
   const {peer, channel, conn, me} = context()
-
-  peer.on('connection', connect)
-  peer.on('error', function(err) {
-    console.log(err)
-  })
 
   var connectedPeers = {}
 
@@ -211,17 +202,21 @@ const dataComposer = ({ context, actions }, onData) => {
 
   var db = datascript.db(conn)
 
-  peer.on('open', function(id){
-    channel.send({id: me})
-  })
+join(room, conn)
 
   const qArgs = [query, db]
   try {
     var result = datascript.q(...qArgs)
+console.log('webrtcdata result', result)
 
-    var webrtc = peer.connect(result[0])
+//          var pc = new RTCPeerConnection(configuration)
+//            var dataChannel = pc.createDataChannel("text");
+
+
+// var webrtc = createDataChannel()
+//    var webrtc = peer.connect(result[0])
 //    webrtc.on('open', function(){
-      onData(null, {result, webrtc, conn, Peer: peer, actions: actions()})
+      onData(null, {result, conn, actions: actions()})
 //    })
   } catch (error) {
     var error = {error: 'Bad query.'}
