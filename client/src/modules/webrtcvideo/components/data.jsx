@@ -26,6 +26,8 @@ class VideoFeed extends Component {
     // socket = io('https://iiiiii.herokuapp.com', {transports: ['websocket']}); }
   }
   
+
+/*
   componentDidMount() {
     socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
@@ -42,15 +44,13 @@ class VideoFeed extends Component {
       container.leave(socketId);
     });
 
-    window.addEventListener('resize', this._handleWindowResize);
-
     // auto join room
     // console.log("CHANGE BACK TO: this.props.moveId")
     // console.log('this is the moveId', this.props.moveId);
     // this.join(this.props.moveId);
     this.join(room);
   }
-
+*/
 	logError(error, message) {
 	  console.log(message + ': ', error);
 	}
