@@ -166,21 +166,6 @@ const room = 'MoveKick';
 
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
 
-import Peer from 'peerjs'
-
-var peer = new Peer({
-  // Set API key for cloud server (you don't need this if you're running your
-  // own.
-  key: 'x7fwx2kavpy6tj4i',
-  // Set highest debug level (log everything!).
-  debug: 0,
-  // Set a logging function:
-  logFunction: function() {
-    var copy = Array.prototype.slice.call(arguments).join(' ')
-    console.log(copy)
-  }
-})
-
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 const getRandomName = () => NAMES[getRandomInt(0, NAMES.length)]
@@ -304,61 +289,21 @@ console.log('DATA CHANNEL', dataChannel)
 dataChannel.send('wat')
 
 
-    var webrtc = peer.connect(s)
+/*
     webrtc.on('open', function(){
       webrtc.send(JSON.stringify({creds: creds, body: report.tx_data}))
     })
+*/
   })
 
   // channel.send(report.tx_data)
 })
 
-peer.on('connection', connect)
-
-function connect(c) {
-  c.on('data', function(data) {
-    const tx = {}
-
-    console.log(c)
-    console.log('WEBRTC MSG', data)
-
-    const pubkey = KEYUTIL.getKey(publickey)
-
-    const isValid = KJUR.jws.JWS.verifyJWT(JSON.parse(data).creds, pubkey, {alg: ['RS256']})
-
-    if (!isValid) {
-      console.log('unauthorized peer data')
-      return
-    }
-
-    data = JSON.parse(data).body
-
-    data.map(s => tx[s.a] = s.v)
-    console.log('c', c)
-
-    const credquery = `[:find ?id
-                        :where [?e ":app/peer" ?id]]`
-
-    var db = datascript.db(conn)
-
-    const credArgs = [credquery, db]
-    var result = datascript.q(...credArgs)
-    console.log('C.DATA RESULT', result)
-
-    console.log(c.peer)
-    transact(conn, [[':db/add', -1, ':app/peer', c.peer]], {'remoteuser': 'system peers'})
-    transact(conn, [{
-      ':db/id': -1,
-      ...tx
-    }], {'remoteuser': c.peer})
-  })
-}
 
 export const initContext = () => {
   return {
     pcPeers: pcPeers,
     me: me,
-    peer: peer,
     peers: peers,
     socket: ex_socket,
     conn: conn,
