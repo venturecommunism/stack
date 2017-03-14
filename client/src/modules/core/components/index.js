@@ -20,6 +20,7 @@ import WebRTCDataContainer from '../../core/containers/webrtcdatacontainer'
 const WrappedWebRTC = WebRTCDataContainer(GenericComponent)
 
 // import WebRTCVideo from '../../webrtcvideo/components/index'
+import WebRTCData from '../../webrtcvideo/components/data'
 
 const Root = ({result}) => (
   <div>{ result && result.length === 0 ? <div>
@@ -30,6 +31,7 @@ const Root = ({result}) => (
     <p className='App-intro'>
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
+    <WebRTCData />
     <WrappedWebRTC />
     <Demo />
     {/* <WebRTCVideo /> */}
