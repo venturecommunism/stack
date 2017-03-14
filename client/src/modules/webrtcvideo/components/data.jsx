@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
+const socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+
 /************************************* SOCKET IO******************************************/ 
 
 let RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection || window.msRTCPeerConnection;
@@ -8,28 +10,11 @@ let RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSession
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia;
 
 var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
-let socket, container;
-var pcPeers = {};
+let container;
+const pcPeers = {};
 
 /************************************* SOCKET IO ******************************************/ 
 const room = 'DataKick';
-
-class VideoFeed extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
-    container = this;
-    // establish socket connection
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
-    // socket = io('https://iiiiii.herokuapp.com', {transports: ['websocket']}); }
-  }
-  
-
-/*
-  componentDidMount() {
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
     socket.on('connect', (data) => {
       console.log('connect');
@@ -44,13 +29,23 @@ class VideoFeed extends Component {
       container.leave(socketId);
     });
 
+
+
+class VideoFeed extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  
+
+  componentDidMount() {
+    container = this
     // auto join room
     // console.log("CHANGE BACK TO: this.props.moveId")
     // console.log('this is the moveId', this.props.moveId);
     // this.join(this.props.moveId);
     this.join(room);
   }
-*/
 	logError(error, message) {
 	  console.log(message + ': ', error);
 	}
