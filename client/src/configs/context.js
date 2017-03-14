@@ -115,7 +115,7 @@ const room = 'MoveKick';
             dataChannel.onopen = function () {
               console.log('dataChannel.onopen');
     channel.send({id: pc.id})
-    dataChannel.send('test')
+    dataChannel.send('test-context')
             };
 
             dataChannel.onclose = function () {

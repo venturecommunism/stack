@@ -44,7 +44,7 @@ const room = 'MoveKick';
           socket.emit('join', roomID, (socketIds) =>{
             console.log('join', socketIds);
             for (var i in socketIds) {
-transact(conn, [[':db/add', -1, ':app/peer', socketIds[i]]], {'remoteuser': 'system peers'})
+// transact(conn, [[':db/add', -1, ':app/peer', socketIds[i]]], {'remoteuser': 'system peers'})
               var socketId = socketIds[i];
               createPC(socketId, true);
             }
@@ -109,8 +109,8 @@ transact(conn, [[':db/add', -1, ':app/peer', socketIds[i]]], {'remoteuser': 'sys
 
             dataChannel.onopen = function () {
               console.log('dataChannel.onopen');
-    channel.send({id: pc.id})
-    dataChannel.send('test')
+//    channel.send({id: pc.id})
+    dataChannel.send('test234')
             };
 
             dataChannel.onclose = function () {
@@ -169,12 +169,33 @@ const dataComposer = ({ context, actions }, onData) => {
 
   const {peer, channel, conn, me, pcPeers} = context()
 
+/** stuff **/
+    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+
+    socket.on('connect', (data) => {
+      console.log('connect');
+    });
+
+    socket.on('exchange', function(data){
+      console.log('exchange')
+      exchange(data);
+    });
+
+    socket.on('leave', function(socketId){
+      leave(socketId);
+    });
+
+    join(room)
+
+/*** stuff */
+
 console.log('pcPeers', pcPeers)
 
   var connectedPeers = {}
 
   // Handle a connection object.
   function connect(c) {
+console.log('data', c)
       c.on('data', function(data) {
         console.log("Incoming Data:", data)
         })
@@ -214,6 +235,10 @@ console.log('pcPeers', pcPeers)
 //          var pc = new RTCPeerConnection(configuration)
 //            var dataChannel = pc.createDataChannel("text");
 
+var dataChannel = createPC(result[0], true)
+dataChannel.send('wat')
+
+console.log('datChannel', dataChannel)
 
 // var webrtc = createDataChannel()
 //    var webrtc = peer.connect(result[0])
