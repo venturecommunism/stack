@@ -51,11 +51,6 @@ class VideoFeed extends Component {
     this.join(room);
   }
 
-  componentWillUnmount() {
-      window.removeEventListener('resize', this._handleWindowResize);
-      this.endCall(false);
-  }
-
 	logError(error, message) {
 	  console.log(message + ': ', error);
 	}
