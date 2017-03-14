@@ -16,25 +16,6 @@ var pcPeers = {};
 /************************************* SOCKET IO ******************************************/
 const room = 'MoveKick';
 
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
-
-    socket.on('connect', (data) => {
-      console.log('connect');
-    });
-
-    socket.on('exchange', function(data){
-      console.log('exchange')
-      exchange(data);
-    });
-
-    socket.on('leave', function(socketId){
-      leave(socketId);
-    });
-
-
-//    join(room);
-
-
         function logError(error, message) {
           console.log(message + ': ', error);
         }
@@ -56,7 +37,7 @@ const room = 'MoveKick';
           pcPeers[socketId] = pc;
 
           pc.onicecandidate = function (event) {
-            console.log('onicecandidate', event);
+//            console.log('onicecandidate', event);
             if (event.candidate) {
               socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
             }
@@ -66,27 +47,31 @@ const room = 'MoveKick';
             pc.createOffer(function(desc) {
               console.log('createOffer', desc);
               pc.setLocalDescription(desc, function () {
-                console.log('setLocalDescription', pc.localDescription);
+//                console.log('setLocalDescription', pc.localDescription);
                 socket.emit('exchange', {'to': socketId, 'sdp': pc.localDescription });
               }, logError);
             }, logError);
           }
 
           pc.onnegotiationneeded = function () {
+//
+
+
             console.log('onnegotiationneeded');
             if (isOffer) {
+console.log('an offer')
               createOffer();
             }
           }
 
           pc.oniceconnectionstatechange = function(event) {
-            console.log('oniceconnectionstatechange', event);
+//            console.log('oniceconnectionstatechange', event);
             if (event.target.iceConnectionState === 'connected') {
               createDataChannel();
             }
           };
           pc.onsignalingstatechange = function(event) {
-            console.log('onsignalingstatechange', event);
+//            console.log('onsignalingstatechange', event);
           };
 
 
@@ -108,7 +93,7 @@ const room = 'MoveKick';
             };
 
             dataChannel.onopen = function () {
-              console.log('dataChannel.onopen');
+//              console.log('dataChannel.onopen');
 //    channel.send({id: pc.id})
     dataChannel.send('test234')
             };
@@ -130,23 +115,24 @@ const room = 'MoveKick';
           if (fromId in pcPeers) {
             pc = pcPeers[fromId];
           } else {
+console.log('WAS FALSE')
             pc = createPC(fromId, false);
           }
 
           if (data.sdp) {
-            console.log('exchange sdp', data);
+//            console.log('exchange sdp', data);
             pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
               if (pc.remoteDescription.type == "offer")
                 pc.createAnswer(function(desc) {
                   console.log('createAnswer', desc);
                   pc.setLocalDescription(desc, function () {
-                    console.log('setLocalDescription', pc.localDescription);
+//                    console.log('setLocalDescription', pc.localDescription);
                     socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
                   }, logError);
                 }, logError);
             }, logError);
           } else {
-            console.log('exchange candidate', data);
+//            console.log('exchange candidate', data);
             pc.addIceCandidate(new RTCIceCandidate(data.candidate));
           }
         }
@@ -173,11 +159,11 @@ const dataComposer = ({ context, actions }, onData) => {
     socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
     socket.on('connect', (data) => {
-      console.log('connect');
+//      console.log('connect');
     });
 
     socket.on('exchange', function(data){
-      console.log('exchange')
+      console.log('exchange', data)
       exchange(data);
     });
 

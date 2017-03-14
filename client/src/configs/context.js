@@ -24,11 +24,11 @@ const room = 'MoveKick';
     socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
     socket.on('connect', (data) => {
-      console.log('connect');
+//      console.log('connect');
     });
 
     socket.on('exchange', function(data){
-      console.log('exchange')
+//      console.log('exchange')
       exchange(data);
     });
 
@@ -61,7 +61,7 @@ const room = 'MoveKick';
           pcPeers[socketId] = pc;
 
           pc.onicecandidate = function (event) {
-            console.log('onicecandidate', event);
+//            console.log('onicecandidate', event);
             if (event.candidate) {
               socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
             }
@@ -69,29 +69,29 @@ const room = 'MoveKick';
 
           function createOffer() {
             pc.createOffer(function(desc) {
-              console.log('createOffer', desc);
+//              console.log('createOffer', desc);
               pc.setLocalDescription(desc, function () {
-                console.log('setLocalDescription', pc.localDescription);
+//                console.log('setLocalDescription', pc.localDescription);
                 socket.emit('exchange', {'to': socketId, 'sdp': pc.localDescription });
               }, logError);
             }, logError);
           }
 
           pc.onnegotiationneeded = function () {
-            console.log('onnegotiationneeded');
+//            console.log('onnegotiationneeded');
             if (isOffer) {
               createOffer();
             }
           }
 
           pc.oniceconnectionstatechange = function(event) {
-            console.log('oniceconnectionstatechange', event);
+//            console.log('oniceconnectionstatechange', event);
             if (event.target.iceConnectionState === 'connected') {
               createDataChannel();
             }
           };
           pc.onsignalingstatechange = function(event) {
-            console.log('onsignalingstatechange', event);
+//            console.log('onsignalingstatechange', event);
           };
 
 
@@ -139,19 +139,19 @@ const room = 'MoveKick';
           }
 
           if (data.sdp) {
-            console.log('exchange sdp', data);
+//            console.log('exchange sdp', data);
             pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
               if (pc.remoteDescription.type == "offer")
                 pc.createAnswer(function(desc) {
                   console.log('createAnswer', desc);
                   pc.setLocalDescription(desc, function () {
-                    console.log('setLocalDescription', pc.localDescription);
+//                    console.log('setLocalDescription', pc.localDescription);
                     socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
                   }, logError);
                 }, logError);
             }, logError);
           } else {
-            console.log('exchange candidate', data);
+//            console.log('exchange candidate', data);
             pc.addIceCandidate(new RTCIceCandidate(data.candidate));
           }
         }
@@ -282,7 +282,28 @@ datascript.listen(conn, {channel}, function(report) {
   var result = datascript.q(...qArgs)
   console.log('RESULT', result)
 
+join(room)
+
+var pc_keys = Object.keys(pcPeers)
+pc_keys.map( s => {
+  console.log('PC KEYS', s)
+  var pc = pcPeers[s]
+  var dataChannel = pc.createDataChannel("text");
+  dataChannel.onopen = function () {
+    console.log('ds.listen dataChannel.onopen');
+    channel.send({id: pc.id})
+    dataChannel.send('ds-listener-test-context')
+  };
+
+})
+
   result.map( s => {
+
+var dataChannel = createPC(pcPeers[s], true)
+console.log('DATA CHANNEL', dataChannel)
+dataChannel.send('wat')
+
+
     var webrtc = peer.connect(s)
     webrtc.on('open', function(){
       webrtc.send(JSON.stringify({creds: creds, body: report.tx_data}))
