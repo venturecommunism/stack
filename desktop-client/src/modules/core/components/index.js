@@ -24,6 +24,7 @@ const Root = ({result}) => (
     <p className='App-intro'>
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
+    <Demo />
     <WebRTCVideo />
     <QueryBuilder />
     <TwitterPlus />
