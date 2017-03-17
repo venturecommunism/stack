@@ -4,6 +4,10 @@ import datascript from 'datascript'
 const dataComposer = ({ context, query }, onData) => {
   var db = datascript.db(context().conn)
 
+  var index = JSON.stringify(datascript.datoms(db, ':eavt'))
+  console.log('INDEX', index)
+
+
   var find = `?e ?title ?query`
   var where = `[?e "name"]
                [?e "name" ?title]
@@ -15,7 +19,7 @@ const dataComposer = ({ context, query }, onData) => {
 
   let result = datascript.q(component_query, db)
 
-  onData(null, {result})
+  onData(null, {result, index})
 }
 
 export default (component) => composeAll(
