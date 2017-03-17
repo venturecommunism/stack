@@ -43,8 +43,8 @@ export default (conn, user, onChat) => {
     console.log('Access Granted. Syncing...')
     var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
     var syncpoint = datascript.q(query, datascript.db(conn))
-    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
-//    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
+//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
+    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
   }
 
   // a function to shut it all down
