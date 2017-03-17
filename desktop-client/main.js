@@ -8,6 +8,23 @@ const BrowserWindow = electron.BrowserWindow
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+// put this in configs
+var wss = 'wss://xxx.xx.x.xxx'
+
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+  var slice = url.substr(0,18)
+  var slice_two = wss.substr(0,18)
+  if (slice === slice_two) {
+    console.log('verified')
+    // Verification logic.
+    event.preventDefault()
+    callback(true)
+  } else {
+    callback(false)
+  }
+})
+
+
 function createWindow () {
   // Create the browser window.
 

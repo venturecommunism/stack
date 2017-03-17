@@ -16,7 +16,7 @@ import Demo from '../../demo/components/index'
 import WebRTCVideo from '../../webrtcvideo/components/index'
 
 const Root = ({result}) => (
-  <div>{ result && result.length !== 0 ? <div>
+  <div>{ result && result.length === 0 ? <div>
     <div className='App-header'>
       <img src={logo} className='App-logo' alt='logo' />
       <h2>Under Construction</h2>
