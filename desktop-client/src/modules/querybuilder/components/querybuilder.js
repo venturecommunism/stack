@@ -6,9 +6,10 @@ import UpdateQuery from './updatequery'
 
 const GenericComponentContainer = DataContainer(GenericComponent)
 
-const QueryBuilderComponent = ({ result, actions, index }) => (
+const QueryBuilderComponent = ({ result, actions, index, pull }) => (
   <div>
-<div>proper ds: {index} </div>
+<div>proper ds pull: {pull}</div>
+<div>proper ds index: {index} </div>
     <UpdateQuery result={result} actions={actions} />
     {result.map( s =>
       <div key={s[0]}>
