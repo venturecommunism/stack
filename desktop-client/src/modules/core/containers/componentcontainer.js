@@ -7,7 +7,7 @@ const dataComposer = ({ context, query }, onData) => {
   var index = JSON.stringify(datascript.datoms(db, ':eavt'))
 
   var eids = [['name', 'Jane']]
-  var pull = JSON.stringify(datascript.pull_many(db, '["name", {"_follows" ...}]', thingie))
+  var pull = JSON.stringify(datascript.pull_many(db, '["name", {"_follows" ...}]', eids))
 
   var find = `?e ?title ?query`
   var where = `[?e "name"]
