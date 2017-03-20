@@ -5,6 +5,7 @@ import Channel from './channel'
 import url from './url'
 import publickey from './publickey'
 import io from 'socket.io-client'
+import cuid from 'cuid'
 
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
 const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODcyOTgzOTcsImlhdCI6MTQ4NzI5ODM5NywiZXhwIjoxNDg3Mzg0Nzk3LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.LmGCzd1AKYzamlpuyel6IRtp834VGUVWPTsSJlj8gN0c5tXvbauhzZzzIkNwcM6tmj45ZKwmhmmHtVi6NkMU5UHIEoCuKeU2d3IhjX1fTChw5DdcoyspK9TFRkBjlO7F7nl90GV0VfZrKClPbSY13e7-5CuqDdjlrBsmhk1GNNSDLnopUWc6oIgbOisKM1SSAk3H4-2vt8Ij53G0Bl6fGeF65Tj2wDFJR37h5FNa0O-zXDL0WbEpBJc7jhXNp3mL0qHp2ad--RoGihcWbedSLs7U2DKyTRRyHsejgGLZE4VrGzI7OggEMZVROqpN5uz0hIVHZcakfn_oOqvustwa9w'
@@ -32,7 +33,17 @@ const me = getRandomUser()
 
 const exsocket = new Socket(url)
 const conn = createDBConn()
-const transact = datascript.transact
+//const transact = datascript.transact
+
+function transact(conn, data_to_add, meta) {
+  var c_uuid = cuid()
+  console.log( c_uuid )
+  data_to_add[0][':db/cuid'] = c_uuid
+  console.log(data_to_add)
+  var tx_report = datascript.transact(conn, data_to_add, meta)
+  console.log('resolved tempid', datascript.resolve_tempid(tx_report.tempids, -1))
+}
+
 var log = []
 var meta = []
 var peers = []
