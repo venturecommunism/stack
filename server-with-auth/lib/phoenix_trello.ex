@@ -6,6 +6,25 @@ defmodule PhoenixTrello do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+msg = %{"body" => %{"data" => [%{"C" => 0, "a" => "name", "added" => true, "e" => 67,
+       "m" => 2162164496, "tx" => 536870927,
+       "v" => "Follower of Jane 1490181805582"},
+     %{"C" => 0, "a" => "follows", "added" => true, "e" => 67,
+       "m" => 2162164496, "tx" => 536870927, "v" => 2},
+     %{"C" => 0, "a" => ":db/cuid", "added" => true, "e" => 67,
+       "m" => 2162164496, "tx" => 536870927,
+       "v" => "cj0kvrs40000qs1tsjq9zh3dv"},
+     %{"C" => 0, "a" => ":db/muid", "added" => true, "e" => 67,
+       "m" => 2162164496, "tx" => 536870927,
+       "v" => "cj0kvrs43000rs1ts2en6r2at"}],
+    "meta" => %{"mcuid" => "cj0kvrs43000rs1ts2en6r2at"}},
+  "user" => "FaceGirlBug"}
+
+%{"body" => %{"data" => data, "meta" => meta}, "user" => user} = msg
+
+IO.puts 'parse'
+IO.inspect ParseDatascriptTransaction.first(data)
+
     children = [
       # Start the endpoint when the application starts
       supervisor(PhoenixTrello.Endpoint, []),

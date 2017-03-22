@@ -2,6 +2,81 @@
 # jwk = JOSE.JWK.generate_key({:ec, "P-521"}) |> JOSE.JWK.to_map |> elem(1)
 # full list of keys: https://hexdocs.pm/jose/key-generation.html
 
+defmodule ParseDatascriptSublistToMap do
+  alias DatomicGenServer.Db, as: Db
+
+  def fifth([ head | [] ], map) do
+    nextmap = %{"op" => head}
+    Map.merge(map, nextmap)
+  end
+
+  def fourth([ head | tail ], map) do
+    nextmap = %{"tx" => head}
+    newmap = Map.merge(map, nextmap)
+    fifth(tail, newmap)
+  end
+
+  def third([{:tag, :inst, date} | tail], map) do
+    nextmap = %{"v" => date}
+    newmap = Map.merge(map, nextmap)
+    fourth(tail, newmap)
+  end
+
+  def third([ head | tail ], map) do
+    nextmap = %{"v" => head}
+    newmap = Map.merge(map, nextmap)
+    fourth(tail, newmap)
+  end
+
+  def second([ head | tail ], map) do
+    nextmap = %{"a" => head}
+    newmap = Map.merge(map, nextmap)
+    third(tail, newmap)
+  end
+
+  def first(arg) do
+%{"a" => a, "added" => added, "tx" => tx, "v" => v} = arg
+IO.puts 'parts'
+IO.inspect a
+#IO.inspect added
+#IO.inspect tx
+IO.inspect v
+newmap = %{"a" => a, "added" => added, "tx" => tx, "v" => v}
+transact_data = """
+      [ { :db/id #db/id[:db.part/db]
+          :db/ident :person/name
+          :db/valueType :db.type/string
+          :db/cardinality :db.cardinality/one
+          :db/doc \"A person's name\"
+          :db.install/_attribute :db.part/db}]
+"""
+somenew = "[{" <> a <> " " <> Integer.to_string(v) <> "}]"
+#    second(head, tail)
+  end
+end
+
+defmodule ParseDatascriptTransaction do
+  def second([], list) do
+    list
+  end
+
+  def second([ head | [] ], list) do
+    list ++ [ParseDatascriptSublistToMap.first(head)]
+  end
+
+  def second([ head | tail ], list) do
+IO.puts "head"
+IO.inspect head
+    newlist = list ++ [ParseDatascriptSublistToMap.first(head)]
+    second(tail, newlist)
+  end
+
+  def first([ head | tail ]) do
+    newlist = [ParseDatascriptSublistToMap.first(head)]
+    second(tail, newlist)
+  end
+end
+
 defmodule MySublistToMap do
   def fourth([ head | [] ], map) do
     nextmap = %{"op" => head}
@@ -246,9 +321,52 @@ defmodule PhoenixTrello.UserChannel do
     {:reply, {:ok, %{msg: %{"syncpoint": false, "user": user}}}, assign(socket, :user, user)}
   end
 
+  def handle_in("new:msg", %{"body" => %{"data" => data, "meta" => meta}, "user" => user}, socket) do
+    IO.puts "TX W/ META"
+
+    msg = %{"body" => %{"data" => data, "meta" => meta}, "user" => user}
+
+    IO.inspect msg
+
+IO.puts 'data'
+IO.inspect data
+
+ParseDatascriptTransaction.first(data)
+
+    data_to_add = """
+      [ { :db/id #db/id[:db.part/db]
+          :db/ident :person/name
+          :db/valueType :db.type/string
+          :db/cardinality :db.cardinality/one
+          :db/doc \"A person's name\"
+          :db.install/_attribute :db.part/db}]
+    """
+    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServer, data_to_add)
+
+    IO.puts transaction_result
+
+#    push socket, "join", %{status: "connected"}
+#    broadcast! socket, "new:msg", %{user: user, body: %{"syncpoint": false, "user": user}}
+    {:reply, {:ok, %{msg: %{"syncpoint": false, "user": user}}}, assign(socket, :user, user)}
+  end
+
   def handle_in("new:msg", msg, socket) do
     IO.puts "MSG"
     IO.inspect msg
+
+
+    data_to_add = """
+      [ { :db/id #db/id[:db.part/db]
+          :db/ident :person/name
+          :db/valueType :db.type/string
+          :db/cardinality :db.cardinality/one
+          :db/doc \"A person's name\"
+          :db.install/_attribute :db.part/db}]
+    """
+#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServer, data_to_add)
+
+#IO.puts "tx"
+#IO.inspect transaction_result
 
 #    %{"body" => %{"from" => from}} = msg
 
