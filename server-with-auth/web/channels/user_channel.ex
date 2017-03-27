@@ -3,8 +3,6 @@
 # full list of keys: https://hexdocs.pm/jose/key-generation.html
 
 defmodule ParseDatascriptSublistToMap do
-  alias DatomicGenServer.Db, as: Db
-
   def fifth([ head | [] ], map) do
     nextmap = %{"op" => head}
     Map.merge(map, nextmap)
@@ -34,23 +32,26 @@ defmodule ParseDatascriptSublistToMap do
     third(tail, newmap)
   end
 
+def changeinteger(%{"a" => a, "added" => added, "tx" => tx, "v" => v}) when is_integer(v), do: %{"a" => a, "added" => added, "tx" => tx, "v" => Integer.to_string(v)}
+def changeinteger(arg), do: arg
+
   def first(arg) do
-%{"a" => a, "added" => added, "tx" => tx, "v" => v} = arg
+%{"a" => a, "added" => added, "tx" => tx, "v" => v} = changeinteger(arg)
 IO.puts 'parts'
 IO.inspect a
 #IO.inspect added
 #IO.inspect tx
 IO.inspect v
 newmap = %{"a" => a, "added" => added, "tx" => tx, "v" => v}
-transact_data = """
-      [ { :db/id #db/id[:db.part/db]
-          :db/ident :person/name
-          :db/valueType :db.type/string
-          :db/cardinality :db.cardinality/one
-          :db/doc \"A person's name\"
-          :db.install/_attribute :db.part/db}]
-"""
-somenew = "[{" <> a <> " " <> Integer.to_string(v) <> "}]"
+#transact_data = """
+#      [ { :db/id #db/id[:db.part/db]
+#          :db/ident :person/name
+#          :db/valueType :db.type/string
+#          :db/cardinality :db.cardinality/one
+#          :db/doc \"A person's name\"
+#          :db.install/_attribute :db.part/db}]
+#"""
+somenew = a <> " " <> v
 #    second(head, tail)
   end
 end
@@ -331,17 +332,20 @@ defmodule PhoenixTrello.UserChannel do
 IO.puts 'data'
 IO.inspect data
 
-ParseDatascriptTransaction.first(data)
+some_data = ParseDatascriptTransaction.first(data)
+
+IO.puts 'some_data'
+IO.inspect some_data
 
     data_to_add = """
       [ { :db/id #db/id[:db.part/db]
           :db/ident :person/name
           :db/valueType :db.type/string
           :db/cardinality :db.cardinality/one
-          :db/doc \"A person's name\"
+          :db/doc \"A personn's name\"
           :db.install/_attribute :db.part/db}]
     """
-    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServer, data_to_add)
+    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLink, some_data)
 
     IO.puts transaction_result
 
