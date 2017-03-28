@@ -51,29 +51,44 @@ newmap = %{"a" => a, "added" => added, "tx" => tx, "v" => v}
 #          :db/doc \"A person's name\"
 #          :db.install/_attribute :db.part/db}]
 #"""
-somenew = a <> " " <> v
+IO.puts "somenew"
+IO.inspect a <> " " <> v
+a <> " " <> v
 #    second(head, tail)
   end
 end
 
 defmodule ParseDatascriptTransaction do
   def second([], list) do
+IO.puts "this one"
     list
   end
 
   def second([ head | [] ], list) do
-    list ++ [ParseDatascriptSublistToMap.first(head)]
+IO.puts "that one"
+    [{list <> " " <> ParseDatascriptSublistToMap.first(head) }]
   end
 
   def second([ head | tail ], list) do
 IO.puts "head"
 IO.inspect head
-    newlist = list ++ [ParseDatascriptSublistToMap.first(head)]
+IO.puts "tail"
+IO.inspect tail
+IO.puts "list"
+IO.inspect list
+    newlist = list <> " " <> ParseDatascriptSublistToMap.first(head)
+IO.puts "newlist"
+IO.inspect newlist
     second(tail, newlist)
   end
 
   def first([ head | tail ]) do
-    newlist = [ParseDatascriptSublistToMap.first(head)]
+    newlist = ParseDatascriptSublistToMap.first(head)
+    second(tail, newlist)
+  end
+
+  def first([head | tail]) do
+    newlist = ParseDatascriptSublistToMap.first(head)
     second(tail, newlist)
   end
 end
