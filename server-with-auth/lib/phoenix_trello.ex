@@ -55,9 +55,9 @@ IO.inspect ParseDatascriptTransaction.first(data)
 
 parsed_data = ParseDatascriptTransaction.first(data)
 
-    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, parsed_data, [:options, {:client_timeout, 100_000}])
+#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, parsed_data, [:options, {:client_timeout, 100_000}])
 
-IO.inspect transaction_result
+#IO.inspect transaction_result
 
     children = [
       # Start the endpoint when the application starts

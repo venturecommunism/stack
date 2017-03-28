@@ -3,97 +3,42 @@
 # full list of keys: https://hexdocs.pm/jose/key-generation.html
 
 defmodule ParseDatascriptSublistToMap do
-  def fifth([ head | [] ], map) do
-    nextmap = %{"op" => head}
-    Map.merge(map, nextmap)
+  def second([head | tail], newmap) do
+IO.puts "head"
+IO.inspect head
+IO.inspect tail
+IO.inspect newmap
+    newmap = %{"e" => head, "a" => ":db/doc"}
+#    second(tail, newmap)
   end
 
-  def fourth([ head | tail ], map) do
-    nextmap = %{"tx" => head}
-    newmap = Map.merge(map, nextmap)
-    fifth(tail, newmap)
+  def first([], map) do
+    IO.inspect Exdn.from_elixir! ([map])
   end
 
-  def third([{:tag, :inst, date} | tail], map) do
-    nextmap = %{"v" => date}
-    newmap = Map.merge(map, nextmap)
-    fourth(tail, newmap)
+  def first([head | tail], map) do
+%{"v" => v, "a" => a} = head
+newmap = %{String.to_atom(a) => v}
+IO.puts '2nd newmap is'
+IO.inspect newmap
+nextmap = Map.merge(map, newmap)
+    first(tail, nextmap)
   end
 
-  def third([ head | tail ], map) do
-    nextmap = %{"v" => head}
-    newmap = Map.merge(map, nextmap)
-    fourth(tail, newmap)
-  end
-
-  def second([ head | tail ], map) do
-    nextmap = %{"a" => head}
-    newmap = Map.merge(map, nextmap)
-    third(tail, newmap)
-  end
-
-def changeinteger(%{"a" => a, "added" => added, "tx" => tx, "v" => v}) when is_integer(v), do: %{"a" => a, "added" => added, "tx" => tx, "v" => Integer.to_string(v)}
-def changeinteger(arg), do: arg
-
-  def first(arg) do
-%{"a" => a, "added" => added, "tx" => tx, "v" => v} = changeinteger(arg)
-IO.puts 'parts'
-IO.inspect a
-#IO.inspect added
-#IO.inspect tx
-IO.inspect v
-newmap = %{"a" => a, "added" => added, "tx" => tx, "v" => v}
-#transact_data = """
-#      [ { :db/id #db/id[:db.part/db]
-#          :db/ident :person/name
-#          :db/valueType :db.type/string
-#          :db/cardinality :db.cardinality/one
-#          :db/doc \"A person's name\"
-#          :db.install/_attribute :db.part/db}]
-#"""
-IO.puts "somenew"
-IO.inspect a <> " " <> v
-a <> " " <> v
-#    second(head, tail)
+  def first([head | tail]) do
+%{"v" => v, "a" => a} = head
+newmap = %{String.to_atom(a) => v}
+IO.puts 'newmap is'
+IO.inspect newmap
+    first(tail, newmap)
   end
 end
 
 defmodule ParseDatascriptTransaction do
-  def second([], list) do
-IO.puts "this one"
-    list
-  end
-
-  def second([ head | [] ], list) do
-IO.puts "that one"
-#    base_one = byte_size("q")
-#    <<_::binary-size(base_one), rest::binary>> = list <> " " <> ParseDatascriptSublistToMap.first(head)
-#    base_two = byte_size(rest) - byte_size("q")
-#    <<inner::binary-size(base_two), _::binary>> = rest
-    final_list = [{list <> " " <> ParseDatascriptSublistToMap.first(head)}]
-  end
-
-  def second([ head | tail ], list) do
-IO.puts "head"
-IO.inspect head
-IO.puts "tail"
-IO.inspect tail
-IO.puts "list"
-IO.inspect list
-    newlist = list <> " " <> ParseDatascriptSublistToMap.first(head)
-IO.puts "newlist"
-IO.inspect newlist
-    second(tail, newlist)
-  end
-
-  def first([ head | tail ]) do
-    newlist = ParseDatascriptSublistToMap.first(head)
-    second(tail, newlist)
-  end
-
-  def first([head | tail]) do
-    newlist = ParseDatascriptSublistToMap.first(head)
-    second(tail, newlist)
+  def first(arg) do
+IO.puts 'arg 1'
+IO.inspect arg
+    newlist = ParseDatascriptSublistToMap.first(arg)
   end
 end
 
@@ -364,9 +309,9 @@ IO.inspect some_data
           :db/doc \"A personn's name\"
           :db.install/_attribute :db.part/db}]
     """
-    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLink, some_data)
+#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLink, some_data)
 
-    IO.puts transaction_result
+#    IO.puts transaction_result
 
 #    push socket, "join", %{status: "connected"}
 #    broadcast! socket, "new:msg", %{user: user, body: %{"syncpoint": false, "user": user}}
