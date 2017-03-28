@@ -37,11 +37,19 @@ const conn = createDBConn()
 
 function transact(conn, data_to_add, meta) {
   var c_uuid = cuid()
+  var m_uuid = cuid()
   console.log( c_uuid )
   data_to_add[0][':db/cuid'] = c_uuid
+  data_to_add[0][':db/muid'] = m_uuid
   console.log(data_to_add)
+  if (meta) {
+    meta.mcuid = m_uuid
+  } else {
+    var meta = {}
+    meta.mcuid = m_uuid
+  }
   var tx_report = datascript.transact(conn, data_to_add, meta)
-  console.log('resolved tempid', datascript.resolve_tempid(tx_report.tempids, -1))
+  // console.log('resolved tempid', datascript.resolve_tempid(tx_report.tempids, -1))
 }
 
 var log = []
@@ -127,6 +135,9 @@ datascript.listen(conn, {channel}, function(report) {
 
   if (report.tx_meta && report.tx_meta.remoteuser || report.tx_meta && report.tx_meta.secrets) return
 
+  console.log('META', report.tx_meta)
+  console.log('listened tempid', datascript.resolve_tempid(report.tempids, -1))
+
   var query = `[:find ?id
                 :where [?e ":app/peer" ?id]]`
 
@@ -136,7 +147,7 @@ datascript.listen(conn, {channel}, function(report) {
   var result = datascript.q(...qArgs)
   console.log('RESULT', result)
 
-  // channel.send(report.tx_data)
+  channel.send({data: report.tx_data, meta: report.tx_meta})
 })
 
 function connect(c) {
