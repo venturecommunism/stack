@@ -18,7 +18,7 @@ IO.inspect newmap
 
   def first([head | tail], map) do
 %{"v" => v, "a" => a} = head
-newmap = %{String.to_atom(a) => v}
+newmap = %{a => v}
 IO.puts '2nd newmap is'
 IO.inspect newmap
 nextmap = Map.merge(map, newmap)
@@ -27,7 +27,7 @@ nextmap = Map.merge(map, newmap)
 
   def first([head | tail]) do
 %{"v" => v, "a" => a} = head
-newmap = %{String.to_atom(a) => v}
+newmap = %{a => v}
 IO.puts 'newmap is'
 IO.inspect newmap
     first(tail, newmap)
@@ -309,9 +309,9 @@ IO.inspect some_data
           :db/doc \"A personn's name\"
           :db.install/_attribute :db.part/db}]
     """
-#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLink, some_data)
+    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLink, some_data, [:options, {:client_timeout, 100_000}])
 
-#    IO.puts transaction_result
+    IO.puts transaction_result
 
 #    push socket, "join", %{status: "connected"}
 #    broadcast! socket, "new:msg", %{user: user, body: %{"syncpoint": false, "user": user}}

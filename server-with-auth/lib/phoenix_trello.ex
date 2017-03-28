@@ -34,10 +34,10 @@ IO.inspect back_to_edn
 #    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, data_to_add, [:options, {:client_timeout, 100_000}])
 
 
-msg = %{"body" => %{"data" => [%{"C" => 0, "a" => "name", "added" => true, "e" => 67,
+msg = %{"body" => %{"data" => [%{"C" => 0, "a" => ":name", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927,
        "v" => "thing"},
-     %{"C" => 0, "a" => "follows", "added" => true, "e" => 67,
+     %{"C" => 0, "a" => ":follows", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927, "v" => 2},
      %{"C" => 0, "a" => ":db/cuid", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927,
