@@ -6,6 +6,20 @@ defmodule PhoenixTrello do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+
+    DatomicGenServer.start_link(
+      "datomic:free://localhost:4334/responsive-db",
+      true,
+      [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLinkTx}]
+    )
+
+
+#    data_to_add = """
+#      [ { :db/ident :db/name }]
+#    """
+#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, data_to_add, [:options, {:client_timeout, 100_000}])
+
+
 msg = %{"body" => %{"data" => [%{"C" => 0, "a" => "name", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927,
        "v" => "Follower of Jane 1490181805582"},
@@ -24,6 +38,12 @@ msg = %{"body" => %{"data" => [%{"C" => 0, "a" => "name", "added" => true, "e" =
 
 IO.puts 'parse'
 IO.inspect ParseDatascriptTransaction.first(data)
+
+parsed_data = ParseDatascriptTransaction.first(data)
+
+    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, parsed_data, [:options, {:client_timeout, 100_000}])
+
+IO.inspect transaction_result
 
     children = [
       # Start the endpoint when the application starts
