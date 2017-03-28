@@ -70,7 +70,7 @@ IO.puts "that one"
 #    <<_::binary-size(base_one), rest::binary>> = list <> " " <> ParseDatascriptSublistToMap.first(head)
 #    base_two = byte_size(rest) - byte_size("q")
 #    <<inner::binary-size(base_two), _::binary>> = rest
-    final_list = Exdn.from_elixir! [{list <> " " <> ParseDatascriptSublistToMap.first(head)}]
+    final_list = [{list <> " " <> ParseDatascriptSublistToMap.first(head)}]
   end
 
   def second([ head | tail ], list) do

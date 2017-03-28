@@ -14,6 +14,20 @@ defmodule PhoenixTrello do
     )
 
 
+reversible = Exdn.to_reversible """
+  [{ :something/wut "a thing"
+     :anotherthing "some other thing"
+     :yo 2
+  }]
+"""
+
+IO.inspect reversible
+
+back_to_edn = Exdn.from_elixir reversible
+
+IO.inspect back_to_edn
+
+
 #    data_to_add = """
 #      [ { :db/ident :db/name }]
 #    """
@@ -22,7 +36,7 @@ defmodule PhoenixTrello do
 
 msg = %{"body" => %{"data" => [%{"C" => 0, "a" => "name", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927,
-       "v" => "Follower of Jane 1490181805582"},
+       "v" => "thing"},
      %{"C" => 0, "a" => "follows", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927, "v" => 2},
      %{"C" => 0, "a" => ":db/cuid", "added" => true, "e" => 67,
