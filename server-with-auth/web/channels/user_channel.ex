@@ -66,7 +66,11 @@ IO.puts "this one"
 
   def second([ head | [] ], list) do
 IO.puts "that one"
-    [{list <> " " <> ParseDatascriptSublistToMap.first(head) }]
+#    base_one = byte_size("q")
+#    <<_::binary-size(base_one), rest::binary>> = list <> " " <> ParseDatascriptSublistToMap.first(head)
+#    base_two = byte_size(rest) - byte_size("q")
+#    <<inner::binary-size(base_two), _::binary>> = rest
+    final_list = Exdn.from_elixir! list <> " " <> ParseDatascriptSublistToMap.first(head)
   end
 
   def second([ head | tail ], list) do
