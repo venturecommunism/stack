@@ -2,7 +2,7 @@ import { useDeps, composeAll } from 'mantra-core'
 import composeWithMobx from '../libs/with_mobx'
 import datascript from 'datascript'
 
-const dataComposer = ({ context, query, counter }, onData) => {
+const dataComposer = ({ context, query, counter, observable }, onData) => {
   const {conn, log} = context()
 
   var db = datascript.db(conn)
@@ -18,10 +18,10 @@ const dataComposer = ({ context, query, counter }, onData) => {
   const qArgs = [query, db]
   try {
     var result = datascript.q(...qArgs)
-    onData(null, {result, counter})
+    onData(null, {result, counter, observable})
   } catch (error) {
     var error = {error: 'Bad query.'}
-    onData(null, {error, counter})
+    onData(null, {error, counter, observable})
   }
 }
 
