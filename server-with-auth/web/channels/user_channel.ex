@@ -18,7 +18,7 @@ IO.inspect newmap
 
   def first([head | tail], map) do
 %{"v" => v, "a" => a} = head
-newmap = %{a => v}
+newmap = %{String.to_atom(a) => v}
 IO.puts '2nd newmap is'
 IO.inspect newmap
 nextmap = Map.merge(map, newmap)
@@ -27,7 +27,7 @@ nextmap = Map.merge(map, newmap)
 
   def first([head | tail]) do
 %{"v" => v, "a" => a} = head
-newmap = %{a => v}
+newmap = %{String.to_atom(a) => v}
 IO.puts 'newmap is'
 IO.inspect newmap
     first(tail, newmap)
@@ -245,7 +245,7 @@ defmodule PhoenixTrello.UserChannel do
   def join("rooms:lobby", _params, socket) do
 
     DatomicGenServer.start_link(
-      "datomic:free://localhost:4334/responsive-db",
+      "datomic:free://localhost:4334/responsive-db-2",
       true,
       [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLink}]
     )

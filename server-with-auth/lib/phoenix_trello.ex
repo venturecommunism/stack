@@ -8,7 +8,7 @@ defmodule PhoenixTrello do
 
 
     DatomicGenServer.start_link(
-      "datomic:free://localhost:4334/responsive-db",
+      "datomic:free://localhost:4334/responsive-db-2",
       true,
       [{:timeout, 20_000}, {:default_message_timeout, 20_000}, {:name, DatomicGenServerLinkTx}]
     )
@@ -29,10 +29,74 @@ IO.inspect back_to_edn
 
 
 #    data_to_add = """
-#      [ { :db/ident :db/name }]
+#      [ { :db/ident :app/cuid :db/unique :db.unique/identity   :db.install/_attribute :db.part/db} { :db/ident :app/muid :db/unique :db.unique/identity   :db.install/_attribute :db.part/db}]
 #    """
-#    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, data_to_add, [:options, {:client_timeout, 100_000}])
+data_to_add = """
+[{
+   :db/id #db/id [:db.part/db]
+   :db.install/_attribute :db.part/db
+   :db/ident :app/cuid
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+ }
+ { 
+   :db/id #db/id [:db.part/db]
+   :db.install/_attribute :db.part/db
+   :db/ident :app/muid
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+}]
+"""
+data_to_add = """
+[{:db/ident :app/cuid
+  :db/cardinality :db.cardinality/one
+  :db/valueType :db.type/string
+  :db.install/_attribute :db.part/db
+  :db/id #db/id[:db.part/db]}]
+"""
+data_to_add = """
+[{                         :db/ident :movie/title
+                           :db/valueType :db.type/string
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The title of the movie"}
 
+                          {:db/ident :movie/genre
+                           :db/valueType :db.type/string
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The genre of the movie"}
+
+                          {:db/ident :movie/release-year
+                           :db/valueType :db.type/long
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The year the movie was released in theaters"}]
+"""
+data_to_add = """
+[{                         :db/ident :wapp/cuid
+                           :db/valueType :db.type/string
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The CUID"}
+
+                          {:db/ident :wapp/muid
+                           :db/valueType :db.type/string
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The MUID"}
+
+                          {:db/ident :name
+                           :db/valueType :db.type/string
+                           :db/cardinality :db.cardinality/one
+                           :db/doc "The name"}
+
+                          {:db/ident :follows              
+                           :db/valueType :db.type/long
+                           :db/cardinality :db.cardinality/many
+                           :db/doc "Who they follow"}]
+"""
+
+
+    {:ok, transaction_result} = DatomicGenServer.transact(DatomicGenServerLinkTx, data_to_add, [:options, {:client_timeout, 100_000}])
+
+IO.puts "TX RESULT"
+IO.inspect transaction_result
 
 msg = %{"body" => %{"data" => [%{"C" => 0, "a" => ":name", "added" => true, "e" => 67,
        "m" => 2162164496, "tx" => 536870927,
