@@ -39,8 +39,8 @@ function transact(conn, data_to_add, meta) {
   var c_uuid = cuid()
   var m_uuid = cuid()
   console.log( c_uuid )
-  data_to_add[0]['app/cuid'] = c_uuid
-  data_to_add[0]['app/muid'] = m_uuid
+  data_to_add[0]['wapp/cuid'] = c_uuid
+  data_to_add[0]['wapp/muid'] = m_uuid
   console.log(data_to_add)
   if (meta) {
     meta.mcuid = m_uuid
