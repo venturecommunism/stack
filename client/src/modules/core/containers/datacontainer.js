@@ -6,13 +6,16 @@ import moment from 'moment'
 const dataComposer = ({ context, query, counter, observable }, onData) => {
   const {conn, log} = context()
 
+  if (observable) {
+  } else {
+    var observable = {}
+    observable.value = new Date()
+  }
 
   try {
     var now = moment(observable.value, 'YYYY-MM-DD-HH-mm-ss-SSS-')
-    console.log(now)
     observable.time = now.format('YYYYMMDDHHmmss')
     observable.diff = observable.time - 20170404060700
-    if (observable.diff == 0) { alert('yo') }
   } catch (error) {
     console.log(error)
   }
