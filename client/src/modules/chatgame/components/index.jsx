@@ -5,7 +5,6 @@ import React from 'react'
 // import PeersContainer from '../../core/containers/peerscontainer'
 import DataContainer from '../../core/containers/datacontainer'
 import ActionsMapper from '../../core/containers/actionsmapper'
-import TimerContainer from '../../core/containers/timercontainer'
 
 import JWT from '../../clientjwt/components/jwt'
 import ImportUI from '../../jsonld/components/index.jsx'
@@ -25,7 +24,8 @@ import PeersComponent from './peers'
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 
-const TimerContainerWithTimers = TimerContainer(PlainResultComponent)
+const TimerContainerWithTimers = DataContainer(PlainResultComponent)
+import timer from '../observables/timer'
 
 // const RnData = RnDataContainer(PlainResultComponent)
 
@@ -41,10 +41,10 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('chatcommands', Followe
 const Demo = () => (
   <div>
 { console.log('index.jsx') }
-    <TimerContainerWithTimers />
+    <TimerContainerWithTimers observable={timer} />
     {/* <AudioVideo /> */}
     {/* <AllPeersContainer /> */}
-    <AllUsersDataContainer query={allUserQuery} />
+    <AllUsersDataContainer query={allUserQuery} observable={timer} />
     {/* <RnData /> */}
     <JWT />
     <ImportUI />

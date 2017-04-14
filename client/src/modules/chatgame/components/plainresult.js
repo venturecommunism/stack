@@ -1,8 +1,9 @@
 import React from 'react'
+import {observer} from 'mobx-react'
 
-const PlainResultComponent = ({ result, time }) => (
+const PlainResultComponent = ({ result, observable }) => (
   <div>
-    <h3>Stringified Result {time}</h3>
+    <h3>{observable.diff} Timer {observable.time}</h3>
     <code>
       <pre>
         {JSON.stringify(result, null, 2)}
@@ -11,4 +12,4 @@ const PlainResultComponent = ({ result, time }) => (
   </div>
 )
 
-export default PlainResultComponent
+export default observer(PlainResultComponent)

@@ -1,10 +1,21 @@
 import { useDeps, composeAll } from 'mantra-core'
 import composeWithMobx from '../libs/with_mobx'
 import datascript from 'datascript'
+import moment from 'moment'
 
 const dataComposer = ({ context, query, counter, observable }, onData) => {
   const {conn, log} = context()
 
+
+  try {
+    var now = moment(observable.value, 'YYYY-MM-DD-HH-mm-ss-SSS-')
+    console.log(now)
+    observable.time = now.format('YYYYMMDDHHmmss')
+    observable.diff = observable.time - 20170404060700
+    if (observable.diff == 0) { alert('yo') }
+  } catch (error) {
+    console.log(error)
+  }
   var db = datascript.db(conn)
 
   if (log && counter && counter.value > 0 && log.length >= counter.value) {
