@@ -40,7 +40,6 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('chatcommands', Followe
 
 const Demo = () => (
   <div>
-{ console.log('index.jsx') }
     <TimerContainerWithTimers observable={timer} />
     {/* <AudioVideo /> */}
     {/* <AllPeersContainer /> */}

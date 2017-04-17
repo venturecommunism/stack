@@ -37,7 +37,6 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', Followe
 
 const Demo = () => (
   <div>
-{ console.log('index.jsx') }
     {/* <AudioVideo /> */}
     {/* <AllPeersContainer /> */}
     <AllUsersDataContainer query={allUserQuery} />

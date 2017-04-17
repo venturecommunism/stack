@@ -17,12 +17,8 @@ import Checkout from '../../ec_checkout/components/index'
 import JWT from '../../clientjwt/components/jwt'
 
 import GenericComponent from '../../querybuilder/components/genericcomponent'
-import WebRTCDataContainer from '../../core/containers/webrtc'
-const WrappedWebRTC = WebRTCDataContainer(GenericComponent)
 
 // import WebRTCVideo from '../../webrtcvideo/components/index'
-import WebRTCData from '../../webrtcvideo/components/data'
-const RTCDataContainer = WebRTCDataContainer(WebRTCData)
 
 const Root = ({result}) => (
   <div>{ result && result.length === 0 ? <div>
@@ -34,8 +30,6 @@ const Root = ({result}) => (
       To get started, edit <code>src/modules/core/components/index.js</code> and save to reload.
     </p>
     <ChatGame />
-    <RTCDataContainer />
-    <WrappedWebRTC />
     <Demo />
     {/* <WebRTCVideo /> */}
     <QueryBuilder />

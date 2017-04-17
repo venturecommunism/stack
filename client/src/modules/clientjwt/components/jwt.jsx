@@ -89,8 +89,8 @@ var prvKey = KEYUTIL.getKey(strVar, 'passphrase')
 
 var sJWT = KJUR.jws.JWS.sign('RS256', sHeader, sPayload, prvKey)
 
-console.log(sHSJWT)
-console.log(sJWT)
+// console.log(sHSJWT)
+// console.log(sJWT)
 
 var pubkey = KEYUTIL.getKey(pubVar)
 
@@ -106,14 +106,14 @@ try {
   console.log(err)
 }
 
-console.log('Is HS test valid?', isHSValid)
-console.log('Is RSA test valid?', isValid)
+// console.log('Is HS test valid?', isHSValid)
+// console.log('Is RSA test valid?', isValid)
 
 var headerObj = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(sJWT.split(".")[0]))
 var payloadObj = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(sJWT.split(".")[1]))
 
-console.log("header", headerObj)
-console.log("payload", payloadObj)
+// console.log("header", headerObj)
+// console.log("payload", payloadObj)
 
 export default () => (
   <div>JWT component</div>
