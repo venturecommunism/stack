@@ -47,7 +47,6 @@ const room = 'MoveKick';
         //
         function join(roomID) {
           socket.emit('join', roomID, (socketIds) =>{
-            console.log('join', socketIds);
             for (var i in socketIds) {
               var socketId = socketIds[i];
               createPC(socketId, true);
