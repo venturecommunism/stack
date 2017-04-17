@@ -4,26 +4,11 @@ import { Socket } from 'phoenix'
 import Channel from './channel'
 import url from './url'
 import publickey from './publickey'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import cuid from 'cuid'
 
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
 const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODcyOTgzOTcsImlhdCI6MTQ4NzI5ODM5NywiZXhwIjoxNDg3Mzg0Nzk3LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.LmGCzd1AKYzamlpuyel6IRtp834VGUVWPTsSJlj8gN0c5tXvbauhzZzzIkNwcM6tmj45ZKwmhmmHtVi6NkMU5UHIEoCuKeU2d3IhjX1fTChw5DdcoyspK9TFRkBjlO7F7nl90GV0VfZrKClPbSY13e7-5CuqDdjlrBsmhk1GNNSDLnopUWc6oIgbOisKM1SSAk3H4-2vt8Ij53G0Bl6fGeF65Tj2wDFJR37h5FNa0O-zXDL0WbEpBJc7jhXNp3mL0qHp2ad--RoGihcWbedSLs7U2DKyTRRyHsejgGLZE4VrGzI7OggEMZVROqpN5uz0hIVHZcakfn_oOqvustwa9w'
-
-let socket
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']})
-
-        function join(roomID) {
-          socket.emit('join', roomID, (socketIds) =>{
-            console.log('join', socketIds);
-            for (var i in socketIds) {
-              var socketId = socketIds[i];
-              this.createPC(socketId, true);
-            }
-          });
-        }
-
-join('MoveKick')
 
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min

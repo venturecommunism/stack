@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 // import styles from './styles';
 import Videotag from 'react-html5video';
 import { Button } from 'react-bootstrap';
@@ -41,7 +41,8 @@ class VideoFeed extends Component {
   componentWillMount() {
     container = this;
     // establish socket connection
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+socket = {}
+//    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
     // socket = io('https://iiiiii.herokuapp.com', {transports: ['websocket']}); }
   }
 
