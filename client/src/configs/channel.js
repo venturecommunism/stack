@@ -1,4 +1,5 @@
 import { Socket } from 'phoenix'
+import datascript from 'datascript'
 
 import url from './url'
 
@@ -7,11 +8,10 @@ const LOBBY = 'rooms:lobby'
 
 export default (conn, user, onChat) => {
   // construct a socket
-//  const socket = new Socket(url)
-
   const socket = new Socket(url, { params: {
-    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0ODk1MzEzNzcsImlhdCI6MTQ4OTI3MjE3NywiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6IjEzNjEyMjViLTBkZWItNDg0ZC04ZjBmLWY4M2M0Y2ZhYjViYyIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.z37GM5h9iKEv-e67uAxFc3lst4Yeadr6BHUtYdmhX6sCCdlwAoRmxxOJQeU-T57n2nW0kY3j22MAfuhSLJmPYw'
-  } } )
+    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0OTI5OTMzMDEsImlhdCI6MTQ5MjczNDEwMSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6Ijk0MTQxZGFjLWQzOTEtNGQ3NC04OWM3LTRiMDQ5ODhhZGIzOSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0._G9SSOMb3rEE9Lp9h4WeJY4Lr6Cj-ByZD3QyDiq5eYc2GgRlKjJ2trwKfkYbxrGnucOBM44mSUdL5-YkLp-N1Q'
+  } })
+//  const socket = new Socket(url)
 
   // configure the event handlers
   socket.onOpen(event => console.log('Connected.'))
@@ -27,7 +27,7 @@ export default (conn, user, onChat) => {
   // join the channel and listen for admittance
   chan.join()
     .receive('ignore', () => console.log('Access denied.'))
-    .receive('ok', () => console.log('Access granted.'))
+    .receive('ok', () => syncfunc())
     .receive('timeout', () => console.log('Must be a MongoDB.'))
 
   // add some channel-level event handlers
@@ -39,6 +39,13 @@ export default (conn, user, onChat) => {
 
   // you can can listen to multiple types
   chan.on('user:entered', msg => console.log('say hello to ', msg))
+  function syncfunc() {
+    console.log('Access Granted. Syncing...')
+    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
+    var syncpoint = datascript.q(query, datascript.db(conn))
+//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
+    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
+  }
 
   // a function to shut it all down
   const close = () => socket.disconnect()

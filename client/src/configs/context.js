@@ -4,166 +4,11 @@ import { Socket } from 'phoenix'
 import Channel from './channel'
 import url from './url'
 import publickey from './publickey'
-import creds from './creds'
-
 import io from 'socket.io-client'
-
-/************************************* SOCKET IO******************************************/
-
-let RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection || window.msRTCPeerConnection;
-let RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription || window.msRTCSessionDescription;
-navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia;
-
-var configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
-let socket;
-var pcPeers = {};
-
-/************************************* SOCKET IO ******************************************/
-const room = 'MoveKick';
-
-    socket = io('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
-
-    socket.on('connect', (data) => {
-//      console.log('connect');
-    });
-
-    socket.on('exchange', function(data){
-//      console.log('exchange')
-      exchange(data);
-    });
-
-    socket.on('leave', function(socketId){
-      leave(socketId);
-    });
-
-
-    join(room);
-
-
-        function logError(error, message) {
-          console.log(message + ': ', error);
-        }
-
-        //
-        function join(roomID) {
-          socket.emit('join', roomID, (socketIds) =>{
-            for (var i in socketIds) {
-              var socketId = socketIds[i];
-              createPC(socketId, true);
-            }
-          });
-        }
-
-
-        function createPC(socketId, isOffer) {
-          var pc = new RTCPeerConnection(configuration);
-          pcPeers[socketId] = pc;
-
-          pc.onicecandidate = function (event) {
-//            console.log('onicecandidate', event);
-            if (event.candidate) {
-              socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
-            }
-          };
-
-          function createOffer() {
-            pc.createOffer(function(desc) {
-//              console.log('createOffer', desc);
-              pc.setLocalDescription(desc, function () {
-//                console.log('setLocalDescription', pc.localDescription);
-                socket.emit('exchange', {'to': socketId, 'sdp': pc.localDescription });
-              }, logError);
-            }, logError);
-          }
-
-          pc.onnegotiationneeded = function () {
-//            console.log('onnegotiationneeded');
-            if (isOffer) {
-              createOffer();
-            }
-          }
-
-          pc.oniceconnectionstatechange = function(event) {
-//            console.log('oniceconnectionstatechange', event);
-            if (event.target.iceConnectionState === 'connected') {
-              createDataChannel();
-            }
-          };
-          pc.onsignalingstatechange = function(event) {
-//            console.log('onsignalingstatechange', event);
-          };
-
-
-          function createDataChannel() {
-            if (pc.textDataChannel) {
-              return;
-            }
-            var dataChannel = pc.createDataChannel("text");
-
-            dataChannel.onerror = function (error) {
-              console.log("dataChannel.onerror", error);
-            };
-
-            dataChannel.onmessage = function (event) {
-              console.log("dataChannel.onmessage:", event.data);
-              if (event.data === 'capture') {
-                grabScreenshot();
-              }
-            };
-
-            dataChannel.onopen = function () {
-              console.log('dataChannel.onopen');
-    channel.send({id: pc.id})
-    dataChannel.send('test-context')
-            };
-
-            dataChannel.onclose = function () {
-              console.log("dataChannel.onclose");
-            };
-
-            pc.textDataChannel = dataChannel;
-          }
-
-          return pc;
-        }
-
-        // handle data exchange
-        function exchange(data) {
-          var fromId = data.from;
-          var pc;
-          if (fromId in pcPeers) {
-            pc = pcPeers[fromId];
-          } else {
-            pc = createPC(fromId, false);
-          }
-
-          if (data.sdp) {
-//            console.log('exchange sdp', data);
-            pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
-              if (pc.remoteDescription.type == "offer")
-                pc.createAnswer(function(desc) {
-                  console.log('createAnswer', desc);
-                  pc.setLocalDescription(desc, function () {
-//                    console.log('setLocalDescription', pc.localDescription);
-                    socket.emit('exchange', {'to': fromId, 'sdp': pc.localDescription });
-                  }, logError);
-                }, logError);
-            }, logError);
-          } else {
-//            console.log('exchange candidate', data);
-            pc.addIceCandidate(new RTCIceCandidate(data.candidate));
-          }
-        }
-
-        function leave(socketId) {
-          console.log('leave', socketId);
-          var pc = pcPeers[socketId];
-          pc.close();
-          delete pcPeers[socketId];
-        }
-
+import cuid from 'cuid'
 
 import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
+const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODcyOTgzOTcsImlhdCI6MTQ4NzI5ODM5NywiZXhwIjoxNDg3Mzg0Nzk3LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.LmGCzd1AKYzamlpuyel6IRtp834VGUVWPTsSJlj8gN0c5tXvbauhzZzzIkNwcM6tmj45ZKwmhmmHtVi6NkMU5UHIEoCuKeU2d3IhjX1fTChw5DdcoyspK9TFRkBjlO7F7nl90GV0VfZrKClPbSY13e7-5CuqDdjlrBsmhk1GNNSDLnopUWc6oIgbOisKM1SSAk3H4-2vt8Ij53G0Bl6fGeF65Tj2wDFJR37h5FNa0O-zXDL0WbEpBJc7jhXNp3mL0qHp2ad--RoGihcWbedSLs7U2DKyTRRyHsejgGLZE4VrGzI7OggEMZVROqpN5uz0hIVHZcakfn_oOqvustwa9w'
 
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
@@ -171,9 +16,27 @@ const getRandomName = () => NAMES[getRandomInt(0, NAMES.length)]
 const getRandomUser = () => `${ getRandomName() }${ getRandomName() }${ getRandomName() }`
 const me = getRandomUser()
 
-const ex_socket = new Socket(url)
+const exsocket = new Socket(url)
 const conn = createDBConn()
-const transact = datascript.transact
+//const transact = datascript.transact
+
+function transact(conn, data_to_add, meta) {
+  var c_uuid = cuid()
+  var m_uuid = cuid()
+  console.log( c_uuid )
+  data_to_add[0]['wapp/cuid'] = c_uuid
+  data_to_add[0]['wapp/muid'] = m_uuid
+  console.log(data_to_add)
+  if (meta) {
+    meta.mcuid = m_uuid
+  } else {
+    var meta = {}
+    meta.mcuid = m_uuid
+  }
+  var tx_report = datascript.transact(conn, data_to_add, meta)
+  // console.log('resolved tempid', datascript.resolve_tempid(tx_report.tempids, -1))
+}
+
 var log = []
 var meta = []
 var peers = []
@@ -257,6 +120,9 @@ datascript.listen(conn, {channel}, function(report) {
 
   if (report.tx_meta && report.tx_meta.remoteuser || report.tx_meta && report.tx_meta.secrets) return
 
+  console.log('META', report.tx_meta)
+  console.log('listened tempid', datascript.resolve_tempid(report.tempids, -1))
+
   var query = `[:find ?id
                 :where [?e ":app/peer" ?id]]`
 
@@ -266,45 +132,13 @@ datascript.listen(conn, {channel}, function(report) {
   var result = datascript.q(...qArgs)
   console.log('RESULT', result)
 
-join(room)
-
-var pc_keys = Object.keys(pcPeers)
-pc_keys.map( s => {
-  console.log('PC KEYS', s)
-  var pc = pcPeers[s]
-  var dataChannel = pc.createDataChannel("text");
-  dataChannel.onopen = function () {
-    console.log('ds.listen dataChannel.onopen');
-    channel.send({id: pc.id})
-    dataChannel.send('ds-listener-test-context')
-  };
-
+  channel.send({data: report.tx_data, meta: report.tx_meta})
 })
-
-  result.map( s => {
-
-var dataChannel = createPC(pcPeers[s], true)
-console.log('DATA CHANNEL', dataChannel)
-dataChannel.send('wat')
-
-
-/*
-    webrtc.on('open', function(){
-      webrtc.send(JSON.stringify({creds: creds, body: report.tx_data}))
-    })
-*/
-  })
-
-  // channel.send(report.tx_data)
-})
-
 
 export const initContext = () => {
   return {
-    pcPeers: pcPeers,
-    me: me,
     peers: peers,
-    socket: ex_socket,
+    socket: exsocket,
     conn: conn,
     channel: channel,
     transact: transact,
