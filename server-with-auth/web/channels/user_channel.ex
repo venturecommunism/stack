@@ -261,6 +261,28 @@ defmodule PhoenixTrello.UserChannel do
 #    end
   end
 
+  def handle_in("new:msg", %{"body" => %{"email" => email, "password" => password}, "user" => user}, socket) do
+    IO.puts "EMAIL & PASSWORD"
+    IO.inspect email
+    IO.inspect password
+
+    case PhoenixTrello.Session.authenticate(%{"email" => email, "password" => password}) do
+      {:ok, user} ->
+        {:ok, jwt, _full_claims} = user |> Guardian.encode_and_sign(:token)
+
+IO.puts "signing in.."
+
+      :error ->
+IO.puts "error signing in..."
+      :error
+    end
+
+
+    push socket, "join", %{status: "connected"}
+    broadcast! socket, "new:msg", %{user: user, body: %{"user": user}}
+    {:reply, {:ok, %{msg: %{"user": user}}}, assign(socket, :user, user)}
+  end
+
   def handle_in("new:msg", %{"body" => %{"id" => id}, "user" => user}, socket) do
     IO.puts "ID"
     IO.inspect id
