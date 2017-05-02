@@ -251,14 +251,14 @@ defmodule PhoenixTrello.UserChannel do
     )
 
 
-    user_id = "1"
-    current_user = socket.assigns.current_user
+#    user_id = "1"
+#    current_user = socket.assigns.current_user
 
-    if String.to_integer(user_id) == current_user.id do
+#    if String.to_integer(user_id) == current_user.id do
       {:ok, socket}
-    else
-      {:error, %{reason: "Invalid user"}}
-    end
+#    else
+#      {:error, %{reason: "Invalid user"}}
+#    end
   end
 
   def handle_in("new:msg", %{"body" => %{"id" => id}, "user" => user}, socket) do
