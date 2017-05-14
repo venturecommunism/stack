@@ -1,0 +1,30 @@
+{
+  "name": "datascript-client",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.4.1"
+  },
+  "dependencies": {
+    "datascript": "^0.15.3",
+    "jsrsasign": "^7.1.5",
+    "mantra-core": "^1.7.0",
+    "mobx-react": "^4.1.8",
+    "phoenix": "^1.2.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.3.1",
+    "react-komposer": "^1.13.1",
+    "react-mounter": "^1.2.0",
+    "react-router": "^3.0.2",
+    "simple-peer": "^8.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
+  }
+}
