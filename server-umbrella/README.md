@@ -1,4 +1,0 @@
-# ServerUmbrella
-
-**TODO: Add description**
-
