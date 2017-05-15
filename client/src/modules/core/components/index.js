@@ -18,7 +18,7 @@ import JWT from '../../clientjwt/components/jwt'
 
 import GenericComponent from '../../querybuilder/components/genericcomponent'
 
-// import WebRTCVideo from '../../webrtcvideo/components/index'
+import WebRTCVideo from '../../webrtcvideo/components/index'
 
 const Root = ({result}) => (
   <div>{ result && result.length === 0 ? <div>
@@ -31,7 +31,7 @@ const Root = ({result}) => (
     </p>
     <ChatGame />
     <Demo />
-    {/* <WebRTCVideo /> */}
+    <WebRTCVideo />
     <QueryBuilder />
     <TwitterPlus />
     {/* <CartScape /> */}

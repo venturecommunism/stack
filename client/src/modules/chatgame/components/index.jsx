@@ -40,6 +40,7 @@ const FollowerTree = followerTreePullQuery(ActionsMapper('chatcommands', Followe
 
 const Demo = () => (
   <div>
+    <FollowerTree entityIds={[['name', 'Jane']]} />
     <TimerContainerWithTimers observable={timer} />
     {/* <AudioVideo /> */}
     {/* <AllPeersContainer /> */}
@@ -49,7 +50,6 @@ const Demo = () => (
     <ImportUI />
     <AllUsersFromIndex />
     <AllUserEdges />
-    <FollowerTree entityIds={[['name', 'Jane']]} />
   </div>
 )
 

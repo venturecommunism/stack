@@ -9,7 +9,7 @@ const LOBBY = 'rooms:lobby'
 export default (conn, user, onChat) => {
   // construct a socket
   const socket = new Socket(url, { params: {
-    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0OTI5OTMzMDEsImlhdCI6MTQ5MjczNDEwMSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6Ijk0MTQxZGFjLWQzOTEtNGQ3NC04OWM3LTRiMDQ5ODhhZGIzOSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0._G9SSOMb3rEE9Lp9h4WeJY4Lr6Cj-ByZD3QyDiq5eYc2GgRlKjJ2trwKfkYbxrGnucOBM44mSUdL5-YkLp-N1Q'
+    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0OTMwODc1ODUsImlhdCI6MTQ5MjgyODM4NSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6ImVmNTQ0NjYwLWQyOTAtNDUxMC05NmVmLWVmNWY4NDQ5NzBlMSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.vUhPr0QZykXL9-vTkNIkTWGsOl1Hq27zTZNwk7UflY6w-IBIP6g_ff8RR0KL2eeWXfpPSdTZB483g8nzyIGBOw'
   } })
 //  const socket = new Socket(url)
 
@@ -41,6 +41,10 @@ export default (conn, user, onChat) => {
   chan.on('user:entered', msg => console.log('say hello to ', msg))
   function syncfunc() {
     console.log('Access Granted. Syncing...')
+    var obj = {}
+    obj.email = 'john@phoenix-trello.com'
+    obj.password = '12345678'
+    send(obj)
     var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
     var syncpoint = datascript.q(query, datascript.db(conn))
 //    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
