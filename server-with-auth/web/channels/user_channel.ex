@@ -268,9 +268,9 @@ defmodule PhoenixTrello.UserChannel do
 
     case PhoenixTrello.Session.authenticate(%{"email" => email, "password" => password}) do
       {:ok, user} ->
-        {:ok, jwt, _full_claims} = user |> Guardian.encode_and_sign(:token)
-
 IO.puts "signing in.."
+        {:ok, jwt, _full_claims} = user |> Guardian.encode_and_sign(:token)
+        push socket, "new:msg", %{user: user, body: %{"user": user, "jwt": jwt}}
 
       :error ->
 IO.puts "error signing in..."
