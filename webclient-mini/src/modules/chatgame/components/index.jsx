@@ -9,8 +9,6 @@ import FollowerTreeComponent from './followertree'
 
 import allUserQuery from '../queries/alluser'
 
-import PeersComponent from './peers'
-
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 

@@ -37,13 +37,6 @@ export default (conn, user, onChat) => {
 
   // you can can listen to multiple types
   chan.on('user:entered', msg => console.log('say hello to ', msg))
-  function syncfunc() {
-    console.log('Access Granted. Syncing...')
-    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
-    var syncpoint = datascript.q(query, datascript.db(conn))
-//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
-    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
-  }
 
   // a function to shut it all down
   const close = () => socket.disconnect()
@@ -55,6 +48,15 @@ export default (conn, user, onChat) => {
       .receive('error', (reasons) => console.log('flop', reasons))
       .receive('timeout', () => console.log('slow much?'))
   }
+
+  function syncfunc() {
+    console.log('Access Granted. Syncing...')
+    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
+    var syncpoint = datascript.q(query, datascript.db(conn))
+//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
+    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
+  }
+
 
   // reveal a couple ways to drive this bus
   return { close, send }

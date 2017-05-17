@@ -8,8 +8,6 @@ import Demo from '../../demo/components/index'
 import ChatGame from '../../chatgame/components/index'
 import QueryBuilder from '../../querybuilder/components/index'
 
-import GenericComponent from '../../querybuilder/components/genericcomponent'
-
 const Root = ({result}) => (
   <div>{ !result ? <div>
     <div className='App-header'>

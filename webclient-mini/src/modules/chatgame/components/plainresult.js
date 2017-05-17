@@ -1,4 +1,5 @@
 import React from 'react'
+import {observer} from 'mobx-react'
 
 const PlainResultComponent = ({ result, observable }) => (
   <div>
@@ -11,4 +12,4 @@ const PlainResultComponent = ({ result, observable }) => (
   </div>
 )
 
-export default PlainResultComponent
+export default observer(PlainResultComponent)
