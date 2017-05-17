@@ -5,7 +5,7 @@ const context = initContext()
 const app = createApp(context)
 
 import coreModule from './modules/core'
-import chatgameModule from './modules/chatgaym'
+import chatgameModule from './modules/chatgame'
 import demoModule from './modules/demo/index'
 import querybuilderModule from './modules/querybuilder/index'
 

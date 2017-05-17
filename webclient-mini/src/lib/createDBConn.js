@@ -68,10 +68,9 @@ export default () => {
     {
       ':db/id': -4,
       name: 'Twitter Stream',
-      query: `[:find ?e ?user ?tweet
- :where [?e "tweet"]
-        [?e "tweet" ?tweet]
-        [?e "user" ?user]]`
+      query: `[:find ?e ?user
+ :where [?e "name"]
+        [?e "name" ?user]]`
     },
     {
       ':db/id': -5,
