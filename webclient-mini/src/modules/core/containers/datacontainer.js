@@ -2,7 +2,7 @@ import { useDeps, composeAll } from 'mantra-core'
 import composeWithMobx from '../libs/with_mobx'
 import datascript from 'datascript'
 
-const dataComposer = ({ context, query, counter, observable }, onData) => {
+const dataComposer = ({ context, query, index, counter, observable }, onData) => {
   const {conn, log} = context()
 
   var db = datascript.db(conn)
@@ -17,7 +17,7 @@ const dataComposer = ({ context, query, counter, observable }, onData) => {
 
   const qArgs = [query, db]
   try {
-    var result = datascript.q(...qArgs)
+    var result = index ? datascript.datoms(datascript.db(conn), index) : datascript.q(...qArgs)
     onData(null, {result, counter, observable})
   } catch (error) {
     onData(null, {error, counter, observable})

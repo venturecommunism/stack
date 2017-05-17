@@ -12,17 +12,17 @@ import allUserQuery from '../queries/alluser'
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 
-const AllUsersFromIndex = AllUsersComponent
+const AllUsersFromIndex = DataContainer(AllUsersComponent)
 
-const AllUserEdges = AllUserEdgesComponent
+const AllUserEdges = DataContainer(AllUserEdgesComponent)
 
 const FollowerTree = ActionsMapper('followertree', FollowerTreeComponent)
 
 const Demo = () => (
   <div>
     <AllUsersDataContainer query={allUserQuery} />
-    <AllUsersFromIndex />
-    <AllUserEdges />
+    <AllUsersFromIndex query={allUserQuery} />
+    <AllUserEdges query={allUserQuery} />
     <FollowerTree entityIds={[['name', 'Jane']]} />
   </div>
 )

@@ -15,9 +15,9 @@ const AllUsersDataContainer = DataContainer(PlainResultComponent)
 const TimerContainerWithTimers = DataContainer(PlainResultComponent)
 import timer from '../observables/timer'
 
-const AllUsersFromIndex = AllUsersComponent
+const AllUsersFromIndex = DataContainer(AllUsersComponent)
 
-const AllUserEdges = AllUserEdgesComponent
+const AllUserEdges = DataContainer(AllUserEdgesComponent)
 
 const FollowerTree = ActionsMapper('chatcommands', FollowerTreeComponent)
 
@@ -25,8 +25,8 @@ const Demo = () => (
   <div>
     <TimerContainerWithTimers observable={timer} />
     <AllUsersDataContainer query={allUserQuery} observable={timer} />
-    <AllUsersFromIndex />
-    <AllUserEdges />
+    <AllUsersFromIndex index={':eavt'} observable={timer} />
+    <AllUserEdges query={allUserQuery} />
     <FollowerTree entityIds={[['name', 'Jane']]} />
   </div>
 )
