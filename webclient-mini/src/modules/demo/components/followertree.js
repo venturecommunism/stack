@@ -4,7 +4,7 @@ const FollowerTreeComponent = ({ result, actions }) => (
   <div>
     <h3>A tree of all followers under Jane </h3>
     <button onClick={ actions.addfollowerofjane }>
-      Add follower g
+      Add follower
     </button>
     <code>
       <pre>

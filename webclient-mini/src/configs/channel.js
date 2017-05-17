@@ -51,6 +51,10 @@ export default (conn, user, onChat) => {
 
   function syncfunc() {
     console.log('Access Granted. Syncing...')
+    var obj = {}
+    obj.email = 'john@phoenix-trello.com'
+    obj.password = '12345678'
+    send(obj)
     var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
     var syncpoint = datascript.q(query, datascript.db(conn))
 //    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')

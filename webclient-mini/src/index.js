@@ -5,13 +5,13 @@ const context = initContext()
 const app = createApp(context)
 
 import coreModule from './modules/core'
-import demoModule from './modules/demo'
-import chatgameModule from './modules/chatgame'
-import querybuilder from './modules/querybuilder'
+import chatgameModule from './modules/chatgaym'
+import demoModule from './modules/demo/index'
+import querybuilderModule from './modules/querybuilder/index'
 
 app.loadModule(coreModule)
-app.loadModule(demoModule)
 app.loadModule(chatgameModule)
-app.loadModule(querybuilder)
+app.loadModule(demoModule)
+app.loadModule(querybuilderModule)
 app.init()
 

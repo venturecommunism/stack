@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from './images/fivepetal.svg'
 import './styles/app.css'
 import './styles/index.css'
 

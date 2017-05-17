@@ -119,7 +119,6 @@ datascript.listen(conn, {channel}, function(report) {
 
 export const initContext = () => {
   return {
-//    peer: peer,
     peers: peers,
     socket: exsocket,
     conn: conn,
