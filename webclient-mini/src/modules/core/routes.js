@@ -1,15 +1,20 @@
 import React from 'react'
 import {mount} from 'react-mounter'
+import { DBConnProvider } from '../../lib/helpers/legacy/react-datascript'
 
 import MainLayout from '../layout/components/main_layout'
 
 export default function (injectDeps, context, actions) {
-// conn = context.conn
+  const conn = context.conn
   const MainLayoutCtx = function (props) {
     const MainLayoutCtx = injectDeps(MainLayout)
     return (
-      <MainLayoutCtx { ...props } />
+      <DBConnProvider conn={ conn } >
+        <MainLayoutCtx { ...props } />
+      </DBConnProvider>
     )
   }
-  mount(MainLayoutCtx)
+  mount(MainLayoutCtx, {
+    conn: conn
+  })
 }
