@@ -8,9 +8,7 @@ const LOBBY = 'rooms:lobby'
 
 export default (conn, user, onChat) => {
   // construct a socket
-  const socket = new Socket(url, { params: {
-    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0OTI5OTMzMDEsImlhdCI6MTQ5MjczNDEwMSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6Ijk0MTQxZGFjLWQzOTEtNGQ3NC04OWM3LTRiMDQ5ODhhZGIzOSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0._G9SSOMb3rEE9Lp9h4WeJY4Lr6Cj-ByZD3QyDiq5eYc2GgRlKjJ2trwKfkYbxrGnucOBM44mSUdL5-YkLp-N1Q'
-  } })
+  const socket = new Socket(url)
 //  const socket = new Socket(url)
 
   // configure the event handlers

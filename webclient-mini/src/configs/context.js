@@ -5,12 +5,30 @@ import Channel from './channel'
 import url from './url'
 import publickey from './publickey'
 
-import {KJUR, KEYUTIL, b64utoutf8} from 'jsrsasign'
-const creds = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vZm9vLmNvbSIsInN1YiI6Im1haWx0bzptaWtlQGZvby5jb20iLCJuYmYiOjE0ODcyOTgzOTcsImlhdCI6MTQ4NzI5ODM5NywiZXhwIjoxNDg3Mzg0Nzk3LCJqdGkiOiJpZDEyMzQ1NiIsImF1ZCI6Imh0dHA6Ly9mb28uY29tL2VtcGxveWVlIn0.LmGCzd1AKYzamlpuyel6IRtp834VGUVWPTsSJlj8gN0c5tXvbauhzZzzIkNwcM6tmj45ZKwmhmmHtVi6NkMU5UHIEoCuKeU2d3IhjX1fTChw5DdcoyspK9TFRkBjlO7F7nl90GV0VfZrKClPbSY13e7-5CuqDdjlrBsmhk1GNNSDLnopUWc6oIgbOisKM1SSAk3H4-2vt8Ij53G0Bl6fGeF65Tj2wDFJR37h5FNa0O-zXDL0WbEpBJc7jhXNp3mL0qHp2ad--RoGihcWbedSLs7U2DKyTRRyHsejgGLZE4VrGzI7OggEMZVROqpN5uz0hIVHZcakfn_oOqvustwa9w'
-
 import Peer from 'simple-peer'
+/*
+const initpeer = new Peer({
+  initiator: true,
+  trickle: false
+})
+
+initpeer.on('error', function (err) { console.log('error', err) })
+
+initpeer.on('signal', function (data) {
+  console.log('SIGNAL', JSON.stringify(data))
+})
+
+initpeer.on('connect', function () {
+  console.log('CONNECT')
+  peer.send('whatever' + Math.random())
+})
+
+initpeer.on('data', function (data) {
+  console.log('data: ' + data)
+})
+*/
 const peer = new Peer({
-  initiator: location.hash === '#1',
+  initiator: false,
   trickle: false
 })
 
@@ -28,6 +46,7 @@ peer.on('connect', function () {
 peer.on('data', function (data) {
   console.log('data: ' + data)
 })
+
 
 const NAMES = ['Girl', 'Boy', 'Horse', 'Foo', 'Face', 'Giant', 'Super', 'Bug', 'Captain', 'Lazer']
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
@@ -144,7 +163,7 @@ datascript.listen(conn, {channel}, function(report) {
 
 export const initContext = () => {
   return {
-    peer: peer,
+//    peer: peer,
     peers: peers,
     socket: exsocket,
     conn: conn,
