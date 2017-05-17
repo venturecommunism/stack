@@ -53,7 +53,7 @@ const receiveChatMessage = (conn, message) => {
       }
 
       function recurse_array(whole, part) {
-        if (whole.length < 0 || part.length > 0 && whole[whole.length - 1].tx !== part[part.length - 1].tx) {
+        if ((whole.length < 0 || part.length > 0) && whole[whole.length - 1].tx !== part[part.length - 1].tx) {
           var tx_id = part[0].tx
           var array_of_arrays = [[':db/add', 0, 'app/sync', tx_id]]
           part.map(s => array_of_arrays.push(org_transaction(s)) )
@@ -100,7 +100,7 @@ datascript.listen(conn, {channel}, function(report) {
   log.push(report.tx_data)
   meta.push(report.tx_meta)
 
-  if (report.tx_meta && report.tx_meta.remoteuser || report.tx_meta && report.tx_meta.secrets) return
+  if (report.tx_meta && (report.tx_meta.remoteuser || report.tx_meta.secrets)) return
 
   console.log('META', report.tx_meta)
   console.log('listened tempid', datascript.resolve_tempid(report.tempids, -1))
