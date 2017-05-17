@@ -8,14 +8,14 @@
   "dependencies": {
     "datascript": "^0.15.3",
     "mantra-core": "^1.7.0",
-    "mobx": "^2.6.3",
-    "moment": "^2.18.1",
-    "peerjs": "^0.3.14",
-    "phoenix": "^1.2.0",
+    "mobx": "2.6.3",
+    "moment": "2.18.1",
+    "phoenix": "^1.2.1",
     "react": "^15.4.2",
     "react-dom": "^15.3.1",
     "react-komposer": "^1.13.1",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "simple-peer": "^8.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
