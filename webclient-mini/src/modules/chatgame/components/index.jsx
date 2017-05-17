@@ -24,7 +24,9 @@ const FollowerTree = ActionsMapper('chatcommands', FollowerTreeComponent)
 const Demo = () => (
   <div>
     <TimerContainerWithTimers observable={timer} />
+    <p>Begin pure datascript query</p>
     <AllUsersDataContainer query={allUserQuery} observable={timer} />
+    <p>End pure datascript query</p>
     <AllUsersFromIndex index={':eavt'} observable={timer} />
     <AllUserEdges query={allUserQuery} />
     <FollowerTree entityIds={[['name', 'Jane']]} />
