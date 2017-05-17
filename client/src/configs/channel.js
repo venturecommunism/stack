@@ -8,9 +8,7 @@ const LOBBY = 'rooms:lobby'
 
 export default (conn, user, onChat) => {
   // construct a socket
-  const socket = new Socket(url, { params: {
-    token: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE0OTMwODc1ODUsImlhdCI6MTQ5MjgyODM4NSwiaXNzIjoiUGhvZW5peFRyZWxsbyIsImp0aSI6ImVmNTQ0NjYwLWQyOTAtNDUxMC05NmVmLWVmNWY4NDQ5NzBlMSIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6InRva2VuIn0.vUhPr0QZykXL9-vTkNIkTWGsOl1Hq27zTZNwk7UflY6w-IBIP6g_ff8RR0KL2eeWXfpPSdTZB483g8nzyIGBOw'
-  } })
+  const socket = new Socket(url)
 //  const socket = new Socket(url)
 
   // configure the event handlers
@@ -39,17 +37,6 @@ export default (conn, user, onChat) => {
 
   // you can can listen to multiple types
   chan.on('user:entered', msg => console.log('say hello to ', msg))
-  function syncfunc() {
-    console.log('Access Granted. Syncing...')
-    var obj = {}
-    obj.email = 'john@phoenix-trello.com'
-    obj.password = '12345678'
-    send(obj)
-    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
-    var syncpoint = datascript.q(query, datascript.db(conn))
-//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
-    syncpoint[0] ? send({"syncpoint": syncpoint[0][0]}) : send({"syncpoint": "none"})
-  }
 
   // a function to shut it all down
   const close = () => socket.disconnect()
@@ -61,6 +48,23 @@ export default (conn, user, onChat) => {
       .receive('error', (reasons) => console.log('flop', reasons))
       .receive('timeout', () => console.log('slow much?'))
   }
+
+  function syncfunc() {
+    console.log('Access Granted. Syncing...')
+    var obj = {}
+    obj.email = 'john@phoenix-trello.com'
+    obj.password = '12345678'
+    send(obj)
+    var query = `[:find ?latest_tx :where [?e "app/sync" ?latest_tx]]`
+    var syncpoint = datascript.q(query, datascript.db(conn))
+//    syncpoint[0] ? console.log(syncpoint[0][0]) : console.log('no syncpoint')
+    if (syncpoint[0]) {
+      send({"syncpoint": syncpoint[0][0]})
+    } else {
+      send({"syncpoint": "none"})
+    }
+  }
+
 
   // reveal a couple ways to drive this bus
   return { close, send }
