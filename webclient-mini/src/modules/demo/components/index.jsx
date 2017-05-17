@@ -12,14 +12,11 @@ import allUserQuery from '../queries/alluser'
 import PlainResultComponent from './plainresult'
 const AllUsersDataContainer = DataContainer(PlainResultComponent)
 
-import allUsersFromIndex from '../queries/allusersfromindex'
-const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
+const AllUsersFromIndex = AllUsersComponent
 
-import allUserEdgesQuery from '../queries/alluseredges'
-const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
+const AllUserEdges = AllUserEdgesComponent
 
-import followerTreePullQuery from '../queries/followertreepull'
-const FollowerTree = followerTreePullQuery(ActionsMapper('followertree', FollowerTreeComponent))
+const FollowerTree = ActionsMapper('followertree', FollowerTreeComponent)
 
 const Demo = () => (
   <div>

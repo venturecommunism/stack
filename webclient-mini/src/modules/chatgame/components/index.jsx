@@ -15,14 +15,11 @@ const AllUsersDataContainer = DataContainer(PlainResultComponent)
 const TimerContainerWithTimers = DataContainer(PlainResultComponent)
 import timer from '../observables/timer'
 
-import allUsersFromIndex from '../queries/allusersfromindex'
-const AllUsersFromIndex = allUsersFromIndex(AllUsersComponent)
+const AllUsersFromIndex = AllUsersComponent
 
-import allUserEdgesQuery from '../queries/alluseredges'
-const AllUserEdges = allUserEdgesQuery(AllUserEdgesComponent)
+const AllUserEdges = AllUserEdgesComponent
 
-import followerTreePullQuery from '../queries/followertreepull'
-const FollowerTree = followerTreePullQuery(ActionsMapper('chatcommands', FollowerTreeComponent))
+const FollowerTree = ActionsMapper('chatcommands', FollowerTreeComponent)
 
 const Demo = () => (
   <div>
