@@ -5,12 +5,6 @@ import datascript from 'datascript'
 const dataComposer = ({ context, query, counter, observable }, onData) => {
   const {conn, log} = context()
 
-  if (observable) {
-  } else {
-    var observable = {}
-    observable.value = new Date()
-  }
-
   var db = datascript.db(conn)
 
   if (log && counter && counter.value > 0 && log.length >= counter.value) {
@@ -26,7 +20,6 @@ const dataComposer = ({ context, query, counter, observable }, onData) => {
     var result = datascript.q(...qArgs)
     onData(null, {result, counter, observable})
   } catch (error) {
-    var error = {error: 'Bad query.'}
     onData(null, {error, counter, observable})
   }
 }
