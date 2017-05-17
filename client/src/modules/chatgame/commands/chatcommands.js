@@ -1,4 +1,4 @@
-import { Socket } from 'phoenix'
+import { Presence } from 'phoenix'
 import fetch from 'isomorphic-fetch'
 
 const defaultHeaders = {
@@ -48,6 +48,32 @@ export function httpPost(url, data) {
 }
 
 export default {
+  connectToChannel({socket}) {
+    console.log('attempting to connect: ping?')
+    if (!socket) { return false }
+    console.log('connect to channel: pong!')
+    let roomId = '123456789'
+    const channel = socket.channel(`rooms:${roomId}`);
+    let presences = {};
+
+    channel.on('presence_state', (state) => {
+      presences = Presence.syncState(presences, state);
+      alert('presence state')
+    });
+
+    channel.on('presence_diff', (diff) => {
+      presences = Presence.syncDiff(presences, diff);
+      alert('presence diff')
+    });
+
+    channel.on('message_created', (message) => {
+      alert('presence message')
+    });
+
+    channel.join().receive('ok', (response) => {
+      alert('presence join')
+    });
+  },
   addfollowerofjane({conn, transact}) {
     transact(conn, [{
       ':db/id': -1,
