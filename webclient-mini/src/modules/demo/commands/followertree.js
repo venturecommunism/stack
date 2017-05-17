@@ -1,7 +1,6 @@
 export default {
-  addfollowerofjane({peer, conn, transact}) {
+  addfollowerofjane({conn, transact}) {
     console.log('yow')
-    console.log(peer)
     console.log('test')
     transact(conn, [{
       ':db/id': -1,
