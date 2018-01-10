@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import AutoComponents from '../../core/components/index'
 import RCTWebRTCDemo from '../../demo/components/RCTWebRTCDemo'
 import Demo from '../../demo/components/index'
 import TwitterPlus from '../../twitterplus/components/index'
@@ -48,6 +49,7 @@ class MainPage extends Component {
       <TopPad>
         <ScrollableTabContainer>
           <ScrollableTabCard tabLabel="Kickstarters">
+<AutoComponents />
 <RCTWebRTCDemo />
 <Demo />
             <Text>

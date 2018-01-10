@@ -45,8 +45,8 @@ export function injectDeps(context, _actions) {
 }
 
 const defaultMapper = (context, actions) => ({
-  query: actions.query || null,
-  err: actions.err || null,
+  query: null,
+  err: null,
   actions: actions,
   context: () => context,
 });
