@@ -6,6 +6,15 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "history": "^3.0.0",
+    "js-csp": "^0.9.3",
+    "mobx": "2.6.3",
+    "moment": "2.18.1",
+    "muicss": "^0.9.17",
+    "simple-peer": "^8.1.0",
+    "stellar-sdk": "chatch/js-stellar-sdk#patched",
+    "whatwg-fetch": "^1.0.0",
+
     "datascript": "0.15.5",
     "es6-symbol": "3.1.0",
     "eslint-plugin-react-native": "1.2.1",
