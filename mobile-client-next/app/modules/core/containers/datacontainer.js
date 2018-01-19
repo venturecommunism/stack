@@ -10,14 +10,14 @@ const transact = datascript.transact
 const dataComposer = ({ context, query }, onData) => {
   const {conn, me} = context()
 //  console.log(conn)
-  console.log("me", me)
+//  console.log("me", me)
 
 //  let result = datascript.datoms(datascript.db(conn), ':eavt')
 
-console.log(query)
+// console.log(query)
   var qArgs = [query, datascript.db(conn)]
   let result = datascript.q(...qArgs)
- console.log("DATA CONTAINER RESULT", result)
+// console.log("DATA CONTAINER RESULT", result)
 //  onData(null, {result: datascript.datoms(datascript.db(conn), ':eavt')})
 
 
@@ -25,8 +25,8 @@ console.log(query)
 const receiveChatMessage = (conn, message) => {
   const user = message.user
   const isMe = (someUser) => me === someUser
-  console.log(JSON.stringify(message))
-console.log("me", me)
+//  console.log(JSON.stringify(message))
+// console.log("me", me)
   if (isMe(user)) return // prevent echoing yourself (TODO: server could handle this i guess?)
 console.log("REMOTE DATA")
   const tx = {}

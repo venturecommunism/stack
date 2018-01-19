@@ -3,9 +3,9 @@ import { composeAll } from 'react-komposer-plus';
 import { useDeps } from 'react-simple-di';
 
 const mapDepsToProps = (context, actions) => ({
-  meteorCall: actions.test.meteorCall,
-  testRedux: actions.layout.updateToolbarPosition,
-  login: actions.user.login,
+  meteorCall: () => console.log("actions.test.meteorCall"),
+  testRedux: () => console.log("actions.layout.updateToolbarPosition"),
+  login: () => console.log("actions.user.login"),
   context: () => context,
 });
 
