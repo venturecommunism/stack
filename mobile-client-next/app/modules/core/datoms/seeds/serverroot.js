@@ -1,18 +1,18 @@
   /**
-   * Define some query data.
+   * Define some components
    */
 
   const componentdatoms = [
     {
       ':db/id': -1,
       'componentsname': 'Subcomponent',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'subcomponent'
     },
     {
       ':db/id': -2,
       'componentsname': 'multipleplaces',
-      'componentsparents': [-1, -5, -20],
+      'componentsparents': [-1, -5, -18],
       'componentstype': 'action',
       'componentsfunction': `({conn, transact}, e) {
         var date = new Date().getTime()
@@ -23,7 +23,6 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.value = ""
       }`
     },
     {
@@ -40,13 +39,12 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.value = ""
       }`
     },
     {
       ':db/id': -4,
       'componentsname': 'Data Component',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'data'
     },
     {
@@ -75,19 +73,18 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.value = ""
       }`
     },
     {
       ':db/id': -8,
       'componentsname': 'Third Data Component',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'data'
     },
     {
       ':db/id': -9,
       'componentsname': 'fourthaction',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'action',
       'componentsfunction': `({conn, transact}, e) {
         var date = new Date().getTime()
@@ -98,19 +95,18 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.value = ""
       }`
     },
     {
       ':db/id': -10,
       'componentsname': 'Fourth Data Component',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'data'
     },
     {
       ':db/id': -11,
       'componentsname': 'fifthaction',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'action',
       'componentsfunction': `({conn, transact}, e) {
         var date = new Date().getTime()
@@ -121,27 +117,15 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.value = ""
       }`
     },
     {
       ':db/id': -12,
       'componentsname': 'Fifth Data Component (fourth in the main)',
-      'componentsparents': [-5, -20],
+      'componentsparents': [-5, -18],
       'componentstype': 'data'
     },
     { ':db/id': -13,
-      componentid: 'rootcomponentcleanup',
-      componentsname: 'Root component (cleanup)',
-      query: `[:find ?desc ?date ?status ?uuid
-               :where [?u "description" ?desc]
-                      [?u "date" ?date]
-                      [?u "status" ?status]
-                      [?u "uuid" ?uuid]]`,
-      sortfields: `[2, 0]`,
-      sortorders: `[DESC, ASC]`
-    },
-    { ':db/id': -14,
       componentid: 'rootcomponentcleanup_serverversion',
       componentsname: 'Root component (with a query that works for Server)',
       query: `[:find ?u ?u ?u ?desc
@@ -149,23 +133,16 @@
       sortfields: `[2, 0]`,
       sortorders: `[DESC, ASC]`
     },
-    { ':db/id': -15,
-      moduleid: 'core',
-      modulename: 'Core module',
-      moduleactionsets: -16,
-      rootcomponent: -13,
-      routes: -17
-    },
-    { ':db/id': -16,
+    { ':db/id': -14,
       actionsetid: 'general',
       modulename: 'General actions',
-      moduleactions: [-18, -2, -9, -11]
+      moduleactions: [-16, -2, -9, -11]
     },
-    { ':db/id': -17,
+    { ':db/id': -15,
       routeid: 'home',
       modulename: 'Core module'
     },
-    { ':db/id': -18,
+    { ':db/id': -16,
       componentsname: 'keyupaddtask',
       componentstype: 'action',
       componentsfunction: `({conn, transact}, e) {
@@ -182,15 +159,15 @@
         }
       }`
     },
-    { ':db/id': -19,
+    { ':db/id': -17,
       moduleid: 'servercore',
       modulename: 'Core module (server version)',
-      moduleactionsets: -16,
-      rootcomponent: -14,
-      routes: -17
+      moduleactionsets: -14,
+      rootcomponent: -13,
+      routes: -15
     },
     {
-      ':db/id': -20,
+      ':db/id': -18,
       'componentsname': 'Server Root',
       'componentstype': 'root',
       'componentid': 'servercore'

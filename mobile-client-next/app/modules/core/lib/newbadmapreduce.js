@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
 // https://javascriptplayground.com/functional-stateless-components-react/
 
 
-class TestThing extends Component {
+class TestThing extends React.Component {
   render(){
     return (
       <Text>Okay</Text>
@@ -20,71 +20,67 @@ class TestThing extends Component {
   }
 }
 
-class Inputs extends Component {
-   state = {
-      email: '',
-      password: ''
-   }
-   handleEmail = (text) => {
-      this.setState({ email: text })
-   }
-   handlePassword = (text) => {
-      this.setState({ password: text })
-   }
-   login = (email, pass) => {
-      alert('email: ' + email + ' password: ' + pass)
-   }
-   render(){
-      return (
-         <View style = {styles.container}>
-            <Text>Okay</Text>
-            <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Email"
-               placeholderTextColor = "#9a73ef"
-               autoCapitalize = "none"
-               onChangeText = {this.handleEmail}/>
+class Inputs extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-            <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Password"
-               placeholderTextColor = "#9a73ef"
-               autoCapitalize = "none"
-               onChangeText = {this.handlePassword}/>
+  state = {
+    formvalue: ''
+  }
+  handleInput = (text) => {
+    this.setState({ formvalue: text })
+  }
+  submittask = (formvalue) => {
+    this.props.actions[this.props.component.componentsname](formvalue)
+  }
+  render(){
+    return (
+      <View style = {styles.container}>
+        <Text>Okay</Text>
+        <TextInput style = {styles.input}
+          underlineColorAndroid = "transparent"
+          placeholder = "Enter your task here."
+          placeholderTextColor = "#9a73ef"
+          autoCapitalize = "none"
+          onChangeText = {this.handleInput}/>
 
-            <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {
-                  () => this.login(this.state.email, this.state.password)
-               }>
-               <Text style = {styles.submitButtonText}> Submit </Text>
-            </TouchableOpacity>
-         </View>
-      )
-   }
+        <TouchableOpacity
+          style = {styles.submitButton}
+          onPress = {
+            () => this.submittask(this.state.formvalue)
+          }>
+          <Text style = {styles.submitButtonText}> Submit </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-   container: {
-      paddingTop: 23
-   },
-   input: {
-      margin: 15,
-      height: 40,
-      borderColor: '#7a42f4',
-      borderWidth: 1
-   },
-   submitButton: {
-      backgroundColor: '#7a42f4',
-      padding: 10,
-      margin: 15,
-      height: 40,
-   },
-   submitButtonText:{
-      color: 'white'
-   }
+  container: {
+    paddingTop: 23
+  },
+  input: {
+    margin: 15,
+    height: 40,
+    borderColor: '#7a42f4',
+    borderWidth: 1
+  },
+  submitButton: {
+    backgroundColor: '#7a42f4',
+    padding: 10,
+    margin: 15,
+    height: 40,
+  },
+  submitButtonText:{
+    color: 'white'
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 })
-
 
 const badmapreduce = function (result, actions, moduleroot) {
   const doswitch = function (key, component) {
@@ -94,11 +90,11 @@ const badmapreduce = function (result, actions, moduleroot) {
         // this better be a string
         return <View><Text>{component}</Text></View>
       case "action":
-        return <Inputs />
+        return <Inputs actions={actions} component={component} />
 //        return <Button title={component.componentsname} key={key} onPress={actions[component.componentsname]} accessibilityLabel={component.componentsname} />
       case "subcomponent":
         // just return the component's name in subcomponents for now
-        return <Text key={key}>{component.componentsname}</Text>
+        return <Text key={key} style={styles.titleText}>{component.componentsname}</Text>
       case "textarea":
         return <TextInput multiline={true} numberOfLines={4} key={key} placeholder={component.placeholder} />
       default:

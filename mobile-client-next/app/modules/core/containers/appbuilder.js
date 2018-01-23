@@ -60,6 +60,23 @@ const dataComposer = ({ context, moduleid }, onData) => {
       }
       moduleroot.push(singlecomponent)
     }
+
+    datascript.listen(conn, function(report) {
+      var updated_db = datascript.db(conn)
+      let result = sortfields && sortorders ? multisort.arr.multisort(datascript.q(...[query, updated_db]), sortfields, sortorders) : ["LONE_DATOM"]
+
+      var moduleroot = new Array()
+      for (var i = 0; i < result.length; i++) {
+        var singlecomponent = new Array()
+        var l = 0
+        for (var k = 0; k < pullcomponents[0]._componentsparents.length; k++) {
+          pullcomponents[0]._componentsparents[k].componentstype == 'data' ? singlecomponent.push(result[i][l]) && l++ : singlecomponent.push(pullcomponents[0]._componentsparents[k])
+        }
+        moduleroot.push(singlecomponent)
+      }
+
+      onData(null, {result, moduleroot, title: pullcomponents[0].componentsname})
+    })
     onData(null, {result, moduleroot, title: pullcomponents[0].componentsname})
   } catch (error) {
     alert(error)

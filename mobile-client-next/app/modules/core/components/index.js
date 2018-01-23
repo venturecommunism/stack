@@ -11,6 +11,7 @@ const CreateTaskModule = DataContainer(ActionsMapper('createtaskactions', Recurs
 
 const Root = ({result}) => (
   <View>
+    <Module moduleid={"newrootcore"} />
     <CreateTaskModule moduleid={"createtask"} />
     <Module moduleid={"core"} />
     <Module moduleid={"servercore"} />

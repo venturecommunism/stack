@@ -33,8 +33,7 @@
       'componentsname': 'Add_New',
       'componentsparents': -2,
       'componentstype': 'action',
-      'componentsfunction': `({conn, transact}, e) {
-        var text = e.target.parentNode.childNodes[2].value
+      'componentsfunction': `({conn, transact}, text) {
         var date = new Date().getTime()
         transact(conn, [{
           ':db/id': -1,
@@ -43,7 +42,6 @@
           status: 'pending',
           uuid: 'uuid-' + date
         }])
-        e.target.parentNode.childNodes[2].value = ""
       }`
     },
     {
